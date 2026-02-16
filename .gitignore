@@ -97,3 +97,13 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+Moth's Ascent/.vscode/settings.json
+Moth's Ascent/.vscode/launch.json
+Moth's Ascent/.vscode/extensions.json
+Moth's Ascent/.plastic/plastic.workspace
+Moth's Ascent/.plastic/plastic.wktree
+Moth's Ascent/.plastic/plastic.selector
+Moth's Ascent/.plastic/plastic.changes
+Moth's Ascent/Moth's Ascent.slnx
+Moth's Ascent/ignore.conf
+Moth's Ascent/.vsconfig
