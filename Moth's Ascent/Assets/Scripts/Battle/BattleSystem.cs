@@ -21,6 +21,8 @@ public class BattleSystem : MonoBehaviour
         SetupBattle();
     }
 
+    // TODO: Complete the BattleSystem and it's associated relationship for basic attacking damage
+
     /// <summary> 
     /// SetupBattle is called at the start, allowing the battle mechanics
     /// </summary>
