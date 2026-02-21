@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 // State of the battle
 public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST}
@@ -14,6 +15,16 @@ public class BattleSystem : MonoBehaviour
     public PlayerBattler Player => _player;
     // List of enemies
     public List<Enemy> enemies;
+    // List of battlers to follow a consistent order
+    private List<Battler> _turnOrder = new List<Battler>();
+    // Initial turn index
+    private int _currentTurnIndex = 0;
+    // Initial turn delay in seconds
+    private float _turnDelaySeconds = 0.5f;
+    // Custom unity event to assign listeners for the active turn
+    [System.Serializable]
+    public class ActiveTurnEvent : UnityEvent<BattleState> {}
+    
     // Makes instance of the system accesible to child classes
     public static BattleSystem Instance {get; private set;}
 
@@ -44,10 +55,126 @@ public class BattleSystem : MonoBehaviour
     // TODO: Complete the BattleSystem and it's associated relationship for basic attacking damage
 
     /// <summary> 
-    /// SetupBattle is called at the start, allowing the battle mechanics
+    /// SetupBattle is called at the start, initializing listeners for events for enemies and the player
     /// </summary>
     void SetupBattle()
     {
-        
+        // Turn order setup where player goes first, then any enemies
+        _turnOrder.Clear();
+        _turnOrder.Add(_player);
+        _turnOrder.AddRange(enemies);
+
+        _player.OnStartTurn += StartTurn;
+        _player.OnEndTurn += EndTurn;
+
+        foreach(Enemy e in enemies) {
+            e.OnStartTurn += StartTurn;
+            e.OnEndTurn += EndTurn;
+        }
+
+        // Move on to the next turn once done
+        AdvanceTurn();
+    }
+
+    /// <summary> 
+    /// ChoseAttack(Enemy enemy) is used when it is the player's turn and the regular attack option is chosen
+    /// </summary>
+    public void ChoseAttack(Enemy enemy)
+    {
+        if(state == BattleState.PLAYERTURN)
+        {
+            Player.Attack(enemy);
+        }
+    }
+
+    /// <summary> 
+    /// StartTurn(PlayerBattler p) is used when it is the player's turn to set it up, in the future add's a UI handler event
+    /// </summary>
+    private void StartTurn(PlayerBattler p)
+    {
+        state = BattleState.PLAYERTURN;
+        OnActiveTurnChanged?.Invoke(state);
+    }
+
+    /// <summary> 
+    /// StartTurn(Enemy e) is used when it is the enemy's turn to set it up, in the future add's a UI handler event
+    /// </summary>
+    private void StartTurn(Enemy e)
+    {
+        state = BattleState.ENEMYTURN;
+        OnActiveTurnChanged?.Invoke(state);
+    }
+
+    /// <summary> 
+    /// Ends the turn for the current entity while allowing any animations to play
+    /// </summary>
+    private void EndTurn()
+    {
+        // Delay to allow for any remaining animations to finish.
+        StartCoroutine(EndTurnDelay(_turnDelaySeconds));
+    }
+
+    /// <summary> 
+    /// Initializes the end turn delay with seconds, then advances to the next turn
+    /// </summary>
+    private IEnumerator EndTurnDelay(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        AdvanceTurn();
+    }
+
+    /// <summary> 
+    /// Checks each possible state to see if the next turn is ready to be called and who goes next
+    /// </summary>
+    private void AdvanceTurn()
+    {
+         // Check win/loss conditions before continuing
+        if(AllEnemiesDead())
+        {
+            state = BattleState.WON;
+            OnActiveTurnChanged?.Invoke(state);
+            return;
+        }
+
+        if (_player.IsDead)
+        {
+            state = BattleState.LOST;
+            OnActiveTurnChanged?.Invoke(state);
+            return;
+        }
+
+        // Cycle through the turn order, skipping dead enemies
+        Battler next = null;
+        int attempts = 0;
+
+         while (attempts < _turnOrder.Count)
+        {
+            _currentTurnIndex = (_currentTurnIndex + 1) % _turnOrder.Count;
+            Battler candidate = _turnOrder[_currentTurnIndex];
+
+            if (!candidate.IsDead)
+            {
+                next = candidate;
+                break;
+            }
+            attempts++;
+        }
+
+        next?.BeginTurn();
+    }
+
+    /// <summary> 
+    /// Helper method to check if all of the enemies are dead for the PLAYERWON condition to be met
+    /// </summary>
+    private bool AllEnemiesDead()
+    {
+        foreach (Enemy e in enemies)
+        {
+            if (!e.IsDead)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }
