@@ -41,7 +41,7 @@ public class Health
     }
 
     // Call when character gets healed?
-    public void GetHealth(int num_hits)
+    public void RestoreHealth(int num_hits)
     {
         // Make sure not to go over max health
         if (health + num_hits >= max_health)
@@ -55,7 +55,7 @@ public class Health
     }
 
     // Call to get health back to 100%
-    public void RestoreHealth()
+    public void RefillHealth()
     {
         health = max_health;
         healthBar.value = health;

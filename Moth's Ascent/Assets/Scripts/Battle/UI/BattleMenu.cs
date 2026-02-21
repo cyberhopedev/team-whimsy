@@ -32,6 +32,9 @@ public class BattleMenu : MonoBehaviour
         attack3.onClick.AddListener(AttackAction);
         flee.onClick.AddListener(Flee);
 
+        MothSpeed.text = "88";
+        EnemySpeed.text = "99";
+
         // ListAttacks();
     }
 
@@ -44,12 +47,12 @@ public class BattleMenu : MonoBehaviour
     // Lists all the current attack options for the player
     public void ListAttacks()
     {
-        attack1Text.text = "temp";
+        // attack1Text.text = "temp";
     }
 
     public void AttackAction()
     {
-        // do something
+        // do something 
     }
 
     public void Flee()
