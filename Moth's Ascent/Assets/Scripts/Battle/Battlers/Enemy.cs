@@ -54,4 +54,17 @@ public class Enemy : Battler
         yield return new WaitForSeconds(seconds);
         EndTurn();
     }
+
+    // Call when losing HP
+    public override void TakeDamage(int amount)
+    {
+        currentHP -= amount;
+        healthBar.value = currentHP;
+
+        // Die condition
+        if (currentHP <= 0)
+        {
+            // change sprite, destroy object ?
+        }
+    }
 }
