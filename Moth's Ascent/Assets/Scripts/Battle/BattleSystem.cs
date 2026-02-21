@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+// TODO: Add/call UI handler to update UI based on battle events
 
 // State of the battle
 public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST}
 
+/// <summary> 
+/// Manager for the turn-based battle system of Moth's Ascent
+/// </summary>
 public class BattleSystem : MonoBehaviour
 {
     // Current battle state
@@ -51,8 +55,6 @@ public class BattleSystem : MonoBehaviour
         state =  BattleState.START;
         SetupBattle();
     }
-
-    // TODO: Complete the BattleSystem and it's associated relationship for basic attacking damage
 
     /// <summary> 
     /// SetupBattle is called at the start, initializing listeners for events for enemies and the player
