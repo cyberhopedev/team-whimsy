@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Health : MonoBehavior
+public class Health
 {
     public int health;
 
@@ -17,8 +17,8 @@ public class Health : MonoBehavior
         max_health = max_hits;
         health = max_hits;
 
-        slider.maxValue = max_health;
-        slider.value = health;
+        healthBar.maxValue = max_health;
+        healthBar.value = health;
     }
 
     // Called once per frame
@@ -30,8 +30,8 @@ public class Health : MonoBehavior
     // Call when player or enemy attacks, stronger hits might be worth more than 1 num_hits
     public void TakeDamage(int num_hits)
     {
-        health -= amount;
-        slider.value = health;
+        health -= num_hits;
+        healthBar.value = health;
 
         // Die condition
         if (health <= 0)
@@ -51,13 +51,13 @@ public class Health : MonoBehavior
         {
             health += num_hits;
         }
-        slider.value = health;
+        healthBar.value = health;
     }
 
     // Call to get health back to 100%
-    public void restoreHealth()
+    public void RestoreHealth()
     {
         health = max_health;
-        slider.value = health;
+        healthBar.value = health;
     }
 }
