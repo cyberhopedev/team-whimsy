@@ -15,7 +15,7 @@ public class Enemy : Battler
     void Start()
     {
         base.Start();
-        player = BattleManager.Instance.player;
+        player = BattleSystem.Instance.Player;
     }
 
     // Update is called once per frame
@@ -30,10 +30,17 @@ public class Enemy : Battler
         
     }
 
-    // When the turn for the enemy starts, invoke this class
+    // When the turn for the enemy starts, invoke this method
     protected override void StartTurn()
     {
-        
+        OnStartTurn?.Invoke(this);
+        Attack(player);
+    }
+
+    // When the turn for the enemy ends, invoke this method
+    protected override void EndTurn()
+    {
+        OnEndTurn?.Invoke();
     }
 
     // If the battle is still going, slowly decrement the turn timer
