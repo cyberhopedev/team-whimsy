@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections.ObjectModel;
 using System.Linq;
+using UnityEngine.UI;
 
 /// <summary> 
 /// A parent class for each battler type that sets up basic attributes and
@@ -16,6 +17,10 @@ public abstract class Battler : MonoBehaviour
     public int currentHP;
     // Checks if the battler has died based on if the current health points are < or = 0
     public bool IsDead => currentHP <= 0;
+    // Health Bar Slider
+    public Slider healthBar;
+    // Speed Stat
+    public int speedStat;
 
     /// <summary> 
     /// Constructs a Battler with their assosciated stats
@@ -34,6 +39,8 @@ public abstract class Battler : MonoBehaviour
     {
         // At the first frame, make sure the current health points are max
         currentHP = maxHP;
+        healthBar.maxValue = maxHP;
+        healthBar.value = currentHP;
     }
 
     /// <summary> 
