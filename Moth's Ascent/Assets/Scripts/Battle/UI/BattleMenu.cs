@@ -25,14 +25,15 @@ public class BattleMenu : MonoBehaviour
 
     // Player Instance
     private PlayerBattler player;
-    
+    // Enemy Instance
+    private Enemy enemy;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         // Get player
         player = BattleSystem.Instance.Player;
-        enemy = BattleSystem.Instance.Enemy;
+        enemy = BattleSystem.Instance.FirstEnemy;
 
         // Set up health sliders for Player and Enemy Battler classes
         player.healthBar = playerHealthBar;
@@ -77,7 +78,7 @@ public class BattleMenu : MonoBehaviour
     }
 
     // Make sure to stop listening to turns once destroyed
-    void onDestroy()
+    void OnDestroy()
     {
         if (player != null)
         {

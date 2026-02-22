@@ -12,10 +12,13 @@ public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST}
 /// </summary>
 public class BattleSystem : MonoBehaviour
 {
+    // Convenience accessor for the first enemy (expand later for multi-enemy targeting)
+    public Enemy FirstEnemy => enemies.Count > 0 ? enemies[0] : null;
+
     // Current battle state
     public BattleState state;
     // Player reference
-    private PlayerBattler _player;
+    [SerializeField] private PlayerBattler _player;
     public PlayerBattler Player => _player;
     // List of enemies
     public List<Enemy> enemies;
@@ -28,6 +31,7 @@ public class BattleSystem : MonoBehaviour
     // Custom unity event to assign listeners for the active turn
     [System.Serializable]
     public class ActiveTurnEvent : UnityEvent<BattleState> {}
+    public static ActiveTurnEvent OnActiveTurnChanged = new ActiveTurnEvent();
     
     // Makes instance of the system accesible to child classes
     public static BattleSystem Instance {get; private set;}

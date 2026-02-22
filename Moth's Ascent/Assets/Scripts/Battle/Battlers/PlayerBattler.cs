@@ -28,6 +28,13 @@ public class PlayerBattler : Battler
         OnEndTurn?.Invoke();
     }
 
+    // Call when the player needs to attack
+    public void Attack(Enemy enemy)
+    {
+        enemy.TakeDamage(attackDMG);
+        EndTurn();
+    }
+
     // Call when enemy attacks
     public override void TakeDamage(int amount)
     {
