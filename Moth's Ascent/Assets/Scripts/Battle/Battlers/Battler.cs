@@ -39,8 +39,11 @@ public abstract class Battler : MonoBehaviour
     {
         // At the first frame, make sure the current health points are max
         currentHP = maxHP;
-        healthBar.maxValue = maxHP;
-        healthBar.value = currentHP;
+        if (healthBar != null)
+        {
+            healthBar.maxValue = maxHP;
+            healthBar.value = currentHP;
+        }
     }
 
     /// <summary> 
