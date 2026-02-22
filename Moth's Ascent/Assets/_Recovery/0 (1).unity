@@ -579,8 +579,8 @@ MonoBehaviour:
   flee: {fileID: 1842695355}
   MothSpeed: {fileID: 1185493441}
   EnemySpeed: {fileID: 2107943933}
-  playerHealthBar: {fileID: 1833731563}
-  enemyHealthBar: {fileID: 921775367}
+  playerHealthBar: {fileID: 0}
+  enemyHealthBar: {fileID: 0}
 --- !u!1 &489345199
 GameObject:
   m_ObjectHideFlags: 0
@@ -855,7 +855,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Temp
+  m_text: hmm
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1d12de0e96956df4da5ebfd31f08dd89, type: 2}
   m_sharedMaterial: {fileID: 6722338313855996700, guid: 1d12de0e96956df4da5ebfd31f08dd89, type: 2}
@@ -1356,7 +1356,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ...
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1d12de0e96956df4da5ebfd31f08dd89, type: 2}
   m_sharedMaterial: {fileID: 6722338313855996700, guid: 1d12de0e96956df4da5ebfd31f08dd89, type: 2}
@@ -2450,7 +2450,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: tmp
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1d12de0e96956df4da5ebfd31f08dd89, type: 2}
   m_sharedMaterial: {fileID: 6722338313855996700, guid: 1d12de0e96956df4da5ebfd31f08dd89, type: 2}
@@ -2776,7 +2776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2627451, g: 0.03137255, b: 0.078431375, a: 0}
+  m_Color: {r: 0.2627451, g: 0.03137255, b: 0.078431375, a: 0.3137255}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3481,53 +3481,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1897261422}
   m_CullTransparentMesh: 1
---- !u!1 &1917118537
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1917118539}
-  - component: {fileID: 1917118538}
-  m_Layer: 0
-  m_Name: BattleSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1917118538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1917118537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6f0fcadab8998941be7b69c71c88678, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BattleSystem
-  state: 0
-  _player: {fileID: 0}
-  enemies: []
---- !u!4 &1917118539
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1917118537}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1279.9995, y: 720, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1925083121
 GameObject:
   m_ObjectHideFlags: 0
@@ -3758,7 +3711,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 65
+  m_text: 45
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1d12de0e96956df4da5ebfd31f08dd89, type: 2}
   m_sharedMaterial: {fileID: 6722338313855996700, guid: 1d12de0e96956df4da5ebfd31f08dd89, type: 2}
@@ -3846,4 +3799,3 @@ SceneRoots:
   - {fileID: 350642039}
   - {fileID: 489345202}
   - {fileID: 163310549}
-  - {fileID: 1917118539}
