@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 /// <summary> 
 /// Represents a player, providing basic  when exploring their top-down surroundings
 /// </summary>
-public class Player : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float movementSpeed = 5f;
     private Rigidbody2D rb;
