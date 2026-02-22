@@ -13,6 +13,7 @@ public class PlayerBattler : Battler
     // CameraManager Events
     
     // Player Info
+    public int attackDMG = 10;
 
     // When the turn for the player starts, invoke this method
     protected override void StartTurn()
