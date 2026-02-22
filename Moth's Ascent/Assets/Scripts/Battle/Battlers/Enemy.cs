@@ -5,11 +5,20 @@ using UnityEngine;
 public class Enemy : Battler
 {
     protected PlayerBattler player;
-
+    protected float turnDuration = 1f;
     public delegate void StartTurnEventHandler(Enemy enemy);
     public event StartTurnEventHandler OnStartTurn;
     public delegate void EndTurnEventHandler();
     public event EndTurnEventHandler OnEndTurn;
+
+    // Temporary(?) fix for player being null
+    private void OnEnable()
+    {
+        if (BattleSystem.Instance != null)
+        {
+            player = BattleSystem.Instance.Player;
+        }
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

@@ -12,10 +12,13 @@ public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST}
 /// </summary>
 public class BattleSystem : MonoBehaviour
 {
+    // Convenience accessor for the first enemy (expand later for multi-enemy targeting)
+    public Enemy FirstEnemy => enemies.Count > 0 ? enemies[0] : null;
+
     // Current battle state
     public BattleState state;
     // Player reference
-    private PlayerBattler _player;
+    [SerializeField] private PlayerBattler _player;
     public PlayerBattler Player => _player;
     // List of enemies
     public List<Enemy> enemies;
@@ -28,6 +31,7 @@ public class BattleSystem : MonoBehaviour
     // Custom unity event to assign listeners for the active turn
     [System.Serializable]
     public class ActiveTurnEvent : UnityEvent<BattleState> {}
+    public static ActiveTurnEvent OnActiveTurnChanged = new ActiveTurnEvent();
     
     // Makes instance of the system accesible to child classes
     public static BattleSystem Instance {get; private set;}
@@ -53,7 +57,10 @@ public class BattleSystem : MonoBehaviour
     void Start()
     {
         state =  BattleState.START;
-        SetupBattle();
+        if(enemies.Count > 0)
+        {
+            SetupBattle();   
+        }
     }
 
     /// <summary> 
@@ -76,6 +83,33 @@ public class BattleSystem : MonoBehaviour
 
         // Move on to the next turn once done
         AdvanceTurn();
+    }
+
+    /// <summary>
+    /// Called by EnemyEncounter to begin a battle with a specific set of enemy prefabs
+    /// </summary>
+    public void StartBattle(List<GameObject> encounterEnemies)
+    {
+        // Clean up any existing enemies from a previous battle
+        foreach (Enemy e in enemies)
+        {
+            e.OnStartTurn -= StartTurn;
+            e.OnEndTurn -= EndTurn;
+            Destroy(e.gameObject);
+        }
+        enemies.Clear();
+
+        // Spawn new enemies from the encounter trigger
+        foreach (GameObject prefab in encounterEnemies)
+        {
+            GameObject obj = Instantiate(prefab);
+            Enemy e = obj.GetComponent<Enemy>();
+            if (e != null) enemies.Add(e);
+        }
+
+        state = BattleState.START;
+        _currentTurnIndex = 0;
+        SetupBattle();
     }
 
     /// <summary> 

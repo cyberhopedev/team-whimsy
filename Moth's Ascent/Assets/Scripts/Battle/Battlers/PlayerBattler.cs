@@ -14,6 +14,8 @@ public class PlayerBattler : Battler
     // CameraManager Events
     
     // Player Info
+    public PlayerData data;
+    public int AttackDMG => data.attackDamage;
 
     // When the turn for the player starts, invoke this method
     protected override void StartTurn()
@@ -27,12 +29,22 @@ public class PlayerBattler : Battler
         OnEndTurn?.Invoke();
     }
 
+    // Call when the player needs to attack
+    public void Attack(Enemy enemy)
+    {
+        enemy.TakeDamage(AttackDMG);
+        EndTurn();
+    }
+
     // Call when enemy attacks
     public override void TakeDamage(int amount)
     {
-        currentHP -= amount;
-        healthBar.value = currentHP;
-
+        data.currentHP = Mathf.Max(0, data.currentHP - amount);
+        currentHP = data.currentHP; 
+        if (healthBar != null)
+        {
+            healthBar.value = currentHP;
+        }
         // Die condition
         if (currentHP <= 0)
         {
@@ -51,13 +63,21 @@ public class PlayerBattler : Battler
         {
             currentHP += amount;
         }
-        healthBar.value = currentHP;
+        currentHP = data.currentHP;
+        if (healthBar != null)
+        {
+            healthBar.value = currentHP;
+        }
     }
 
     // Call to get health back to 100%
     public void RefillHealth()
     {
+        data.currentHP = data.maxHP;
         currentHP = maxHP;
-        healthBar.value = currentHP;
+        if (healthBar != null)
+        {
+            healthBar.value = currentHP;
+        }
     }
 }
