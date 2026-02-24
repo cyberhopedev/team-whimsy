@@ -11,6 +11,11 @@ public class EnemyEncounter : MonoBehaviour
     // Hold a list of enemies that need to spawn
     public List<GameObject> encounterEnemies;
 
+    /// <summary> 
+    /// Based on the given collider, if the player triggers it then switch to PlayerBattler
+    /// and start the battle with the encountered overworld enemies
+    /// </summary>
+    /// <param name="c">The collider the overworld player triggers</param>
     private void OnTriggerEnter(Collider c)
     {
         // If the player collides with an enemy, disable free movement and enable the battle system
