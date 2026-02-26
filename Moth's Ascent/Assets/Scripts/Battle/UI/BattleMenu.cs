@@ -33,6 +33,10 @@ public class BattleMenu : MonoBehaviour
     {
         BattleSystem.OnActiveTurnChanged.AddListener(OnBattleStateChanged);
 
+        // Assign player and enemy
+        player = BattleSystem.Instance.Player;
+        enemy = BattleSystem.Instance.enemies[0];  // hard coded, fix this later !!!!!
+
         // Set up health sliders for Player and Enemy Battler classes
         player.healthBar = playerHealthBar;
         enemy.healthBar = enemyHealthBar;
@@ -61,6 +65,12 @@ public class BattleMenu : MonoBehaviour
 
         if (state == BattleState.PLAYERTURN)
         {
+            // Enable buttons
+            attack1.interactable = true;
+            attack2.interactable = true;
+            attack3.interactable = true;
+            flee.interactable = true;
+
             // Set up health bars here since enemy now exists
             player.healthBar = playerHealthBar;
             enemy.healthBar = enemyHealthBar;
@@ -68,7 +78,11 @@ public class BattleMenu : MonoBehaviour
         }
         else
         {
-            HideMenu();
+            // Disable buttons during enemy turn
+            attack1.interactable = false;
+            attack2.interactable = false;
+            attack3.interactable = false;
+            flee.interactable = false;
         }
     }
 
@@ -82,9 +96,9 @@ public class BattleMenu : MonoBehaviour
     // Lists all the current attack options for the player
     public void ListAttacks(PlayerBattler p)
     {
-        attack1Text.text = "";
-        attack2Text.text = "";
-        attack3Text.text = "";
+        attack1Text.text = "attack1";
+        attack2Text.text = "attack2";
+        attack3Text.text = "attack3";
     }
 
     // Perform the attack
@@ -117,11 +131,24 @@ public class BattleMenu : MonoBehaviour
         // Alert something of attack chosen
         Debug.Log("attack chosen!");
 
-        if (attackChoice == 3)
+        // Do something based on attack
+        switch (attackChoice)
         {
-            Flee();
-            return;
+            case 0:
+                Debug.Log("attack 1 chosen!");
+                break;
+            case 1:
+                Debug.Log("attack 2 chosen!");
+                // enemy.TakeDamage(5);
+                break;
+            case 2:
+                Debug.Log("attack 3 chosen!");
+                break;
+            case 3: // flee
+            Debug.Log("flee chosen!");
+                break;
         }
+
         BattleSystem.Instance.ChoseAttack(enemy);
     }
 } 
