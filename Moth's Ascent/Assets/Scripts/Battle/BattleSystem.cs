@@ -57,6 +57,7 @@ public class BattleSystem : MonoBehaviour
     void Start()
     {
         state =  BattleState.START;
+        _currentTurnIndex = -1; // AdvanceTurn adds one, so this will start it at 0
         if(enemies.Count > 0)
         {
             SetupBattle();   
@@ -68,6 +69,7 @@ public class BattleSystem : MonoBehaviour
     /// </summary>
     void SetupBattle()
     {
+        Debug.Log($"SetupBattle called with {enemies.Count} enemies");
         // Turn order setup where player goes first, then any enemies
         _turnOrder.Clear();
         _turnOrder.Add(_player);
@@ -108,7 +110,7 @@ public class BattleSystem : MonoBehaviour
         }
 
         state = BattleState.START;
-        _currentTurnIndex = 0;
+        _currentTurnIndex = -1; // AdvanceTurn() adds one, so this will start it at 0
         SetupBattle();
     }
 
@@ -197,6 +199,7 @@ public class BattleSystem : MonoBehaviour
         }
 
         next?.BeginTurn();
+        Debug.Log($"AdvanceTurn: next battler is {next?.gameObject.name ?? "NULL"}");
     }
 
     /// <summary> 

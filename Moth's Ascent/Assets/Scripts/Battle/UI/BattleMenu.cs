@@ -31,32 +31,52 @@ public class BattleMenu : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // Get player
-        player = BattleSystem.Instance.Player;
-        enemy = BattleSystem.Instance.FirstEnemy;
+        BattleSystem.OnActiveTurnChanged.AddListener(OnBattleStateChanged);
 
         // Set up health sliders for Player and Enemy Battler classes
         player.healthBar = playerHealthBar;
         enemy.healthBar = enemyHealthBar;
 
-        // Pay attention to start and end of turn in BattleSystem
-        player.OnStartTurn += ShowMenu;
-        player.OnEndTurn += HideMenu;
-
         // Text fields
-        attack1Text.text = "";
-        attack2Text.text = "";
-        attack3Text.text = "";
-        MothSpeed.text = (player.speedStat).ToString();
-        EnemySpeed.text = (enemy.speedStat).ToString();
-
+    //     attack1Text.text = "";
+    //     attack2Text.text = "";
+    //     attack3Text.text = "";
+    //     MothSpeed.text = (player.speedStat).ToString();
+    //     EnemySpeed.text = (enemy.speedStat).ToString();
+        
         // Attack strategy chosen
         attack1.onClick.AddListener(() => OnAttackChosen(0));
         attack2.onClick.AddListener(() => OnAttackChosen(1));
         attack3.onClick.AddListener(() => OnAttackChosen(2));
         flee.onClick.AddListener(() => OnAttackChosen(3));
-
+        
         HideMenu();
+    }
+
+    void OnBattleStateChanged(BattleState state)
+    {
+        Debug.Log($"OnBattleStateChanged called with state: {state}");
+        player = BattleSystem.Instance.Player;
+        enemy = BattleSystem.Instance.FirstEnemy;
+
+        if (state == BattleState.PLAYERTURN)
+        {
+            // Set up health bars here since enemy now exists
+            player.healthBar = playerHealthBar;
+            enemy.healthBar = enemyHealthBar;
+            ShowMenu(player);
+        }
+        else
+        {
+            HideMenu();
+        }
+    }
+
+// Make sure to stop listening to turns once destroyed
+    void OnDestroy()
+    {
+        BattleSystem.OnActiveTurnChanged.RemoveListener(OnBattleStateChanged);
+        // your existing player unsubscribe code can be removed since we no longer hook OnStartTurn directly
     }
 
     // Lists all the current attack options for the player
@@ -67,6 +87,7 @@ public class BattleMenu : MonoBehaviour
         attack3Text.text = "";
     }
 
+    // Perform the attack
     public void AttackAction()
     {
         // do something 
@@ -75,16 +96,6 @@ public class BattleMenu : MonoBehaviour
     public void Flee()
     {
         
-    }
-
-    // Make sure to stop listening to turns once destroyed
-    void OnDestroy()
-    {
-        if (player != null)
-        {
-            player.OnStartTurn -= ShowMenu;
-            player.OnEndTurn -= HideMenu;
-        }
     }
 
     // Show menu and list attacks/stats
@@ -104,5 +115,13 @@ public class BattleMenu : MonoBehaviour
     void OnAttackChosen(int attackChoice)
     {
         // Alert something of attack chosen
+        Debug.Log("attack chosen!");
+
+        if (attackChoice == 3)
+        {
+            Flee();
+            return;
+        }
+        BattleSystem.Instance.ChoseAttack(enemy);
     }
 } 

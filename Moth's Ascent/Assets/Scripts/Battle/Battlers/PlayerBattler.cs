@@ -20,6 +20,7 @@ public class PlayerBattler : Battler
     // When the turn for the player starts, invoke this method
     protected override void StartTurn()
     {
+        Debug.Log("PlayerBattler.StartTurn called");
         OnStartTurn?.Invoke(this);
     }
 

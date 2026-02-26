@@ -9,16 +9,19 @@ public class TestEnemy : Enemy
 {
     public int attackDamage = 8;
 
+    private PlayerBattler player;
+
     protected override void Start()
     {
         base.Start();
         maxHP = 50;
         currentHP = maxHP;
+        player = BattleSystem.Instance.Player;
     }
 
-    protected override void Attack(PlayerBattler p)
+    protected void Attack()
     {
-        p.TakeDamage(attackDamage);
+        player.TakeDamage(attackDamage);
         StartCoroutine(DelayEndTurn(turnDuration));
     }
 
