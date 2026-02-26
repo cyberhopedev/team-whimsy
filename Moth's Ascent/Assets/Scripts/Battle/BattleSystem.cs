@@ -8,11 +8,13 @@ using UnityEngine.SceneManagement;
 // State of the battle
 public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST}
 
+
 /// <summary> 
 /// Manager for the turn-based battle system of Moth's Ascent
 /// </summary>
 public class BattleSystem : MonoBehaviour
 {
+    [SerializeField] private Transform playerBattlePosition;
     public const string battleScene = "BattleMenuScene";
     public const string overworldScene = "BetaScene";
     
@@ -45,14 +47,9 @@ public class BattleSystem : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        if(Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Instance = this;
+        Debug.Log("BattleSystem instance ID: " + GetInstanceID());
+        Debug.Log("BattleSystem Awake in scene: " + SceneManager.GetActiveScene().name);
     }
 
     /// <summary> 
@@ -69,6 +66,10 @@ public class BattleSystem : MonoBehaviour
         }
         else if (enemies.Count > 0)
         {
+            if (_player != null && playerBattlePosition != null)
+            {
+                _player.transform.position = playerBattlePosition.position;
+            }
             SetupBattle();
         }
         else
