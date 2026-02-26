@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -234,6 +235,8 @@ public class BattleSystem : MonoBehaviour
     /// </summary>
     private IEnumerator ReturnToOverworld(float delay)
     {
+        // Add item to inventory
+        // InventoryManager.AddItem();
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(overworldScene);
     }
