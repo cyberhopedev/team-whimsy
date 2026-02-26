@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 // TODO: Add/call UI handler to update UI based on battle events
 
 // State of the battle
-public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST}
+public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST, FLED}
 
 
 /// <summary> 
@@ -172,6 +172,17 @@ public class BattleSystem : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         AdvanceTurn();
+    }
+
+    // Exit if player chooses to flee
+    public void Flee()
+    {
+        {
+            state = BattleState.FLED;
+            // Get back to overworld scene
+            StartCoroutine(ReturnToOverworld(2f));
+            return;
+        }
     }
 
     /// <summary> 

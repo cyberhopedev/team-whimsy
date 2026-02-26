@@ -104,11 +104,11 @@ public class BattleMenu : MonoBehaviour
     }
 
     // Lists all the current attack options for the player
-    public void ListAttacks(PlayerBattler p)
+    public void ListAttacks(/*List<AttackType> attacks*/)
     {
-        attack1Text.text = "attack1";
-        attack2Text.text = "attack2";
-        attack3Text.text = "attack3";
+        attack1Text.text = "Struggle";
+        attack2Text.text = "Claw";
+        attack3Text.text = "Raise Arms";
     }
 
     // Perform the attack
@@ -117,16 +117,16 @@ public class BattleMenu : MonoBehaviour
         // do something 
     }
 
-    public void Flee()
-    {
+    // public void Flee()
+    // {
         
-    }
+    // }
 
     // Show menu and list attacks/stats
     void ShowMenu(PlayerBattler p)
     {
         gameObject.SetActive(true);
-        ListAttacks(p); 
+        ListAttacks(); 
     }
 
     // Hides the menu
@@ -145,6 +145,7 @@ public class BattleMenu : MonoBehaviour
         switch (attackChoice)
         {
             case 0:
+            // Struggle, Claw, Raise Arms
                 Debug.Log("attack 1 chosen!");
                 break;
             case 1:
@@ -156,6 +157,7 @@ public class BattleMenu : MonoBehaviour
                 break;
             case 3: // flee
             Debug.Log("flee chosen!");
+                BattleSystem.Instance.Flee();
                 break;
         }
 

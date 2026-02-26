@@ -74,6 +74,7 @@ public class Enemy : Battler
     {
         currentHP -= amount;
         healthBar.value = currentHP;
+        Debug.Log("current enemy health val: " + healthBar.value);
         Debug.Log("Enemy health: " + healthBar.value);
 
         // Die condition
