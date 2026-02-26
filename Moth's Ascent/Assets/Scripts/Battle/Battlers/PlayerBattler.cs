@@ -18,9 +18,9 @@ public class PlayerBattler : Battler
     public int AttackDMG => data.attackDamage;
 
     // Reset to full health each battle
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         data.currentHP = data.maxHP; 
         currentHP = data.currentHP;
         maxHP = data.maxHP;

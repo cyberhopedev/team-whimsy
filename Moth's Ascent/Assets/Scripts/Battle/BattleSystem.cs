@@ -61,9 +61,15 @@ public class BattleSystem : MonoBehaviour
     void Start()
     {
         state =  BattleState.START;
+        _currentTurnIndex = -1; // AdvanceTurn adds one, so this will start it at 0
         if(BattleTransitionData.EncounterEnemies != null &&  BattleTransitionData.EncounterEnemies.Count > 0)
         {
             StartBattle(BattleTransitionData.EncounterEnemies);
+            BattleTransitionData.EncounterEnemies = null;  // clear after done
+        }
+        else if (enemies.Count > 0)
+        {
+            SetupBattle();
         }
         else
         {
@@ -116,7 +122,7 @@ public class BattleSystem : MonoBehaviour
         }
 
         state = BattleState.START;
-        _currentTurnIndex = 0;
+        _currentTurnIndex = -1; // AdvanceTurn adds one, so this will start it at 0
         SetupBattle();
     }
 
@@ -233,5 +239,11 @@ public class BattleSystem : MonoBehaviour
             }
         }
         return true;
+    }
+
+    // figure out why BattleSystem is getting destroyed when BattleMenu pops up
+    private void OnDestroy()
+    {
+        Debug.Log("BattleSystem destroyed! Stack trace: " + System.Environment.StackTrace);
     }
 }

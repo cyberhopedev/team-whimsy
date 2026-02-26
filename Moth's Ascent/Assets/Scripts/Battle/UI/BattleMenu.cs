@@ -54,7 +54,7 @@ public class BattleMenu : MonoBehaviour
         attack3.onClick.AddListener(() => OnAttackChosen(2));
         flee.onClick.AddListener(() => OnAttackChosen(3));
         
-        HideMenu();
+        // HideMenu();
     }
 
     void OnBattleStateChanged(BattleState state)

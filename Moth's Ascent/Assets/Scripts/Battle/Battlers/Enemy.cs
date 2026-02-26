@@ -23,10 +23,10 @@ public class Enemy : Battler
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
-        player = BattleSystem.Instance.Player;
+        base.Awake();
+        // player = BattleSystem.Instance.Player;
     }
 
     // Update is called once per frame

@@ -31,11 +31,11 @@ public abstract class Battler : MonoBehaviour
     }
 
     /// <summary> 
-    /// Start is called before the first frame update; Sets the current health and
+    /// Sets the current health and
     /// mana while ensuring that the battle system is in a valid state and initializes
     /// any abilities
     /// </summary>
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         // At the first frame, make sure the current health points are max
         currentHP = maxHP;

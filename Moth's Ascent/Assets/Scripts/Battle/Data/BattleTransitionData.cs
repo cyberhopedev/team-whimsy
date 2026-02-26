@@ -5,6 +5,6 @@ using System.Collections.Generic;
 /// </summary>
 public static class BattleTransitionData
 {
-    public static List<GameObject> EncounterEnemies;
+    public static List<GameObject> EncounterEnemies {get; set;}
     public static string ReturnScene = "BetaScene";
 }

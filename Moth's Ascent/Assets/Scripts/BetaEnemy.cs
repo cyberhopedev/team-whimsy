@@ -9,9 +9,9 @@ public class TestEnemy : Enemy
 {
     public int attackDamage = 8;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         maxHP = 50;
         currentHP = maxHP;
     }

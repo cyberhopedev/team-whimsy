@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject); <-- messing with BattleSystem initialization
     }
 
     /// <summary> 

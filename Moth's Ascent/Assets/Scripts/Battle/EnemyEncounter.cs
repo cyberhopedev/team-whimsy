@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 /// <summary> 
 /// Triggers the battle system by calling this class when the PlayerController
@@ -30,6 +31,7 @@ public class EnemyEncounter : MonoBehaviour
             BattleTransitionData.EncounterEnemies = encounterEnemies;
             // Disables player movement
             pc.enabled = false;
+            gameObject.SetActive(false); // disable encounter once they get into the battle menu scene
             SceneManager.LoadScene(battleScene);
         }
     }
