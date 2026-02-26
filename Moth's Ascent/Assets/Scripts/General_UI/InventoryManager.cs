@@ -21,7 +21,7 @@ public class InventoryManager : MonoBehaviour
         // Check for y keypress
         if (Keyboard.current.yKey.wasPressedThisFrame)
         {
-            showInventory = !showInventory;
+            showInventory = !showInventory; 
             InventoryMenu.SetActive(showInventory);
             // Pause game while in menu
             Time.timeScale = showInventory ? 0 : 1;
