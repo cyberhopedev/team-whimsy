@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary> 
+/// Holds the data between the overworld and battle scene transition
+/// </summary>
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Battle/PlayerData")]
 public class PlayerData : ScriptableObject
 {

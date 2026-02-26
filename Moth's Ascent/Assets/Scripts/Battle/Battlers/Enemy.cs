@@ -10,6 +10,8 @@ public class Enemy : Battler
     public event StartTurnEventHandler OnStartTurn;
     public delegate void EndTurnEventHandler();
     public event EndTurnEventHandler OnEndTurn;
+    public PlayerData data;
+    public int AttackDMG => data.attackDamage / 2;
 
     // Temporary(?) fix for player being null
     private void OnEnable()
@@ -21,7 +23,7 @@ public class Enemy : Battler
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Start()
     {
         base.Start();
         player = BattleSystem.Instance.Player;
@@ -36,12 +38,15 @@ public class Enemy : Battler
     // Attacks the player, causing them to take damage
     protected virtual void Attack(PlayerBattler p)
     {
-        
+        player = BattleSystem.Instance.Player;
+
+        player.TakeDamage(10);
     }
 
     // When the turn for the enemy starts, invoke this method
     protected override void StartTurn()
     {
+        Debug.Log("Enemy turn starts here");
         OnStartTurn?.Invoke(this);
         Attack(player);
     }
@@ -69,6 +74,7 @@ public class Enemy : Battler
     {
         currentHP -= amount;
         healthBar.value = currentHP;
+        Debug.Log("Enemy health: " + healthBar.value);
 
         // Die condition
         if (currentHP <= 0)

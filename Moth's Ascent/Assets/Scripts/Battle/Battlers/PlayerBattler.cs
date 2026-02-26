@@ -17,6 +17,16 @@ public class PlayerBattler : Battler
     public PlayerData data;
     public int AttackDMG => data.attackDamage;
 
+    // Reset to full health each battle
+    protected override void Start()
+    {
+        base.Start();
+        data.currentHP = data.maxHP; 
+        currentHP = data.currentHP;
+        maxHP = data.maxHP;
+    }
+
+
     // When the turn for the player starts, invoke this method
     protected override void StartTurn()
     {
@@ -39,6 +49,7 @@ public class PlayerBattler : Battler
     // Call when enemy attacks
     public override void TakeDamage(int amount)
     {
+        Debug.Log("amount: " + amount);
         data.currentHP = Mathf.Max(0, data.currentHP - amount);
         currentHP = data.currentHP; 
         if (healthBar != null)

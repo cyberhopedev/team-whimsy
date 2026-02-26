@@ -31,42 +31,77 @@ public class BattleMenu : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // Get player
+        BattleSystem.OnActiveTurnChanged.AddListener(OnBattleStateChanged);
+
+        // Assign player and enemy
         player = BattleSystem.Instance.Player;
-        enemy = BattleSystem.Instance.FirstEnemy;
+        enemy = BattleSystem.Instance.enemies[0];  // hard coded, fix this later !!!!!
 
         // Set up health sliders for Player and Enemy Battler classes
         player.healthBar = playerHealthBar;
         enemy.healthBar = enemyHealthBar;
 
-        // Pay attention to start and end of turn in BattleSystem
-        player.OnStartTurn += ShowMenu;
-        player.OnEndTurn += HideMenu;
-
         // Text fields
-        attack1Text.text = "";
-        attack2Text.text = "";
-        attack3Text.text = "";
-        MothSpeed.text = (player.speedStat).ToString();
-        EnemySpeed.text = (enemy.speedStat).ToString();
-
+    //     attack1Text.text = "";
+    //     attack2Text.text = "";
+    //     attack3Text.text = "";
+    //     MothSpeed.text = (player.speedStat).ToString();
+    //     EnemySpeed.text = (enemy.speedStat).ToString();
+        
         // Attack strategy chosen
         attack1.onClick.AddListener(() => OnAttackChosen(0));
         attack2.onClick.AddListener(() => OnAttackChosen(1));
         attack3.onClick.AddListener(() => OnAttackChosen(2));
         flee.onClick.AddListener(() => OnAttackChosen(3));
-
+        
         HideMenu();
+    }
+
+    void OnBattleStateChanged(BattleState state)
+    {
+        Debug.Log($"OnBattleStateChanged called with state: {state}");
+        player = BattleSystem.Instance.Player;
+        enemy = BattleSystem.Instance.FirstEnemy;
+
+        if (state == BattleState.PLAYERTURN)
+        {
+            // Enable buttons
+            attack1.interactable = true;
+            attack2.interactable = true;
+            attack3.interactable = true;
+            flee.interactable = true;
+
+            // Set up health bars here since enemy now exists
+            player.healthBar = playerHealthBar;
+            enemy.healthBar = enemyHealthBar;
+            ShowMenu(player);
+        }
+        else
+        {
+            // Disable buttons during enemy turn
+            attack1.interactable = false;
+            attack2.interactable = false;
+            attack3.interactable = false;
+            flee.interactable = false;
+        }
+    }
+
+// Make sure to stop listening to turns once destroyed
+    void OnDestroy()
+    {
+        BattleSystem.OnActiveTurnChanged.RemoveListener(OnBattleStateChanged);
+        // your existing player unsubscribe code can be removed since we no longer hook OnStartTurn directly
     }
 
     // Lists all the current attack options for the player
     public void ListAttacks(PlayerBattler p)
     {
-        attack1Text.text = "";
-        attack2Text.text = "";
-        attack3Text.text = "";
+        attack1Text.text = "attack1";
+        attack2Text.text = "attack2";
+        attack3Text.text = "attack3";
     }
 
+    // Perform the attack
     public void AttackAction()
     {
         // do something 
@@ -75,16 +110,6 @@ public class BattleMenu : MonoBehaviour
     public void Flee()
     {
         
-    }
-
-    // Make sure to stop listening to turns once destroyed
-    void OnDestroy()
-    {
-        if (player != null)
-        {
-            player.OnStartTurn -= ShowMenu;
-            player.OnEndTurn -= HideMenu;
-        }
     }
 
     // Show menu and list attacks/stats
@@ -104,5 +129,26 @@ public class BattleMenu : MonoBehaviour
     void OnAttackChosen(int attackChoice)
     {
         // Alert something of attack chosen
+        Debug.Log("attack chosen!");
+
+        // Do something based on attack
+        switch (attackChoice)
+        {
+            case 0:
+                Debug.Log("attack 1 chosen!");
+                break;
+            case 1:
+                Debug.Log("attack 2 chosen!");
+                // enemy.TakeDamage(5);
+                break;
+            case 2:
+                Debug.Log("attack 3 chosen!");
+                break;
+            case 3: // flee
+            Debug.Log("flee chosen!");
+                break;
+        }
+
+        BattleSystem.Instance.ChoseAttack(enemy);
     }
 } 

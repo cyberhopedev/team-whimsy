@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 // TODO: Add/call UI handler to update UI based on battle events
 
 // State of the battle
@@ -12,6 +13,9 @@ public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST}
 /// </summary>
 public class BattleSystem : MonoBehaviour
 {
+    public const string battleScene = "BattleMenuScene";
+    public const string overworldScene = "BetaScene";
+    
     // Convenience accessor for the first enemy (expand later for multi-enemy targeting)
     public Enemy FirstEnemy => enemies.Count > 0 ? enemies[0] : null;
 
@@ -57,9 +61,13 @@ public class BattleSystem : MonoBehaviour
     void Start()
     {
         state =  BattleState.START;
-        if(enemies.Count > 0)
+        if(BattleTransitionData.EncounterEnemies != null &&  BattleTransitionData.EncounterEnemies.Count > 0)
         {
-            SetupBattle();   
+            StartBattle(BattleTransitionData.EncounterEnemies);
+        }
+        else
+        {
+            Debug.LogError("BattleSystem: No encounter data found!");
         }
     }
 
@@ -164,11 +172,13 @@ public class BattleSystem : MonoBehaviour
     /// </summary>
     private void AdvanceTurn()
     {
-         // Check win/loss conditions before continuing
+        // Check win/loss conditions before continuing
         if(AllEnemiesDead())
         {
             state = BattleState.WON;
             OnActiveTurnChanged?.Invoke(state);
+            // Get back to overworld scene
+            StartCoroutine(ReturnToOverworld(2f));
             return;
         }
 
@@ -176,6 +186,8 @@ public class BattleSystem : MonoBehaviour
         {
             state = BattleState.LOST;
             OnActiveTurnChanged?.Invoke(state);
+            // Get back to overworld scene
+            StartCoroutine(ReturnToOverworld(2f));
             return;
         }
 
@@ -183,7 +195,7 @@ public class BattleSystem : MonoBehaviour
         Battler next = null;
         int attempts = 0;
 
-         while (attempts < _turnOrder.Count)
+        while (attempts < _turnOrder.Count)
         {
             _currentTurnIndex = (_currentTurnIndex + 1) % _turnOrder.Count;
             Battler candidate = _turnOrder[_currentTurnIndex];
@@ -197,6 +209,15 @@ public class BattleSystem : MonoBehaviour
         }
 
         next?.BeginTurn();
+    }
+
+    /// <summary> 
+    /// Helper method that sets up the coroutine in order to return to the overworld dungeon crawler
+    /// </summary>
+    private IEnumerator ReturnToOverworld(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(overworldScene);
     }
 
     /// <summary> 
