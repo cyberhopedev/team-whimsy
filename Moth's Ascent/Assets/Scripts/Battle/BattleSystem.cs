@@ -232,6 +232,13 @@ public class BattleSystem : MonoBehaviour
     /// </summary>
     private bool AllEnemiesDead()
     {
+        // Don't count as won if no enemies have been set up yet
+        if(enemies == null || enemies.Count == 0)
+        {
+            return false;
+        }
+
+        // For each enemy in the encounter, check if they are alive
         foreach (Enemy e in enemies)
         {
             if (!e.IsDead)
@@ -246,5 +253,11 @@ public class BattleSystem : MonoBehaviour
     private void OnDestroy()
     {
         Debug.Log("BattleSystem destroyed! Stack trace: " + System.Environment.StackTrace);
+        // Remove listeners to prevent memory leaks
+        OnActiveTurnChanged.RemoveAllListeners();
+        if(Instance == this)
+        {
+            Instance = null;
+        }
     }
 }

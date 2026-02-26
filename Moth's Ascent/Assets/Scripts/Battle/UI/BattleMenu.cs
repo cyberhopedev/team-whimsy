@@ -63,6 +63,16 @@ public class BattleMenu : MonoBehaviour
         player = BattleSystem.Instance.Player;
         enemy = BattleSystem.Instance.FirstEnemy;
 
+
+        // Always assign health bars regardless of whose turn it is
+        player.healthBar = playerHealthBar;
+        enemy.healthBar = enemyHealthBar;
+        playerHealthBar.maxValue = player.maxHP;
+        enemyHealthBar.maxValue = enemy.maxHP;
+        playerHealthBar.value = player.currentHP;
+        enemyHealthBar.value = enemy.currentHP;
+
+
         if (state == BattleState.PLAYERTURN)
         {
             // Enable buttons
