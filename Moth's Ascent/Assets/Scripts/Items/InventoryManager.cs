@@ -8,22 +8,14 @@ public class InventoryManager : MonoBehaviour
     public GameObject InventoryMenu;
     private bool showInventory;
 
-    // Possible inventory items
-    public enum ITEM {MEALBERRY, POISON_SHROOM}
-
     // First item slot
-    public GameObject slot1;
-
-    // Current inventory
-    List<ITEM> inventory;
+    public ItemSlot[] itemSlot;
     
     void Awake()
     {
         // Hide inventory until opened
         showInventory = false;
         InventoryMenu.SetActive(false);
-        slot1.SetActive(false);
-        inventory = new List<ITEM>();
     }
 
     // Update is called once per frame
@@ -39,9 +31,15 @@ public class InventoryManager : MonoBehaviour
         }        
     }
 
-    public void AddItem()
+    public void AddItem(string itemName, int quantity, Sprite itemSprite)
     {
-        // how to change UI panel source image in unity using code
-        slot1.SetActive(true);
+        for (int i = 0; i < itemSlot.Length; i++)
+        {
+            if (!itemSlot[i].isFull)
+            {
+                itemSlot[i].AddItem(itemName, quantity, itemSprite);
+                return;
+            }
+        }
     }
 }
