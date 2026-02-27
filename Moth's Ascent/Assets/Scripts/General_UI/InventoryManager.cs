@@ -39,9 +39,9 @@ public class InventoryManager : MonoBehaviour
         }        
     }
 
-    public void AddItem()
+    public void AddItem(string itemName, int quantity, Sprite itemSprite)
     {
-        // how to change UI panel source image in unity using code
-        slot1.SetActive(true);
+        Debug.Log("itemName: " + itemName + " || quantity: " + quantity + " || itemSprite: " + itemSprite);
+        
     }
 }
