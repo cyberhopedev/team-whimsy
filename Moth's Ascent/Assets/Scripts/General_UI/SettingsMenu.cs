@@ -5,15 +5,30 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInput))]
 public class SettingsMenu : MonoBehaviour
 {
     [SerializeField]
     private TMP_Text genVolText;
     [SerializeField]
     private TMP_Text musicVolText;
+    [SerializeField]
+    private TMP_Text controlsText;
+    private int controlState;
     
     public AudioMixer audioMixer;
+
+    private PlayerInput playerInput;
+
+    private void Awake()
+    {
+        playerInput = GetComponent<PlayerInput>();
+        controlState = 0;
+        playerInput.actions.FindActionMap("PlayerArrowKeys").Enable();
+        playerInput.actions.FindActionMap("PlayerWASD").Disable();
+    }
 
     public void SetGeneralVolume(float genVol)
     {
@@ -33,5 +48,40 @@ public class SettingsMenu : MonoBehaviour
 
         // Update actual volume
         audioMixer.SetFloat("MusicVolume", musicVol - 80); 
+    }
+
+    public void SwitchControls(int direction)
+    {
+        // Control sliding options
+        if (controlState == 2 && direction == 1)
+        {
+            controlState = 0;
+        } else if (controlState == 0 && direction == -1)
+        {
+            controlState = 2;
+        } else
+        {
+            controlState += direction;   
+        }
+
+        // Switch actual text and controls
+        switch (controlState)
+        {
+            case 0:  // arrow keys
+                controlsText.text = "Arrow Keys";
+                playerInput.actions.FindActionMap("PlayerArrowKeys").Enable();
+                playerInput.actions.FindActionMap("PlayerWASD").Disable();
+                break;
+            case 1:  // WASD keys
+                controlsText.text = "WASD";
+                playerInput.actions.FindActionMap("PlayerArrowKeys").Disable();
+                playerInput.actions.FindActionMap("PlayerWASD").Enable();
+                break;
+            case 2:  // both
+                controlsText.text = "Both";
+                playerInput.actions.FindActionMap("PlayerArrowKeys").Enable();
+                playerInput.actions.FindActionMap("PlayerWASD").Enable();
+                break; 
+        }
     }
 }
