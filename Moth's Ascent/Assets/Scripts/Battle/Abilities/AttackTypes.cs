@@ -8,17 +8,13 @@ public enum Attack
     BITE,
     STRUGGLE, 
     ACID_SPIT,
-    RAISE_ARMS,
-    EXOSKELETON,
-    FILTER_FLUFF,
     GLITTER,
     DRAIN,
     VINE
 }
 
-public static class AttackAbilityTypes
+public static class AttackTypes
 {
-    // Getter for the name of attack
     public static string GetName(this Attack attack)
     {
         return attack switch
@@ -27,12 +23,24 @@ public static class AttackAbilityTypes
             Attack.BITE => "Bite",
             Attack.STRUGGLE => "Struggle", 
             Attack.ACID_SPIT => "Acid Spit",
-            Attack.RAISE_ARMS => "Raise Arms",
-            Attack.EXOSKELETON => "Exoskeleton",
-            Attack.FILTER_FLUFF => "Filter Fluff",
             Attack.GLITTER => "Glitter",
             Attack.DRAIN => "Drain",
             Attack.VINE => "Vine",
+            _ => string.Empty,
+        };
+    }
+
+    public static string GetDescription(this Attack attack)
+    {
+        return attack switch
+        {
+            Attack.CLAW => "...",
+            Attack.BITE => "...",
+            Attack.STRUGGLE => "...", 
+            Attack.ACID_SPIT => "...",
+            Attack.GLITTER => "...",
+            Attack.DRAIN => "...",
+            Attack.VINE => "...",
             _ => string.Empty,
         };
     }
@@ -45,9 +53,6 @@ public static class AttackAbilityTypes
             Attack.BITE => 0,
             Attack.STRUGGLE => 0, 
             Attack.ACID_SPIT => 0,
-            Attack.RAISE_ARMS => 0,
-            Attack.EXOSKELETON => 0,
-            Attack.FILTER_FLUFF => 0,
             Attack.GLITTER => 0,
             Attack.DRAIN => 0,
             Attack.VINE => 0,
@@ -55,21 +60,18 @@ public static class AttackAbilityTypes
         };
     }
 
-    public static int GetHealthAmount(this Attack attack)
+    public static Sprite GetIcon(this Attack attack)
     {
         return attack switch
         {
-            Attack.CLAW => 0,
-            Attack.BITE => 0,
-            Attack.STRUGGLE => 0, 
-            Attack.ACID_SPIT => 0,
-            Attack.RAISE_ARMS => 0,
-            Attack.EXOSKELETON => 0,
-            Attack.FILTER_FLUFF => 0,
-            Attack.GLITTER => 0,
-            Attack.DRAIN => 0,
-            Attack.VINE => 0,
-            _ => 0,
+            Attack.CLAW => null,
+            Attack.BITE => null,
+            Attack.STRUGGLE => null, 
+            Attack.ACID_SPIT => null,
+            Attack.GLITTER => null,
+            Attack.DRAIN => null,
+            Attack.VINE => null,
+            _ => null,
         };
     }
 }

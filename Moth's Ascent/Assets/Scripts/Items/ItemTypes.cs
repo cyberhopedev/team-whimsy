@@ -42,4 +42,18 @@ public static class ItemTypes
             _ => string.Empty,
         };
     }
+
+    public static Sprite GetIcon(this Items item)
+    {
+        return item switch
+        {
+            Items.POISON_SHROOM => null,
+            Items.MEALBERRY => null,
+            Items.STURDY_BRANCH => null, 
+            Items.WEAPON => null,
+            Items.OVERGROWN_LOOT => null,
+            Items.MEDICINAL_ROOT => null,
+            _ => null,
+        };
+    }    
 }
