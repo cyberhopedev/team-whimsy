@@ -61,7 +61,6 @@ public class SettingsMenu : MonoBehaviour
                 res.height == Screen.currentResolution.height)
             {
                 DEFAULT_RES_IDX = i;
-                Debug.Log("idx: " + i);
             }
         }
         resolutionDropdown.AddOptions(resOptions);
@@ -157,6 +156,5 @@ public class SettingsMenu : MonoBehaviour
     public void SettingsDoneButton()
     {
         gameObject.SetActive(false);
-        Debug.Log("settings done button is running");
     }
 }
