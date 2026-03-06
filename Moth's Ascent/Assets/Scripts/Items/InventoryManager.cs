@@ -1,18 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InventoryManager : MonoBehaviour
 {
+    [SerializeField]
     public GameObject InventoryMenu;
     private bool showInventory;
 
     // First item slot
     public ItemSlot[] itemSlot;
+    public static InventoryManager Instance;
     
     void Awake()
     {
+        // Singleton
+        if (Instance == null)
+        {
+            Instance = this;
+        } else
+        {
+            Destroy(gameObject);
+        }
+
         // Hide inventory until opened
         showInventory = false;
         InventoryMenu.SetActive(false);

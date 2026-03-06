@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
+using System;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class PauseMenu : MonoBehaviour
     //Singleton
     public static PauseMenu Instance;
 
+    // Doesn't Start until escape key pressed (code in InventoryManager)
     void Start()
     {
         // Singleton instance
@@ -35,12 +38,7 @@ public class PauseMenu : MonoBehaviour
         // Hide stuff
         SettingsMenu.Instance.SettingsDoneButton();
         exitConfirmation.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        gameObject.SetActive(false);
     }
 
     public void OnContinueButton()
@@ -71,6 +69,7 @@ public class PauseMenu : MonoBehaviour
     public void OnExitRejection()
     {
         exitConfirmation.SetActive(false);
+        PlayerController.Instance.ClosePauseMenu();
     }
 
     // Hover background
