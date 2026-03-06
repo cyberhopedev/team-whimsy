@@ -6,6 +6,8 @@ using TMPro;
 using Unity.Mathematics;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal.Internal;
+using System;
 
 [RequireComponent(typeof(PlayerInput))]
 public class SettingsMenu : MonoBehaviour
@@ -16,18 +18,60 @@ public class SettingsMenu : MonoBehaviour
     private TMP_Text musicVolText;
     [SerializeField]
     private TMP_Text controlsText;
+    [SerializeField]
+    private Slider generalSlider;
+    [SerializeField]
+    private Slider musicSlider;
+    [SerializeField]
+    private TMPro.TMP_Dropdown resolutionDropdown;
     private int controlState;
     
     public AudioMixer audioMixer;
 
     private PlayerInput playerInput;
 
+    private Resolution[] resolutions;
+    private int DEFAULT_RES_IDX;
+    public static SettingsMenu Instance;
+    
+    // This is a singleton object
     private void Awake()
     {
+        // Singleton
+        if (Instance == null)
+        {
+            Instance = this;
+        } else
+        {
+            Destroy(gameObject);
+        }
+
         playerInput = GetComponent<PlayerInput>();
-        controlState = 0;
-        playerInput.actions.FindActionMap("PlayerArrowKeys").Enable();
-        playerInput.actions.FindActionMap("PlayerWASD").Disable();
+        // Get the list of available resolutions and fill the dropdown
+        resolutions = Screen.resolutions;
+        resolutionDropdown.ClearOptions();
+        List<string> resOptions = new List<string>();
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            Resolution res = resolutions[i];
+            resOptions.Add(res.width + " x " + res.height);
+
+            // Set default
+            if (res.width == Screen.currentResolution.width && 
+                res.height == Screen.currentResolution.height)
+            {
+                DEFAULT_RES_IDX = i;
+                Debug.Log("idx: " + i);
+            }
+        }
+        resolutionDropdown.AddOptions(resOptions);
+
+        DefaultSettings();
+    }
+
+    public void ShowMenu()
+    {
+        gameObject.SetActive(true);
     }
 
     public void SetGeneralVolume(float genVol)
@@ -37,7 +81,7 @@ public class SettingsMenu : MonoBehaviour
         genVolText.text = stringText.ToString();
 
         // Update actual volume
-        audioMixer.SetFloat("GeneralVolume", genVol - 80); // for some reason audio is [-80,20]
+        audioMixer.SetFloat("GeneralVolume", genVol - 80); // adjust b/c for some reason audio is [-80,20]
     }
 
     public void SetMusicVolume(float musicVol)
@@ -83,5 +127,36 @@ public class SettingsMenu : MonoBehaviour
                 playerInput.actions.FindActionMap("PlayerWASD").Enable();
                 break; 
         }
+    }
+
+    public void SetResolution(int resolutionIdx)
+    {
+        Resolution res = resolutions[resolutionIdx];
+        Screen.SetResolution(res.width, res.height, Screen.fullScreen);
+    }
+
+    public void DefaultSettings()
+    {
+        // Volume
+        SetGeneralVolume(100);
+        generalSlider.value = 100;
+        SetMusicVolume(80);
+        musicSlider.value = 80;
+
+        // Resolution
+        resolutionDropdown.value = DEFAULT_RES_IDX;
+        resolutionDropdown.RefreshShownValue();
+
+        // Control Keys
+        controlState = 0;
+        playerInput.actions.FindActionMap("PlayerArrowKeys").Enable();
+        playerInput.actions.FindActionMap("PlayerWASD").Disable();
+        controlsText.text = "Arrow Keys";
+    }
+
+    public void SettingsDoneButton()
+    {
+        gameObject.SetActive(false);
+        Debug.Log("settings done button is running");
     }
 }
