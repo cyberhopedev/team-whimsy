@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,7 @@ public class PauseMenu : MonoBehaviour
     GameObject hover4;
     [SerializeField]
     GameObject exitConfirmation;
+    GameObject[] hoverBgs;
     //Singleton
     public static PauseMenu Instance;
 
@@ -26,6 +28,9 @@ public class PauseMenu : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        // Hover buttons list
+        hoverBgs = new GameObject[] {hover1, hover2, hover3, hover4};
         
         // Hide stuff
         SettingsMenu.Instance.SettingsDoneButton();
@@ -66,5 +71,16 @@ public class PauseMenu : MonoBehaviour
     public void OnExitRejection()
     {
         exitConfirmation.SetActive(false);
+    }
+
+    // Hover background
+    public void OnStartHover(int buttonIdx)
+    {
+        hoverBgs[buttonIdx].SetActive(true);
+    }
+
+    public void OnEndHover(int buttonIdx)
+    {
+        hoverBgs[buttonIdx].SetActive(false);
     }
 }
