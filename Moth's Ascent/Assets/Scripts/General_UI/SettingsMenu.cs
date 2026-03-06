@@ -32,9 +32,20 @@ public class SettingsMenu : MonoBehaviour
 
     private Resolution[] resolutions;
     private int DEFAULT_RES_IDX;
+    public static SettingsMenu Instance;
     
+    // This is a singleton object
     private void Awake()
     {
+        // Singleton
+        if (Instance == null)
+        {
+            Instance = this;
+        } else
+        {
+            Destroy(gameObject);
+        }
+
         playerInput = GetComponent<PlayerInput>();
         // Get the list of available resolutions and fill the dropdown
         resolutions = Screen.resolutions;
@@ -56,6 +67,11 @@ public class SettingsMenu : MonoBehaviour
         resolutionDropdown.AddOptions(resOptions);
 
         DefaultSettings();
+    }
+
+    public void ShowMenu()
+    {
+        gameObject.SetActive(true);
     }
 
     public void SetGeneralVolume(float genVol)
@@ -141,5 +157,6 @@ public class SettingsMenu : MonoBehaviour
     public void SettingsDoneButton()
     {
         gameObject.SetActive(false);
+        Debug.Log("settings done button is running");
     }
 }
