@@ -4,11 +4,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-// TODO: Add/call UI handler to update UI based on battle events
 
 // State of the battle
 public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST, FLED}
-
 
 /// <summary> 
 /// Manager for the turn-based battle system of Moth's Ascent
