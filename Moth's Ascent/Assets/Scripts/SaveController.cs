@@ -2,6 +2,7 @@ using UnityEngine;
 using System.IO;
 using System;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 
 /// <summary>
 /// Handles saving and loading the game state, including the player's position and the current map boundary. 
@@ -10,9 +11,10 @@ using System.Collections.Generic;
 /// </summary>
 public class SaveController : MonoBehaviour
 {   
-    [SerializeField] private int totalSlots = 0;
+    // Total amount of save slots available, can be adjusted in inspector
+    [SerializeField] private int totalSlots = 3;
     // Assign the player data in inspector
-    [SerializeField] private PlayerData playerData = 0;
+    [SerializeField] private PlayerData playerData;
     // Singleton instance of the SaveController
     public static SaveController Instance { get; private set; }
     // The time when the current session started, used for tracking playtime
@@ -46,7 +48,7 @@ public class SaveController : MonoBehaviour
     /// Saves the current game state to a JSON file. This includes the player's position, health, 
     /// inventory, cleared encounters, and playtime.
     /// </summary>
-    public void SaveGame()
+    public void SaveGame(int saveSlot, string locationName)
     {   
         // Accumulate playtime and reset so next save won't double count time between saves
         float sessionPlayTime = Time.time - _sessionStartTime;
@@ -63,19 +65,19 @@ public class SaveController : MonoBehaviour
             playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position,
             mapBoundary = FindObjectOfType<CinemachineConfiner>().m_BoundingShape2D.gameObject.name,
             currentHP = playerData.currentHP,
-            inventoryItems = InventoryManager.Instace != null 
+            inventoryItems = InventoryManager.Instance != null 
                 ? new List<string>(InventoryManager.Instance.Items)
                 : new List<string>(),
             clearedEncountersFlags = ProgressTracker.Instance != null 
                 ? new List<string>(ProgressTracker.Instance.StoryProgressionFlags) 
                 : new List<string>(),
-            saveTimestap = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
+            saveTimestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
             totalPlayTimeSeconds = previousPlayTime + sessionPlayTime,
             locationName = locationName
         };
 
         // Write to the JSON save file
-        File.WriteAllText(saveLocation, JsonUtility.ToJson(saveData));
+        File.WriteAllText(SlotPath(saveSlot), JsonUtility.ToJson(saveData));
         Debug.Log("Game successfully saved to slot " + saveSlot);
     }
 

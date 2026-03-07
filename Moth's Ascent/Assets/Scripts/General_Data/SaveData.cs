@@ -1,3 +1,4 @@
+using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
@@ -24,7 +25,7 @@ public class SaveData
     public List<string> storyProgressionFlags = new List<string>();
 
     // Load menu information
-    public List<string> saveTimestap;
-    public float totPlayTimeSeconds;
+    public string saveTimestamp;
+    public float totalPlayTimeSeconds;
     public string locationName; 
 }
