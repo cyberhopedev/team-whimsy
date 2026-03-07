@@ -69,7 +69,6 @@ public class PauseMenu : MonoBehaviour
     public void OnExitRejection()
     {
         exitConfirmation.SetActive(false);
-        PlayerController.Instance.ClosePauseMenu();
     }
 
     // Hover background

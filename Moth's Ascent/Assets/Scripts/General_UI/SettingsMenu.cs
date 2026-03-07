@@ -28,8 +28,6 @@ public class SettingsMenu : MonoBehaviour
     
     public AudioMixer audioMixer;
 
-    private PlayerInput playerInput;
-
     private Resolution[] resolutions;
     private int DEFAULT_RES_IDX;
     public static SettingsMenu Instance;
@@ -46,7 +44,6 @@ public class SettingsMenu : MonoBehaviour
             Destroy(gameObject);
         }
 
-        playerInput = GetComponent<PlayerInput>();
         // Get the list of available resolutions and fill the dropdown
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
@@ -95,37 +92,24 @@ public class SettingsMenu : MonoBehaviour
 
     public void SwitchControls(int direction)
     {
-        // Control sliding options
-        if (controlState == 2 && direction == 1)
-        {
-            controlState = 0;
-        } else if (controlState == 0 && direction == -1)
-        {
-            controlState = 2;
-        } else
-        {
-            controlState += direction;   
-        }
+        // // Control sliding options
+        controlState = (controlState + direction + 3) % 3;
 
-        // Switch actual text and controls
         switch (controlState)
         {
-            case 0:  // arrow keys
+            case 0:
                 controlsText.text = "Arrow Keys";
-                playerInput.actions.FindActionMap("PlayerArrowKeys").Enable();
-                playerInput.actions.FindActionMap("PlayerWASD").Disable();
                 break;
-            case 1:  // WASD keys
+            case 1:
                 controlsText.text = "WASD";
-                playerInput.actions.FindActionMap("PlayerArrowKeys").Disable();
-                playerInput.actions.FindActionMap("PlayerWASD").Enable();
                 break;
-            case 2:  // both
+            case 2:
                 controlsText.text = "Both";
-                playerInput.actions.FindActionMap("PlayerArrowKeys").Enable();
-                playerInput.actions.FindActionMap("PlayerWASD").Enable();
-                break; 
+                break;
         }
+
+        // Tell player controller
+        PlayerController.Instance.SetControls(controlState);
     }
 
     public void SetResolution(int resolutionIdx)
@@ -146,11 +130,9 @@ public class SettingsMenu : MonoBehaviour
         resolutionDropdown.value = DEFAULT_RES_IDX;
         resolutionDropdown.RefreshShownValue();
 
-        // Control Keys
-        controlState = 0;
-        playerInput.actions.FindActionMap("PlayerArrowKeys").Enable();
-        playerInput.actions.FindActionMap("PlayerWASD").Disable();
-        controlsText.text = "Arrow Keys";
+        // Control Keys - default to both options
+        controlState = 2;
+        controlsText.text = "Both";
     }
 
     public void SettingsDoneButton()

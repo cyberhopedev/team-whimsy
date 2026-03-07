@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -33,6 +34,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        // Set default controls to WASD and arrow keys
+        SetControls(2);
     }
 
     /// <summary> 
@@ -58,6 +62,29 @@ public class PlayerController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+        Debug.Log("move");
+    }
+
+    // Switch between arrow keys and WASD
+    public void SetControls(int state)
+    {
+        var actions = GetComponent<PlayerInput>().actions;
+
+        switch (state)
+        {
+            case 0: // Arrow Keys (default)
+                actions.FindActionMap("PlayerArrowKeys").Enable();
+                actions.FindActionMap("PlayerWASD").Disable();
+                break;
+            case 1: // WASD
+                actions.FindActionMap("PlayerArrowKeys").Disable();
+                actions.FindActionMap("PlayerWASD").Enable();
+                break;
+            case 2: // both
+                actions.FindActionMap("PlayerArrowKeys").Enable();
+                actions.FindActionMap("PlayerWASD").Enable();
+                break;
+        }
     }
 
     // For communicating with PauseMenu when to close menu
