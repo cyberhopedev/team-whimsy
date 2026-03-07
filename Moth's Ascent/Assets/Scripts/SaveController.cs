@@ -69,6 +69,9 @@ public class SaveController : MonoBehaviour
                 ? new List<string>(InventoryManager.Instance.Items)
                 : new List<string>(),
             clearedEncountersFlags = ProgressTracker.Instance != null 
+                ? new List<string>(ProgressTracker.Instance.ClearedEncountersFlags) 
+                : new List<string>(),
+            storyProgressionFlags = ProgressTracker.Instance != null
                 ? new List<string>(ProgressTracker.Instance.StoryProgressionFlags) 
                 : new List<string>(),
             saveTimestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
