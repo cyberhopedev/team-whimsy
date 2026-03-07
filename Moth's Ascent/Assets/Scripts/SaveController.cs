@@ -42,6 +42,10 @@ public class SaveController : MonoBehaviour
         _sessionStartTime = Time.time;
     }
 
+    /// <summary>
+    /// Saves the current game state to a JSON file. This includes the player's position, health, 
+    /// inventory, cleared encounters, and playtime.
+    /// </summary>
     public void SaveGame()
     {   
         // Accumulate playtime and reset so next save won't double count time between saves
@@ -72,29 +76,100 @@ public class SaveController : MonoBehaviour
 
         // Write to the JSON save file
         File.WriteAllText(saveLocation, JsonUtility.ToJson(saveData));
-        Debug.Log("Game successfullysaved to slot " + saveSlot);
+        Debug.Log("Game successfully saved to slot " + saveSlot);
     }
 
-    public void LoadGame()
+    /// <summary>
+    /// Loads the game state from a JSON file. If the file exists, 
+    /// it will set the player's position and map boundary to the saved values.
+    /// </summary>
+    public void LoadGame(int slot)
     {
-        if(File.Exists(saveLocation))
+        SaveData saveData = ReadSaveSlot(slot);
+        if(saveData == null)
         {
-            // Read the JSON save file and deserialize it into a SaveData object
-            SaveData saveData = JsonUtility.FromJson<SaveData>(File.ReadAllText(saveLocation));
-
-            // Set the player's position to the saved position
-            GameObject.FindGameObjectWithTag("Player").transform.position = saveData.playerPosition;
-
-            FindObjectOfType<CinemachineConfiner>().m_BoundingShape2D = GameObject.Find(saveData.mapBoundary).GetComponent<PolygonCollider2D>();
+            Debug.Log("Failed to load save data from slot " + slot);
+            return;
         }
-        else
+
+        // Set the player's position to the saved position
+        GameObject.FindGameObjectWithTag("Player").transform.position = saveData.playerPosition;
+
+        // Restore the map boundary to the saved boundary
+        var confiner = FindObjectOfType<CinemachineConfiner>();
+        if(confiner != null && !string.IsNullOrEmpty(saveData.mapBoundary))
         {
-            // If no save file exists, create one with the current state
-            SaveGame();
-            Debug.Log("No save file found. A new save file has been created.");
+            confiner.m_BoundingShape2D = GameObject.Find(saveData.mapBoundary).GetComponent<PolygonCollider2D>();
         }
+
+        // Restore player health, inventory, and progression
+        playerData.currentHP = saveData.currentHP;
+        if(InventoryManager.Instance != null)
+        {
+            InventoryManager.Instance.Items = new List<string>(saveData.inventoryItems);
+        }
+        if(ProgressTracker.Instance != null)
+        {
+            ProgressTracker.Instance.LoadEncounters(saveData.clearedEncountersFlags);
+            ProgressTracker.Instance.LoadStoryProgression(saveData.storyProgressionFlags);
+        }
+
+        // Reset the session start time to avoid counting playtime before loading
+        _sessionStartTime = Time.time;
+        Debug.Log("Game successfully loaded from slot " + slot);
     }
 
     // Helper property that returns the file path for a given slot index
     private string SlotPath(int slot) => Application.persistentDataPath + "/savefile_" + slot + ".json";
+    // Helper property that returns the file path for the current save slot
+    public bool SaveSlotExists(int slot) => File.Exists(SlotPath(slot));
+
+    /// <summary>
+    /// Helper method that reads the save data from a given slot index. If the file exists, 
+    /// it will return a SaveData object deserialized from the JSON file.
+    /// </summary>
+    /// <param name="slot">The slot index to read from</param>
+    /// <returns>The saved game data, or null if no save file exists</returns>
+    private SaveData ReadSaveSlot(int slot)
+    {
+        string path = SlotPath(slot);
+        if(File.Exists(path))
+        {
+            return JsonUtility.FromJson<SaveData>(File.ReadAllText(path));
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Helper method that deletes the save file for a given slot index. 
+    /// If the file exists, it will be removed from the persistent data path.
+    /// </summary>
+    /// <param name="saveSlot">The slot index to delete</param>
+    public void DeleteSaveSlot(int saveSlot)
+    {
+        if(File.Exists(SlotPath(saveSlot)))
+        {
+            File.Delete(SlotPath(saveSlot));
+            Debug.Log("Save slot " + saveSlot + " deleted.");
+        }
+        else
+        {
+            Debug.Log("No save file found in slot " + saveSlot + " to delete.");
+        }
+    }
+
+    /// <summary>
+    /// Helper method that retrieves the save data for all available slots. 
+    /// (For load menu UI)
+    /// </summary>
+    /// <returns>Array of save data oer slot, where a null entry = empty slot</returns>
+    public SaveData[] GetAllSlots()
+    {
+        SaveData[] allSlots = new SaveData[5]; // Assuming 5 save slots
+        for(int i = 0; i < totalSlots; i++)
+        {
+            allSlots[i] = ReadSaveSlot(i);
+        }
+        return allSlots;
+    }
 }
