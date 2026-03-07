@@ -10,7 +10,7 @@ public class SaveData
     // Position of the player in the world, used for loading back into the same spot
     public Vector3 playerPosition;
     // Health of the player, used for loading back with the same health
-    public int playerHP;
+    public int currentHP;
     // Inventory of the player, used for loading back with the same items
     public List<string> inventoryItems;
     // Abilities of the player, used for loading back with the same abilities
@@ -26,5 +26,5 @@ public class SaveData
     // Load menu information
     public List<string> saveTimestap;
     public float totPlayTimeSeconds;
-    public string saveName; // or location name?
+    public string locationName; 
 }
