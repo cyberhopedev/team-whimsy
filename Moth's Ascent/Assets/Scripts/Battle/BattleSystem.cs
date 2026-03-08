@@ -4,11 +4,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-// TODO: Add/call UI handler to update UI based on battle events
 
 // State of the battle
 public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST, FLED}
-
 
 /// <summary> 
 /// Manager for the turn-based battle system of Moth's Ascent
@@ -18,6 +16,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private Transform playerBattlePosition;
     public const string battleScene = "BattleMenuScene";
     public const string overworldScene = "BetaScene";
+    public const string rewardScene = "LootSelectionScene";
     
     // Convenience accessor for the first enemy (expand later for multi-enemy targeting)
     public Enemy FirstEnemy => enemies.Count > 0 ? enemies[0] : null;
@@ -35,6 +34,9 @@ public class BattleSystem : MonoBehaviour
     private int _currentTurnIndex = 0;
     // Initial turn delay in seconds
     private float _turnDelaySeconds = 0.5f;
+    // Flag for whether the current battle is a boss battle
+    public bool isBossBattle = false;
+
     // Custom unity event to assign listeners for the active turn
     [System.Serializable]
     public class ActiveTurnEvent : UnityEvent<BattleState> {}
@@ -115,7 +117,19 @@ public class BattleSystem : MonoBehaviour
         }
         enemies.Clear();
 
-        // Spawn new enemies from the encounter trigger
+        // Check if it's a boss battle
+        isBossBattle = false; 
+        foreach (GameObject prefab in encounterEnemies)
+        {
+            // Boss battle condition, if the component is BossEnemy
+            if (prefab.GetComponent<BossEnemy>() != null)
+            {
+                isBossBattle = true;
+                break;
+            }
+        }
+
+        // Spawn all enemies
         foreach (GameObject prefab in encounterEnemies)
         {
             GameObject obj = Instantiate(prefab);
@@ -123,19 +137,43 @@ public class BattleSystem : MonoBehaviour
             if (e != null) enemies.Add(e);
         }
 
+
         state = BattleState.START;
         _currentTurnIndex = -1; // AdvanceTurn adds one, so this will start it at 0
         SetupBattle();
     }
 
-    /// <summary> 
-    /// ChoseAttack(Enemy enemy) is used when it is the player's turn and the regular attack option is chosen
+    // /// <summary> 
+    // /// ChoseAttack(Enemy enemy) is used when it is the player's turn and the regular attack option is chosen
+    // /// </summary>
+    // public void ChoseAttack(Enemy enemy)
+    // {
+    //     if(state == BattleState.PLAYERTURN)
+    //     {
+    //         Player.Attack(enemy);
+    //     }
+    // }
+
+    /// <summary>
+    /// Player chose a named attack move against a target enemy.
     /// </summary>
-    public void ChoseAttack(Enemy enemy)
+    public void ChoseAttackMove(Attack move, Enemy target)
     {
         if(state == BattleState.PLAYERTURN)
         {
-            Player.Attack(enemy);
+            Player.UseAttack(move, target);
+        }
+            
+    }
+
+    /// <summary>
+    /// Player chose a defensive or status ability (no enemy target needed).
+    /// </summary>
+    public void ChoseAbility(Ability ability)
+    {
+        if(state == BattleState.PLAYERTURN)
+        {
+            Player.UseAbility(ability);
         }
     }
 
@@ -183,6 +221,19 @@ public class BattleSystem : MonoBehaviour
             // Get back to overworld scene
             StartCoroutine(ReturnToOverworld(2f));
             return;
+        }
+    }
+
+    /// <summary>
+    /// Helper method to handle failing a flee attempt, forces player to end their turn
+    /// and instead gives an extra turn to the enemy
+    /// </summary>
+    public void FleeFailure()
+    {
+        // Enemy gets an extra turn immediately, so end the current player turn and start the enemy turn
+        if(state == BattleState.PLAYERTURN)
+        {
+            Player.ForceEndPlayerTurn();
         }
     }
 
@@ -238,7 +289,17 @@ public class BattleSystem : MonoBehaviour
         // Add item to inventory
         // InventoryManager.AddItem();
         yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(overworldScene);
+        // If they wont the battle and there are rewards, give them the reward popup scene
+        if(state == BattleState.WON && ItemAbilityScreenManager.Instance != null)
+        {
+            // Load reward scene on top of battle scene
+            SceneManager.LoadScene(rewardScene, LoadSceneMode.Additive);
+        }
+        else
+        // Otherwise, just return to the overworld scene
+        {
+            SceneManager.LoadScene(overworldScene);
+        }
     }
 
     /// <summary> 
