@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InventoryManager : MonoBehaviour
 {
+    [SerializeField]
     public GameObject InventoryMenu;
     private bool showInventory;
     
@@ -24,10 +26,11 @@ public class InventoryManager : MonoBehaviour
 
     // First item slot
     public ItemSlot[] itemSlot;
+    public static InventoryManager Instance;
     
     void Awake()
     {
-        // Fix instance
+        // Singleton
          if (Instance == null)
         {
             Instance = this;
