@@ -161,6 +161,6 @@ public class BattleMenu : MonoBehaviour
                 break;
         }
 
-        BattleSystem.Instance.ChoseAttack(enemy);
+        // BattleSystem.Instance.ChoseAttack(enemy);
     }
 } 
