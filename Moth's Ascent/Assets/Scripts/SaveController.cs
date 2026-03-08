@@ -111,7 +111,7 @@ public class SaveController : MonoBehaviour
         playerData.currentHP = saveData.currentHP;
         if(InventoryManager.Instance != null)
         {
-            InventoryManager.Instance.Items = new List<string>(saveData.inventoryItems);
+            InventoryManager.Instance.Items = new List<ItemData>(saveData.inventoryItems);
         }
         if(ProgressTracker.Instance != null)
         {

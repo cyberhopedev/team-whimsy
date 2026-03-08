@@ -7,14 +7,37 @@ public class InventoryManager : MonoBehaviour
 {
     public GameObject InventoryMenu;
     private bool showInventory;
+    
     // List of items in the inventory, used for saving and loading the inventory state.
     private List<ItemData> _items = new List<ItemData>();
+    
+    // Suggested by Claude to fix scope issues
+    // Public accessor for the items list, used by SaveController for saving/loading
+    public List<ItemData> Items
+    {
+        get => _items;
+        set => _items = value;
+    }
+    
+    // Instance of the InventoryManager so it can be used in by SaveController
+    public static InventoryManager Instance { get; private set; }
 
     // First item slot
     public ItemSlot[] itemSlot;
     
     void Awake()
     {
+        // Fix instance
+         if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         // Hide inventory until opened
         showInventory = false;
         InventoryMenu.SetActive(false);
