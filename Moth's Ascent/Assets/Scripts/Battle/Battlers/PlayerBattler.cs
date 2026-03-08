@@ -185,4 +185,13 @@ public class PlayerBattler : Battler
             healthBar.value = currentHP;
         }
     }
+
+    /// <summary>
+    /// Force the end of the player's turn, used for fleeing failure 
+    /// or if an ability forces them to skip their next turn
+    /// </summary>
+    public void ForceEndPlayerTurn()
+    {
+        EndTurn();
+    }
 }

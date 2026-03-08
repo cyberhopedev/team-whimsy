@@ -224,6 +224,19 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Helper method to handle failing a flee attempt, forces player to end their turn
+    /// and instead gives an extra turn to the enemy
+    /// </summary>
+    public void FleeFailure()
+    {
+        // Enemy gets an extra turn immediately, so end the current player turn and start the enemy turn
+        if(state == BattleState.PLAYERTURN)
+        {
+            Player.ForceEndPlayerTurn();
+        }
+    }
+
     /// <summary> 
     /// Checks each possible state to see if the next turn is ready to be called and who goes next
     /// </summary>
