@@ -66,8 +66,8 @@ public class SaveController : MonoBehaviour
             mapBoundary = FindObjectOfType<CinemachineConfiner>().m_BoundingShape2D.gameObject.name,
             currentHP = playerData.currentHP,
             inventoryItems = InventoryManager.Instance != null 
-                ? new List<string>(InventoryManager.Instance.Items)
-                : new List<string>(),
+                ? new List<ItemData>(InventoryManager.Instance.Items)
+                : new List<ItemData>(),
             clearedEncountersFlags = ProgressTracker.Instance != null 
                 ? new List<string>(ProgressTracker.Instance.ClearedEncountersFlags) 
                 : new List<string>(),

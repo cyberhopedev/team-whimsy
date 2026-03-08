@@ -13,7 +13,7 @@ public class SaveData
     // Health of the player, used for loading back with the same health
     public int currentHP;
     // Inventory of the player, used for loading back with the same items
-    public List<string> inventoryItems;
+    public List<ItemData> inventoryItems;
     // Abilities of the player, used for loading back with the same abilities
     public List<string> playerAbilities;
     // Cleared encounters, used for loading back with the same progress
