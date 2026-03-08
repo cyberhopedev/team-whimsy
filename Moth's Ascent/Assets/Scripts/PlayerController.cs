@@ -36,8 +36,8 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        // Set default controls to WASD and arrow keys
-        SetControls(1);
+        // // Set default controls to wasd AND arrow keys
+        SetControls(2);
     }
 
     /// <summary> 
@@ -55,14 +55,6 @@ public class PlayerController : MonoBehaviour
             // Pause game while in menu
             Time.timeScale = showPauseMenu ? 0 : 1;
         } 
-
-        if (Keyboard.current.aKey.wasPressedThisFrame)
-        {
-            Debug.Log("a pressed");
-            Debug.Log("Current Action Map: " + GetComponent<PlayerInput>().currentActionMap.name);
-            Debug.Log(GetComponent<PlayerInput>().actions.FindActionMap("PlayerArrowKeys").enabled);
-             Debug.Log(GetComponent<PlayerInput>().actions.FindActionMap("PlayerWASD").enabled);
-        } 
     }
 
     /// <summary> 
@@ -71,7 +63,6 @@ public class PlayerController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
-        Debug.Log("move");
     }
 
     // Switch between arrow keys and WASD
@@ -84,15 +75,17 @@ public class PlayerController : MonoBehaviour
             case 0: // Arrow Keys (default)
                 actions.FindActionMap("PlayerArrowKeys").Enable();
                 actions.FindActionMap("PlayerWASD").Disable();
+                actions.FindActionMap("Player").Disable();
                 break;
             case 1: // WASD
                 actions.FindActionMap("PlayerArrowKeys").Disable();
                 actions.FindActionMap("PlayerWASD").Enable();
-                Debug.Log("set");
+                actions.FindActionMap("Player").Disable();
                 break;
             case 2: // both
-                actions.FindActionMap("PlayerArrowKeys").Enable();
-                actions.FindActionMap("PlayerWASD").Enable();
+                actions.FindActionMap("PlayerArrowKeys").Disable();
+                actions.FindActionMap("PlayerWASD").Disable();
+                actions.FindActionMap("Player").Enable();
                 break;
         }
     }

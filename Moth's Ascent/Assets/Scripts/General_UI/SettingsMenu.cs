@@ -9,7 +9,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal.Internal;
 using System;
 
-[RequireComponent(typeof(PlayerInput))]
 public class SettingsMenu : MonoBehaviour
 {
     [SerializeField]
@@ -130,7 +129,7 @@ public class SettingsMenu : MonoBehaviour
         resolutionDropdown.value = DEFAULT_RES_IDX;
         resolutionDropdown.RefreshShownValue();
 
-        // Control Keys - default to both options
+        // // Control Keys - default to both options
         controlState = 2;
         controlsText.text = "Both";
     }

@@ -41,9 +41,10 @@ public class PauseMenu : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    // Needs to update PlayerController so esc button updates
     public void OnContinueButton()
     {
-        gameObject.SetActive(false);
+        PlayerController.Instance.ClosePauseMenu(); 
     }
 
     public void OnSaveButton()
@@ -79,6 +80,16 @@ public class PauseMenu : MonoBehaviour
 
     public void OnEndHover(int buttonIdx)
     {
+        hoverBgs = new GameObject[] {hover1, hover2, hover3, hover4};
         hoverBgs[buttonIdx].SetActive(false);
+    }
+
+    // Remove all hovers
+    public void OnEnable()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            OnEndHover(i);
+        }
     }
 }
