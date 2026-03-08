@@ -24,6 +24,7 @@ public class InventoryManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
 
         // Hide inventory until opened
