@@ -24,13 +24,13 @@ public abstract class Battler : MonoBehaviour
     // List of active status effects on the battler
     public List<StatusEffectInstance> activeStatusEffects = new List<StatusEffectInstance>();
 
-    /// <summary> 
-    /// Constructs a Battler with their assosciated stats
-    /// </summary>
-    public Battler()
-    {
+    // /// <summary> 
+    // /// Constructs a Battler with their assosciated stats
+    // /// </summary>
+    // public Battler()
+    // {
         
-    }
+    // }
 
     /// <summary> 
     /// Sets the current health and
@@ -78,15 +78,15 @@ public abstract class Battler : MonoBehaviour
             if (se.damagePerTurn > 0)
             {
                 TakeDamage(se.damagePerTurn);
-                Debug.Log(gameObject.name + " takes " + se.damagePerTurn + " damage from " + se.statusEffect.name);
+                Debug.Log(gameObject.name + " takes " + se.damagePerTurn + " damage from " + se.type + " and has " + currentHP + " HP left!");
             }
 
             // Decrement remaining turns and remove if expired
-            se.remainingTurns--;
-            if (se.remainingTurns <= 0)
+            se.turnsRemaining--;
+            if (se.turnsRemaining <= 0)
             {
                 activeStatusEffects.Remove(se);
-                Debug.Log(se.statusEffect.name + " on " + gameObject.name + " has wore off!");
+                Debug.Log(se.type + " on " + gameObject.name + " has wore off!");
             }
         }
     }
@@ -99,17 +99,17 @@ public abstract class Battler : MonoBehaviour
     public void ApplyStatusEffect(StatusEffectInstance newEffect)
     {
         // Make sure the same effect type cannot stack, instead make it do nothing
-        foreach (var existing in activeEffects)
+        foreach (var existing in activeStatusEffects)
         {
-            if (existing.type == effect.type)
+            if (existing.type == newEffect.type)
             {
-                Debug.Log(gameObject.name + " already has " + effect.statusEffect.name + " and cannot be applied again!");
+                Debug.Log(gameObject.name + " already has " + newEffect.type + " and cannot be applied again!");
                 return;
             }
         }
 
         // Apply the new effect
-        activeEffects.Add(effect);
+        activeStatusEffects.Add(newEffect);
     }
 
     /// <summary>
@@ -120,6 +120,6 @@ public abstract class Battler : MonoBehaviour
     /// <returns>True if the effect is active, false otherwise</returns>
     public bool hasStatusEffect(StatusEffectType type)
     {
-        return activeStatusEffects.Any(se => se.statusEffect.type == type);
+        return activeStatusEffects.Any(se => se.type == type);
     }
 }

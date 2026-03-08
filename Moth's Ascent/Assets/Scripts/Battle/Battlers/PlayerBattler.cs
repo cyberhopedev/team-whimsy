@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class PlayerBattler : Battler
 {
-    // UI Events
-
     // BattleSystem Events
     public delegate void StartTurnEventHandler(PlayerBattler player);
     public event StartTurnEventHandler OnStartTurn;
     public delegate void EndTurnEventHandler();
     public event EndTurnEventHandler OnEndTurn;
-    // CameraManager Events
     
     // Player Info
     public PlayerData data;
