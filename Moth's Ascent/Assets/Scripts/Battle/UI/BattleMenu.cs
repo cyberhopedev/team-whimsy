@@ -28,11 +28,6 @@ public class BattleMenu : MonoBehaviour
     // Enemy Instance
     private Enemy enemy;
 
-    // Player's currently assigned moves — set these in Inspector or from PlayerData later
-    [SerializeField] private Attack move1 = Attack.STRUGGLE;
-    [SerializeField] private Attack move2 = Attack.CLAW;
-    [SerializeField] private Ability ability1 = Ability.RAISE_ARMS;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -111,12 +106,9 @@ public class BattleMenu : MonoBehaviour
     // Lists all the current attack options for the player
     public void ListAttacks(/*List<AttackType> attacks*/)
     {
-        // attack1Text.text = "Struggle";
-        // attack2Text.text = "Claw";
-        // attack3Text.text = "Raise Arms";
-        attack1Text.text = move1.GetName();
-        attack2Text.text = move2.GetName();
-        attack3Text.text = ability1.GetName();
+        attack1Text.text = "Struggle";
+        attack2Text.text = "Claw";
+        attack3Text.text = "Raise Arms";
     }
 
     // Perform the attack
@@ -125,24 +117,10 @@ public class BattleMenu : MonoBehaviour
         // do something 
     }
 
-    /// <summary>
-    /// Call when fleeing the battle, have a chance to flee and when successful,
-    /// return to the overworld scene, if not, enemy gets an extra turn and stay
-    /// in the battle scene
-    /// </summary>
-    public void Flee()
-    {
-        if(Random.value < 0.4f) // 40% chance to flee successfully
-        {
-            Debug.Log("Flee successful!");
-            BattleSystem.Instance.Flee();
-        }
-        else
-        {
-            Debug.Log("Flee failed! Enemy gets an extra turn.");
-            BattleSystem.Instance.FleeFailure();
-        }
-    }
+    // public void Flee()
+    // {
+        
+    // }
 
     // Show menu and list attacks/stats
     void ShowMenu(PlayerBattler p)
@@ -169,22 +147,20 @@ public class BattleMenu : MonoBehaviour
             case 0:
             // Struggle, Claw, Raise Arms
                 Debug.Log("attack 1 chosen!");
-                BattleSystem.Instance.ChoseAttackMove(move1, enemy);
                 break;
             case 1:
                 Debug.Log("attack 2 chosen!");
-                BattleSystem.Instance.ChoseAttackMove(move2, enemy);
+                // enemy.TakeDamage(5);
                 break;
             case 2:
                 Debug.Log("attack 3 chosen!");
-                BattleSystem.Instance.ChoseAbility(ability1);
                 break;
             case 3: // flee
             Debug.Log("flee chosen!");
-                Flee();
+                BattleSystem.Instance.Flee();
                 break;
         }
 
-        // BattleSystem.Instance.ChoseAttack(enemy);
+        BattleSystem.Instance.ChoseAttack(enemy);
     }
 } 

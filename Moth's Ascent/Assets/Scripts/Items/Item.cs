@@ -45,30 +45,4 @@ public class Item : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    /// <summary>
-    /// Getter for the name of the item
-    /// </summary>
-    /// <returns>The name of the item</returns>
-    public string GetName()
-    {
-        return itemName;
-    }
-
-    /// <summary>
-    /// Getter for the quantity of the item
-     /// </summary>
-     /// <returns>The quantity of the item</returns>
-     public int GetQuantity()
-    {
-        return quantity;
-    }
-
-    /// <summary>
-    /// Getter for the sprite of the item
-    /// </summary>
-    public Sprite GetSprite()
-    {
-        return sprite;
-    }
 }

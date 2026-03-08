@@ -49,13 +49,13 @@ public static class AttackTypes
     {
         return attack switch
         {
-            Attack.CLAW => 5,
-            Attack.BITE => 12,
-            Attack.STRUGGLE => 14, 
-            Attack.ACID_SPIT => 18,
-            Attack.GLITTER => 20,
-            Attack.DRAIN => 10,
-            Attack.VINE => 13,
+            Attack.CLAW => 0,
+            Attack.BITE => 0,
+            Attack.STRUGGLE => 0, 
+            Attack.ACID_SPIT => 0,
+            Attack.GLITTER => 0,
+            Attack.DRAIN => 0,
+            Attack.VINE => 0,
             _ => 0,
         };
     }
