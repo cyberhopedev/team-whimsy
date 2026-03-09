@@ -9,7 +9,7 @@ using TMPro;
 public class Menu : MonoBehaviour
 {
 
-    private void Awake()
+    private void Start()
     {
         SettingsMenu.Instance.SettingsDoneButton();
     }
