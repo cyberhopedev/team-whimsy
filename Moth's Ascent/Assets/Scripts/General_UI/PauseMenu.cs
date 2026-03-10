@@ -20,25 +20,34 @@ public class PauseMenu : MonoBehaviour
     //Singleton
     public static PauseMenu Instance;
 
-    // Doesn't Start until escape key pressed (code in InventoryManager)
-    void Start()
+    private void Awake()
     {
         // Singleton instance
         if (Instance == null)
         {
             Instance = this;
+            gameObject.SetActive(false); // hide menu
         } else
         {
-            Destroy(gameObject);
+            Destroy(this);
         }
+    }
 
+    private void OnDestroy()
+{
+    if (Instance == this)
+        Instance = null;
+}
+
+    // Doesn't Start until escape key pressed (code in InventoryManager)
+    void Start()
+    {
         // Hover buttons list
         hoverBgs = new GameObject[] {hover1, hover2, hover3, hover4};
         
         // Hide stuff
         SettingsMenu.Instance.SettingsDoneButton();
         exitConfirmation.SetActive(false);
-        gameObject.SetActive(false);
     }
 
     // Needs to update PlayerController so esc button updates

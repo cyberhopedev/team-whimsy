@@ -38,9 +38,10 @@ public class SettingsMenu : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            gameObject.SetActive(false);
         } else
         {
-            Destroy(gameObject);
+            Destroy(this);
         }
 
         // Get the list of available resolutions and fill the dropdown
@@ -63,6 +64,17 @@ public class SettingsMenu : MonoBehaviour
 
         DefaultSettings();
     }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+    }
+
+    // Getter for control state
+    public int ControlState => controlState;
 
     public void ShowMenu()
     {
@@ -107,8 +119,11 @@ public class SettingsMenu : MonoBehaviour
                 break;
         }
 
-        // Tell player controller
-        PlayerController.Instance.SetControls(controlState);
+        // You can save changes but don't apply them until PlayerController exists
+        // if (PlayerController.Instance != null)
+        // {
+            PlayerController.Instance.SetControls(controlState);   
+        // }
     }
 
     public void SetResolution(int resolutionIdx)
