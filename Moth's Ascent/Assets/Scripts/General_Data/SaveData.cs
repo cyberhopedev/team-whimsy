@@ -30,4 +30,5 @@ public class SaveData
     public float totalPlayTimeSeconds;
     public string playTimeString;
     public string locationName; 
+    public string sceneName;
 }

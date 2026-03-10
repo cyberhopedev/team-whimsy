@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class LoadMenu : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class LoadMenu : MonoBehaviour
     GameObject slot3;
     SaveData[] dataSlots;
     GameSlot[] gameSlots;  // parallel array w/ dataSlots
+    int selectedSlotIdx;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -28,6 +30,14 @@ public class LoadMenu : MonoBehaviour
 
         // Load in data
         LoadSlots();
+        selectedSlotIdx = -1;
+    }
+
+    // Show function for main menu to call
+    public void ShowMenu()
+    {
+        GetComponent<Canvas>().enabled = true;
+        LoadSlots(); // refresh slot data when reopening
     }
 
     private void LoadSlots()
@@ -57,18 +67,63 @@ public class LoadMenu : MonoBehaviour
         }
     }
 
-    public void onSlotPress(int slotIdx)
+    public void OnSlotPress(int slotIdx)
     {
         // Do nothing if slot is empty
         if (gameSlots[slotIdx].IsButtonDisabled())
         {
             return;
         }
-        // if (dataSlots == null || dataSlots[slotIdx] == null)
-        // {
-        //     Debug.Log
-        // } 
-        gameSlots[slotIdx].foundSlot();
+        
+        selectedSlotIdx = slotIdx;
+        // Fix slot highlights
+        for (int i = 0; i < gameSlots.Length; i++)
+        {
+            // Highlight slot
+            if (i == slotIdx)
+            {
+                gameSlots[i].ClickSlot();
+            } 
+            else  // unhighlight other slots
+            {
+                gameSlots[i].UnclickSlot();
+            }
+        }
+    }
+
+    // Go back to main menu
+    public void OnBackButton()
+    {
+        GetComponent<Canvas>().enabled = false;
+    }
+
+    public void OnPlayButton()
+    {
+        // Disable button if no slot selected
+        if (selectedSlotIdx == -1)
+        {
+            return;
+        }
+
+        Debug.Log("reaching here");
+        string sceneName = SaveController.Instance.LoadGame(selectedSlotIdx);
+        if (sceneName != null)
+        {
+            Debug.Log("in conditional");
+            SceneManager.LoadScene(sceneName);
+        }
+    }
+
+    public void OnEraseButton()
+    {
+        // Disable button if no slot selected
+        if (selectedSlotIdx == -1)
+        {
+            return;
+        }
+
+        SaveController.Instance.DeleteSaveSlot(selectedSlotIdx);
+        gameSlots[selectedSlotIdx].ShowEmpty();
     }
 
 }

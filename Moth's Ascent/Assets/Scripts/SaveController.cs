@@ -3,6 +3,7 @@ using System.IO;
 using System;
 using System.Collections.Generic;
 using Unity.Cinemachine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Handles saving and loading the game state, including the player's position and the current map boundary. 
@@ -19,6 +20,8 @@ public class SaveController : MonoBehaviour
     public static SaveController Instance { get; private set; }
     // The time when the current session started, used for tracking playtime
     private float _sessionStartTime;
+    // For when player doesn't exist yet (load screen)
+    private Vector3 _pendingSpawnPosition;
     // Tracks which game is being played atm
     int currentSlotIdx;
 
@@ -47,24 +50,25 @@ public class SaveController : MonoBehaviour
     }
 
     public void NewGame(int slot, string gameName)
-{
-    // Reset player data to defaults
-    Debug.Log("playerData is: " + playerData); // if this prints null, it's the inspector
-    playerData.ResetHP();
-    
-    SaveData saveData = new SaveData
     {
-        playerPosition = Vector3.zero, 
-        mapBoundary = "",
-        currentHP = playerData.currentHP,
-        inventoryItems = new List<ItemData>(),
-        clearedEncountersFlags = new List<string>(),
-        storyProgressionFlags = new List<string>(),
-        saveTimestamp = DateTime.Now.ToString("yyyy-MM-dd\nHH:mm"),
-        totalPlayTimeSeconds = 0f,
-        playTimeString = "00:00:00",
-        gameName = gameName,
-        locationName = "Room 1"
+        // Reset player data to defaults
+        Debug.Log("playerData is: " + playerData); // if this prints null, it's the inspector
+        playerData.ResetHP();
+        
+        SaveData saveData = new SaveData
+        {
+            playerPosition = Vector3.zero, 
+            mapBoundary = "",
+            currentHP = playerData.currentHP,
+            inventoryItems = new List<ItemData>(),
+            clearedEncountersFlags = new List<string>(),
+            storyProgressionFlags = new List<string>(),
+            saveTimestamp = DateTime.Now.ToString("yyyy-MM-dd\nHH:mm"),
+            totalPlayTimeSeconds = 0f,
+            playTimeString = "00:00:00",
+            gameName = gameName,
+            locationName = "Room 1",
+            sceneName = "BetaScene"
         };
 
         File.WriteAllText(SlotPath(slot), JsonUtility.ToJson(saveData));
@@ -120,8 +124,8 @@ public class SaveController : MonoBehaviour
                                                                    Math.Floor((playTime % 3600) / 60), 
                                                                    playTime % 60),
             gameName = "",
-            locationName = locationName
-
+            locationName = locationName,
+            sceneName = SceneManager.GetActiveScene().name
         };
 
         // Write to the JSON save file
@@ -132,41 +136,48 @@ public class SaveController : MonoBehaviour
     /// <summary>
     /// Loads the game state from a JSON file. If the file exists, 
     /// it will set the player's position and map boundary to the saved values.
+    /// 
+    /// returns name of scene to load to
     /// </summary>
-    public void LoadGame(int slot)
+    public string LoadGame(int slot)
     {
         SaveData saveData = ReadSaveSlot(slot);
         if(saveData == null)
         {
             Debug.Log("Failed to load save data from slot " + slot);
-            return;
+            return null;
         }
 
-        // Set the player's position to the saved position
-        GameObject.FindGameObjectWithTag("Player").transform.position = saveData.playerPosition;
-
-        // Restore the map boundary to the saved boundary
-        var confiner = FindObjectOfType<CinemachineConfiner>();
-        if(confiner != null && !string.IsNullOrEmpty(saveData.mapBoundary))
-        {
-            confiner.m_BoundingShape2D = GameObject.Find(saveData.mapBoundary).GetComponent<PolygonCollider2D>();
-        }
-
-        // Restore player health, inventory, and progression
+        // Restore everything that doesn't need the game scene objects
         playerData.currentHP = saveData.currentHP;
-        if(InventoryManager.Instance != null)
-        {
+        if (InventoryManager.Instance != null)
             InventoryManager.Instance.Items = new List<ItemData>(saveData.inventoryItems);
-        }
-        if(ProgressTracker.Instance != null)
+        if (ProgressTracker.Instance != null)
         {
             ProgressTracker.Instance.LoadEncounters(saveData.clearedEncountersFlags);
             ProgressTracker.Instance.LoadStoryProgression(saveData.storyProgressionFlags);
         }
 
-        // Reset the session start time to avoid counting playtime before loading
+        // Store position for after scene loads
+        _pendingSpawnPosition = saveData.playerPosition;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
         _sessionStartTime = Time.time;
-        Debug.Log("Game successfully loaded from slot " + slot);
+        return saveData.sceneName;
+    }
+
+    // Helper method - used Claude code to get the idea for splitting this code off from
+    // LoadGame to fix bug with objects that aren't enabled yet
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+{
+    // Unsubscribe immediately so this only fires once
+    SceneManager.sceneLoaded -= OnSceneLoaded;
+
+    GameObject player = GameObject.FindGameObjectWithTag("Player");
+    if (player != null)
+        player.transform.position = _pendingSpawnPosition;
+    else
+        Debug.LogWarning("Player missing from scene");
     }
 
     // Helper property that returns the file path for a given slot index

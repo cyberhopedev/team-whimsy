@@ -23,6 +23,9 @@ public class GameSlot : MonoBehaviour
     private TMP_Text TimePlayed;
     [SerializeField]
     private TMP_Text LastSaved;
+    [SerializeField]
+    private GameObject selectedHighlight;
+    // Disables slot buttons when they are empty
     private Boolean buttonDisabled;
 
     // Constructor
@@ -32,7 +35,7 @@ public class GameSlot : MonoBehaviour
         this.location = null;
         this.timePlayed = null;
         this.lastSaved = null;
-        buttonDisabled = true;
+        selectedHighlight.SetActive(false);
     }
 
     public Boolean IsButtonDisabled()
@@ -40,10 +43,15 @@ public class GameSlot : MonoBehaviour
         return buttonDisabled;
     }
 
-    public void foundSlot()
+    // For setting highlighted background when clicked
+    public void ClickSlot()
     {
-        Debug.Log("slot found");
-        Name.text = "found";
+        selectedHighlight.SetActive(true);
+    }
+
+    public void UnclickSlot()
+    {
+        selectedHighlight.SetActive(false);
     }
 
     public void FillInSlot(SaveData game)
