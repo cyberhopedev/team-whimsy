@@ -74,6 +74,9 @@ public class PauseMenu : MonoBehaviour
     public void OnExitConfirmation()
     {
         SceneManager.LoadScene(0);  // go back to menu screen
+        SettingsMenu.Instance.SettingsDoneButton();
+        exitConfirmation.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void OnExitRejection()
