@@ -33,7 +33,7 @@ public class SaveController : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(this);
         }
     }
     
@@ -176,7 +176,7 @@ public class SaveController : MonoBehaviour
     /// <returns>Array of save data oer slot, where a null entry = empty slot</returns>
     public SaveData[] GetAllSlots()
     {
-        SaveData[] allSlots = new SaveData[totalSlots]; // Assuming 5 save slots
+        SaveData[] allSlots = new SaveData[totalSlots]; 
         for(int i = 0; i < totalSlots; i++)
         {
             allSlots[i] = ReadSaveSlot(i);

@@ -9,10 +9,10 @@ using UnityEngine.UI;
 public class GameSlot : MonoBehaviour
 {
     // Game Data
-    public string gameName;
-    public string location;
-    public string timePlayed;
-    public string lastSaved;
+    private string gameName;
+    private string location;
+    private string timePlayed;
+    private string lastSaved;
 
     // UI Text
     [SerializeField]
@@ -23,6 +23,28 @@ public class GameSlot : MonoBehaviour
     private TMP_Text TimePlayed;
     [SerializeField]
     private TMP_Text LastSaved;
+    private Boolean buttonDisabled;
+
+    // Constructor
+    public void Start()
+    {
+        this.gameName = null;
+        this.location = null;
+        this.timePlayed = null;
+        this.lastSaved = null;
+        buttonDisabled = true;
+    }
+
+    public Boolean IsButtonDisabled()
+    {
+        return buttonDisabled;
+    }
+
+    public void foundSlot()
+    {
+        Debug.Log("slot found");
+        Name.text = "found";
+    }
 
     public void FillInSlot(SaveData game)
     {
@@ -37,6 +59,17 @@ public class GameSlot : MonoBehaviour
         Location.text = location;
         TimePlayed.text = timePlayed;
         LastSaved.text = lastSaved;
+
+        buttonDisabled = false;
+    }
+
+    public void ShowEmpty()
+    {
+        Name.text = "Empty";
+        Location.text = "";
+        TimePlayed.text = "";
+        LastSaved.text = "";
+        buttonDisabled = true;
     }
     
 }
