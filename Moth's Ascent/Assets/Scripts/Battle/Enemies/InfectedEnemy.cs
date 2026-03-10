@@ -15,14 +15,14 @@ public class InfectedEnemy : Enemy
     // 20% damage reduction due to exoskeleton
     [SerializeField] private float physicalDamageReduction = 0.2f;
     // Slower movement speed due to exoskeleton
-    [SerializeField] private float movementSpeedReduction = 0.3f;
+    // [SerializeField] private float movementSpeedReduction = 0.3f;
 
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
         // Apply movement speed and damage reduction
-        movementSpeed *= 1 - movementSpeedReduction;
-        physicalDamage *= 1 - physicalDamageReduction;
+        // movementSpeed *= 1 - movementSpeedReduction;
+        // physicalDamage *= 1 - physicalDamageReduction;
 
         // Set max HP lower than other enemies due to slower movement and reliance on defense
         maxHP = 80;
@@ -50,7 +50,9 @@ public class InfectedEnemy : Enemy
     /// <param name="amount"> The amount of damage to take </param>
     public override void TakeDamage(int amount)
     {
-        currentHP = Mathf.Max(0, currentHP - amount);
+        // Apply exoskeleton damage reduction
+        int reduced = Mathf.CeilToInt(amount * (1f - physicalDamageReduction));
+        currentHP = Mathf.Max(0, currentHP - reduced);
         if (healthBar != null)
         {
             healthBar.value = currentHP;    
