@@ -19,6 +19,8 @@ public class SaveController : MonoBehaviour
     public static SaveController Instance { get; private set; }
     // The time when the current session started, used for tracking playtime
     private float _sessionStartTime;
+    // Tracks which game is being played atm
+    int currentSlotIdx;
 
     /// <summary>
     /// Ensures that the SaveController is a singleton instance and persists across scenes. 
@@ -43,6 +45,43 @@ public class SaveController : MonoBehaviour
         // Starts the timer for tracking playtime
         _sessionStartTime = Time.time;
     }
+
+    public void NewGame(int slot, string gameName)
+{
+    // Reset player data to defaults
+    Debug.Log("playerData is: " + playerData); // if this prints null, it's the inspector
+    playerData.ResetHP();
+    
+    SaveData saveData = new SaveData
+    {
+        playerPosition = Vector3.zero, 
+        mapBoundary = "",
+        currentHP = playerData.currentHP,
+        inventoryItems = new List<ItemData>(),
+        clearedEncountersFlags = new List<string>(),
+        storyProgressionFlags = new List<string>(),
+        saveTimestamp = DateTime.Now.ToString("yyyy-MM-dd\nHH:mm"),
+        totalPlayTimeSeconds = 0f,
+        playTimeString = "00:00:00",
+        gameName = gameName,
+        locationName = "Room 1"
+        };
+
+        File.WriteAllText(SlotPath(slot), JsonUtility.ToJson(saveData));
+        _sessionStartTime = Time.time;
+        currentSlotIdx = slot;
+        Debug.Log("New game created in slot " + slot);
+    }
+
+    // Helper method for starting a new game
+    public int GetFirstEmptySlot()
+{
+    for (int i = 0; i < totalSlots; i++)
+    {
+        if (!SaveSlotExists(i)) return i;
+    }
+    return -1; // No empty slots
+}
 
     /// <summary>
     /// Saves the current game state to a JSON file. This includes the player's position, health, 

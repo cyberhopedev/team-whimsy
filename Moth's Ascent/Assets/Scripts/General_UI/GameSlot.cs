@@ -49,7 +49,7 @@ public class GameSlot : MonoBehaviour
     public void FillInSlot(SaveData game)
     {
         // Get info
-        this.gameName = game.locationName;
+        this.gameName = game.gameName;
         this.location = game.locationName;
         this.timePlayed = game.playTimeString;
         this.lastSaved = game.saveTimestamp;
