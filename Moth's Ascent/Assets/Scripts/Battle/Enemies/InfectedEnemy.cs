@@ -60,7 +60,8 @@ public class InfectedEnemy : Enemy
         PlayerBattler p = BattleSystem.Instance?.Player;
         if (p != null)
         {
-            p.ApplyStatusEffect(new StatusEffectInstance(StatusEffectType.POISON, damagePerTurn: 5, duration: 3));
+            p.ApplyStatusEffect(new StatusEffectInstance(StatusEffectType.SPORE_SICKNESS, damagePerTurn: 3, duration: 3));
+            Debug.Log("Infected released spores! Player inflicted with Spore Sickness.");
         }
 
         if (currentHP <= 0)
