@@ -75,6 +75,7 @@ public class SaveController : MonoBehaviour
         _sessionStartTime = Time.time;
         currentSlotIdx = slot;
         Debug.Log("New game created in slot " + slot);
+        Debug.Log("The playtime is: " + saveData.playTimeString);
     }
 
     // Helper method for starting a new game
@@ -102,8 +103,15 @@ public class SaveController : MonoBehaviour
         // If existing data exists, add the session playtime to the total playtime, otherwise start at 0
         float previousPlayTime = existing != null ? existing.totalPlayTimeSeconds : 0f;
 
-        // Create a new SaveData object to hold essentials
+        // Convert total playtime to hours, minutes, seconds for display
         float playTime = previousPlayTime + sessionPlayTime;
+        int totalSeconds = Mathf.FloorToInt(playTime);
+        int hours = totalSeconds / 3600;
+        int minutes = (totalSeconds % 3600) / 60;
+        int seconds = totalSeconds % 60;
+
+        // Create a new SaveData object to hold essentials
+        // float playTime = previousPlayTime + sessionPlayTime;
         SaveData saveData = new SaveData
         {
             playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position,
@@ -120,9 +128,7 @@ public class SaveController : MonoBehaviour
                 : new List<string>(),
             saveTimestamp = DateTime.Now.ToString("yyyy-MM-dd\nHH:mm"),
             totalPlayTimeSeconds = playTime,
-            playTimeString = string.Format("{0:D2}:{1:D2}:{2:D2}", Math.Floor(playTime/60/60), 
-                                                                   Math.Floor((playTime % 3600) / 60), 
-                                                                   playTime % 60),
+            playTimeString = string.Format("{0:D2}:{1:D2}:{2:D2}", hours, minutes, seconds),
             gameName = "",
             locationName = locationName,
             sceneName = SceneManager.GetActiveScene().name
@@ -131,6 +137,7 @@ public class SaveController : MonoBehaviour
         // Write to the JSON save file
         File.WriteAllText(SlotPath(saveSlot), JsonUtility.ToJson(saveData));
         Debug.Log("Game successfully saved to slot " + saveSlot);
+        Debug.Log("The playtime is: " + saveData.playTimeString);
     }
 
     /// <summary>
