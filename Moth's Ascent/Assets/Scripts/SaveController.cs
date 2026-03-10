@@ -60,6 +60,7 @@ public class SaveController : MonoBehaviour
         float previousPlayTime = existing != null ? existing.totalPlayTimeSeconds : 0f;
 
         // Create a new SaveData object to hold essentials
+        float playTime = previousPlayTime + sessionPlayTime;
         SaveData saveData = new SaveData
         {
             playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position,
@@ -74,9 +75,14 @@ public class SaveController : MonoBehaviour
             storyProgressionFlags = ProgressTracker.Instance != null
                 ? new List<string>(ProgressTracker.Instance.StoryProgressionFlags) 
                 : new List<string>(),
-            saveTimestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
-            totalPlayTimeSeconds = previousPlayTime + sessionPlayTime,
+            saveTimestamp = DateTime.Now.ToString("yyyy-MM-dd\nHH:mm"),
+            totalPlayTimeSeconds = playTime,
+            playTimeString = string.Format("{0:D2}:{1:D2}:{2:D2}", Math.Floor(playTime/60/60), 
+                                                                   Math.Floor((playTime % 3600) / 60), 
+                                                                   playTime % 60),
+            gameName = "",
             locationName = locationName
+
         };
 
         // Write to the JSON save file
@@ -170,7 +176,7 @@ public class SaveController : MonoBehaviour
     /// <returns>Array of save data oer slot, where a null entry = empty slot</returns>
     public SaveData[] GetAllSlots()
     {
-        SaveData[] allSlots = new SaveData[5]; // Assuming 5 save slots
+        SaveData[] allSlots = new SaveData[totalSlots]; // Assuming 5 save slots
         for(int i = 0; i < totalSlots; i++)
         {
             allSlots[i] = ReadSaveSlot(i);

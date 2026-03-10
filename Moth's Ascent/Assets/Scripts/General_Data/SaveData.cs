@@ -25,7 +25,9 @@ public class SaveData
     public List<string> storyProgressionFlags = new List<string>();
 
     // Load menu information
+    public string gameName;
     public string saveTimestamp;
     public float totalPlayTimeSeconds;
+    public string playTimeString;
     public string locationName; 
 }
