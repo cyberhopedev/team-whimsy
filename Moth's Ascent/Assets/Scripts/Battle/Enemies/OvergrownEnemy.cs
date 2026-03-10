@@ -13,7 +13,7 @@ public class OvergrownEnemy : Enemy
     // Corpse consumption healing amount
     [SerializeField] private int corpseHealAmount = 20;
 
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
 
