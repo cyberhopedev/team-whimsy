@@ -40,6 +40,11 @@ public class Menu : MonoBehaviour
         setGameName.SetActive(true);
     }
 
+    public void OnContinueButton()
+    {
+        LoadMenu.Instance.ShowMenu();
+    }
+
     // Show settings menu
     public void OnSettingsButton()
     {

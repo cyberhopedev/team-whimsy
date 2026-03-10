@@ -15,11 +15,21 @@ public class LoadMenu : MonoBehaviour
     SaveData[] dataSlots;
     GameSlot[] gameSlots;  // parallel array w/ dataSlots
     int selectedSlotIdx;
+    public static LoadMenu Instance;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // Singleton instance
+        if (Instance == null)
+        {
+            Instance = this;
+        } else
+        {
+            Destroy(gameObject);
+        }
+
         // Parallel arrays
         GameObject[] slotObjects = new GameObject[3] {slot1, slot2, slot3};
         gameSlots = new GameSlot[3];
@@ -28,9 +38,8 @@ public class LoadMenu : MonoBehaviour
             gameSlots[i] = slotObjects[i].GetComponent<GameSlot>();
         }
 
-        // Load in data
-        LoadSlots();
-        selectedSlotIdx = -1;
+        // Hide
+        OnBackButton();
     }
 
     // Show function for main menu to call
@@ -65,6 +74,9 @@ public class LoadMenu : MonoBehaviour
                 gameSlots[i].ShowEmpty();
             }
         }
+
+        // No slot selected
+        selectedSlotIdx = -1;
     }
 
     public void OnSlotPress(int slotIdx)
