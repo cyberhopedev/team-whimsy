@@ -9,7 +9,6 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float movementSpeed = 5f;
-    [SerializeField] public GameObject PauseMenu;
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private bool showPauseMenu;
@@ -36,9 +35,12 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        // // Set default controls to wasd AND arrow keys
-        SetControls(2);
-    }
+         // Apply any control settings that were set before this scene loaded
+        if (SettingsMenu.Instance != null)
+            SetControls(SettingsMenu.Instance.ControlState);
+        else
+            SetControls(2); // default <-- both arrow key sand WASD
+        }
 
     /// <summary> 
     /// Update is called once per frame
@@ -51,7 +53,7 @@ public class PlayerController : MonoBehaviour
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             showPauseMenu = !showPauseMenu;
-            PauseMenu.SetActive(showPauseMenu);
+            PauseMenu.Instance.gameObject.SetActive(showPauseMenu);
             // Pause game while in menu
             Time.timeScale = showPauseMenu ? 0 : 1;
         } 
@@ -94,8 +96,8 @@ public class PlayerController : MonoBehaviour
     public void ClosePauseMenu()
     {
         showPauseMenu = false;
-        PauseMenu.SetActive(showPauseMenu);
+        PauseMenu.Instance.gameObject.SetActive(false);
         // Pause game while in menu
-        Time.timeScale = showPauseMenu ? 0 : 1;
+        Time.timeScale = 1;
     }
 }
