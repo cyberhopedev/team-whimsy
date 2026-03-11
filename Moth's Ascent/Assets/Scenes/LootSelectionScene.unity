@@ -1187,15 +1187,15 @@ MonoBehaviour:
   Ability1Name: {fileID: 2144305626}
   Ability1Description: {fileID: 376259256}
   Ability1Image: {fileID: 1289856722}
-  Ability1Button: {fileID: 0}
+  Ability1Button: {fileID: 2037873484}
   Ability2Name: {fileID: 857904065}
   Ability2Description: {fileID: 1413885724}
   Ability2Image: {fileID: 197783769}
-  Ability2Button: {fileID: 0}
+  Ability2Button: {fileID: 1462709615}
   AttackName: {fileID: 597549786}
   AttackDescription: {fileID: 1990250577}
   AttackImage: {fileID: 1820189426}
-  AttackButton: {fileID: 0}
+  AttackButton: {fileID: 759763487}
   playerData: {fileID: 11400000, guid: 47154d89cfe570049950a1479d694209, type: 2}
 --- !u!1 &822886453
 GameObject:
@@ -1530,7 +1530,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1029522015}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1029522017
 Camera:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ using TMPro;
 using System;
 using UnityEngine.SceneManagement;
 
+// For the loot selection scene
 public class ItemAbilityScreenManager : MonoBehaviour
 {   
     // Makes instance of the system accesible to child classes
