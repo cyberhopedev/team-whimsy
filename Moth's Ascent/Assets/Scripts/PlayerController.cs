@@ -1,3 +1,5 @@
+using System;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,9 +11,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float movementSpeed = 5f;
     private Rigidbody2D rb;
     private Vector2 moveInput;
+    private bool showPauseMenu;
+    public static PlayerController Instance;
 
     private void Awake()
     {
+        // Singleton instance
+        if (Instance == null)
+        {
+            Instance = this;
+        } else
+        {
+            Destroy(gameObject);
+        }
+
         // DontDestroyOnLoad(gameObject); <-- messing with BattleSystem initialization
     }
 
@@ -21,7 +34,13 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-    }
+
+         // Apply any control settings that were set before this scene loaded
+        if (SettingsMenu.Instance != null)
+            SetControls(SettingsMenu.Instance.ControlState);
+        else
+            SetControls(2); // default <-- both arrow key sand WASD
+        }
 
     /// <summary> 
     /// Update is called once per frame
@@ -29,6 +48,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         rb.linearVelocity = moveInput * movementSpeed;
+
+        // Check for escape press (for pause menu)
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            showPauseMenu = !showPauseMenu;
+            PauseMenu.Instance.gameObject.SetActive(showPauseMenu);
+            // Pause game while in menu
+            Time.timeScale = showPauseMenu ? 0 : 1;
+        } 
     }
 
     /// <summary> 
@@ -37,5 +65,39 @@ public class PlayerController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+    }
+
+    // Switch between arrow keys and WASD
+    public void SetControls(int state)
+    {
+        var actions = GetComponent<PlayerInput>().actions;
+
+        switch (state)
+        {
+            case 0: // Arrow Keys (default)
+                actions.FindActionMap("PlayerArrowKeys").Enable();
+                actions.FindActionMap("PlayerWASD").Disable();
+                actions.FindActionMap("Player").Disable();
+                break;
+            case 1: // WASD
+                actions.FindActionMap("PlayerArrowKeys").Disable();
+                actions.FindActionMap("PlayerWASD").Enable();
+                actions.FindActionMap("Player").Disable();
+                break;
+            case 2: // both
+                actions.FindActionMap("PlayerArrowKeys").Disable();
+                actions.FindActionMap("PlayerWASD").Disable();
+                actions.FindActionMap("Player").Enable();
+                break;
+        }
+    }
+
+    // For communicating with PauseMenu when to close menu
+    public void ClosePauseMenu()
+    {
+        showPauseMenu = false;
+        PauseMenu.Instance.gameObject.SetActive(false);
+        // Pause game while in menu
+        Time.timeScale = 1;
     }
 }

@@ -286,18 +286,21 @@ public class BattleSystem : MonoBehaviour
     /// </summary>
     private IEnumerator ReturnToOverworld(float delay)
     {
+        Debug.Log("this method is running!!!");
         // Add item to inventory
         // InventoryManager.AddItem();
         yield return new WaitForSeconds(delay);
         // If they wont the battle and there are rewards, give them the reward popup scene
-        if(state == BattleState.WON && ItemAbilityScreenManager.Instance != null)
+        if(state == BattleState.WON)
         {
+            Debug.Log(" this code is running :) ");
             // Load reward scene on top of battle scene
             SceneManager.LoadScene(rewardScene, LoadSceneMode.Additive);
         }
         else
         // Otherwise, just return to the overworld scene
         {
+            Debug.Log(" this code is running :( ");
             SceneManager.LoadScene(overworldScene);
         }
     }

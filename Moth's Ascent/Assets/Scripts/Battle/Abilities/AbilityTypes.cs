@@ -16,9 +16,9 @@ public static class AbilityTypes
     {
         return ability switch
         {
-            Ability.RAISE_ARMS => "Raise Arms",
-            Ability.EXOSKELETON => "Exoskeleton",
-            Ability.FILTER_FLUFF => "Filter Fluff",
+            Ability.RAISE_ARMS => "- Raise Arms",
+            Ability.EXOSKELETON => "- Exoskeleton",
+            Ability.FILTER_FLUFF => "- Filter Fluff",
             _ => string.Empty,
         };
     }

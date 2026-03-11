@@ -1,16 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class InventoryManager : MonoBehaviour
 {
+    [SerializeField]
     public GameObject InventoryMenu;
+
+    [SerializeField] 
+    private PlayerData playerData;
+    [SerializeField] 
+    private TMP_Text ability1;
+    [SerializeField] 
+    private TMP_Text ability2;
+    [SerializeField] 
+    private TMP_Text ability3;
+    private TMP_Text[] abilities;
     private bool showInventory;
-    
+
     // List of items in the inventory, used for saving and loading the inventory state.
     private List<ItemData> _items = new List<ItemData>();
-    
+
     // Suggested by Claude to fix scope issues
     // Public accessor for the items list, used by SaveController for saving/loading
     public List<ItemData> Items
@@ -18,7 +31,7 @@ public class InventoryManager : MonoBehaviour
         get => _items;
         set => _items = value;
     }
-    
+
     // Instance of the InventoryManager so it can be used in by SaveController
     public static InventoryManager Instance { get; private set; }
 
@@ -27,18 +40,18 @@ public class InventoryManager : MonoBehaviour
     
     void Awake()
     {
-        // Fix instance
-         if (Instance == null)
+        // Singleton
+        if (Instance == null)
         {
             Instance = this;
-        }
-        else
+        } else
         {
             Destroy(gameObject);
             return;
         }
 
         // Hide inventory until opened
+        abilities = new TMP_Text[] {ability1, ability2, ability3};
         showInventory = false;
         InventoryMenu.SetActive(false);
     }
@@ -51,6 +64,7 @@ public class InventoryManager : MonoBehaviour
         {
             showInventory = !showInventory;
             InventoryMenu.SetActive(showInventory);
+            UpdateAbilities();
             // Pause game while in menu
             Time.timeScale = showInventory ? 0 : 1;
         }        
@@ -58,9 +72,6 @@ public class InventoryManager : MonoBehaviour
 
     public void AddItem(string itemName, int quantity, Sprite itemSprite)
     {
-        // Add item to be saved in the save data
-        _items.Add(new ItemData(itemName, quantity, itemSprite.name));
-
         for (int i = 0; i < itemSlot.Length; i++)
         {
             if (!itemSlot[i].isFull)
@@ -68,6 +79,14 @@ public class InventoryManager : MonoBehaviour
                 itemSlot[i].AddItem(itemName, quantity, itemSprite);
                 return;
             }
+        }
+    }
+
+    public void UpdateAbilities()
+    {
+        for (int i = 0; i < playerData.knownAbilities.Count; i++)
+        {
+            abilities[i].text = playerData.knownAbilities[i].GetName();
         }
     }
 
