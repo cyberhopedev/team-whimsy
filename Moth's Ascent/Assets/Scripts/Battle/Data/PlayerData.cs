@@ -13,27 +13,12 @@ public class PlayerData : ScriptableObject
     public int speedStat = 5;
 
     /// Known abilities and attacks are used to populate the battle options, so they need to be stored here
-    public List<Attack> knownAttacks = new List<Attack>()
-    {
+    public List<Ability> knownAbilities = new List<Ability>() {
         // No matter what, start with struggle by default
-        Attack.STRUGGLE
+        Ability.STRUGGLE
     };
-    public List<Ability> knownAbilities = new List<Ability>();
 
     public void ResetHP() => currentHP = maxHP;
-
-    public void LearnAttack(Attack newAttack)
-    {
-        if (!knownAttacks.Contains(newAttack))
-        {
-            knownAttacks.Add(newAttack);
-            Debug.Log("Learned attack: " + newAttack.GetName());
-        }
-        else
-        {
-            Debug.Log(newAttack.GetName() + " is already known.");
-        }
-    }
 
     public void LearnAbility(Ability newAbility)
     {
@@ -46,5 +31,10 @@ public class PlayerData : ScriptableObject
         {
             Debug.Log(newAbility.GetName() + " is already known.");
         }
+    }
+
+    public List<Ability> getKnownAbilities()
+    {
+        return knownAbilities;
     }
 }

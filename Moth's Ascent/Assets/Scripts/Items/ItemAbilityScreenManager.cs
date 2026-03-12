@@ -36,25 +36,30 @@ public class ItemAbilityScreenManager : MonoBehaviour
 
     // Option 3
     [SerializeField]
-    private TMP_Text AttackName;
+    private TMP_Text ItemName;
     [SerializeField]
-    private TMP_Text AttackDescription;
+    private TMP_Text ItemDescription;
     [SerializeField]
-    private Image AttackImage;
+    private Image ItemImage;
     // Button for option 3
     [SerializeField]
-    private Button AttackButton;
+    private Button ItemButton;
 
-    // Assign in inspector so we can add the chosen ability/attack to the player's data
+    // Assign in inspector so we can add the chosen ability/Ability to the player's data
     [SerializeField] private PlayerData playerData;
 
-    // Tracks what's being offered this popup
-    private Ability _offeredAbility1;
-    private Ability _offeredAbility2;
-    private Attack _offeredAttack;
     private Action _onChosen;
 
-    public void displayOptions(Ability ability1, Ability ability2, Attack attack)
+    // Offered abilities and items - has two buffer none's
+    private List<Ability> AbilityOrder = new List<Ability> {Ability.RAISE_ARMS, 
+                                                            Ability.CLAW, Ability.ACID_SPIT, 
+                                                            Ability.EXOSKELETON, Ability.FILTER_FLUFF, 
+                                                            Ability.BITE, Ability.GLITTER,
+                                                            Ability.NONE, Ability.NONE};
+
+    private Queue<Item> ItemOrder = new Queue<Item>( new List<Item> {null, null} ); // TWO NONE'S !!!!!!!!!
+
+    public void displayOptions(Ability ability1, Ability ability2, Item item1)
     {
         // Option 1
         Ability1Name.text = ability1.GetName();
@@ -67,9 +72,9 @@ public class ItemAbilityScreenManager : MonoBehaviour
         Ability2Image.sprite = ability2.GetIcon();
 
         // Option 3
-        AttackName.text = attack.GetName();
-        AttackDescription.text = attack.GetDescription();
-        AttackImage.sprite = attack.GetIcon();
+        // AbilityName.text = Ability.GetName();
+        // AbilityDescription.text = Ability.GetDescription();
+        // AbilityImage.sprite = Ability.GetIcon();
     }
 
     /// <summary>
@@ -88,34 +93,43 @@ public class ItemAbilityScreenManager : MonoBehaviour
     /// </summary>
     public void Show()
     {
-        // Pick two distinct random abilities and one random item
-        Ability[] allAbilities = (Ability[])Enum.GetValues(typeof(Ability));
-        List<Ability> abilityPool = new List<Ability>(allAbilities);
-
-        int i1 = UnityEngine.Random.Range(0, abilityPool.Count);
-        _offeredAbility1 = abilityPool[i1];
-        abilityPool.RemoveAt(i1);
-
-        int i2 = UnityEngine.Random.Range(0, abilityPool.Count);
-        _offeredAbility2 = abilityPool[i2];
-        // abilityPool.RemoveAt(i2);
-
-        // Items[] allItems = (Items[])Enum.GetValues(typeof(Items));
-        // _offeredItem = allItems[Random.Range(0, allItems.Length)];
-        Attack[] allAttacks = (Attack[])Enum.GetValues(typeof(Attack));
-        _offeredAttack = allAttacks[UnityEngine.Random.Range(0, allAttacks.Length)];
+        // Dispaly the next available options
+        Ability _offeredAbility1 = AbilityOrder[0];
+        Ability _offeredAbility2 = AbilityOrder[1];
+        Item _offeredItem = ItemOrder.Peek();
 
         // Populate the UI
-        displayOptions(_offeredAbility1, _offeredAbility2, _offeredAttack);
+        displayOptions(AbilityOrder[0], AbilityOrder[1], ItemOrder.Peek());
 
         // Connect to the buttons, clearing any old listeners first
         Ability1Button.onClick.RemoveAllListeners();
         Ability2Button.onClick.RemoveAllListeners();
-        AttackButton.onClick.RemoveAllListeners();
+        ItemButton.onClick.RemoveAllListeners();
 
-        Ability1Button.onClick.AddListener(() => OnChosenAbility(_offeredAbility1));
-        Ability2Button.onClick.AddListener(() => OnChosenAbility(_offeredAbility2));
-        AttackButton.onClick.AddListener(() => OnChosenAttack(_offeredAttack));
+        // Set up button or make it non-interactable
+        if (_offeredAbility1 != Ability.NONE)
+        {
+            Ability1Button.interactable = false;
+        } else
+        {
+            Ability1Button.onClick.AddListener(() => OnChosenAbility(_offeredAbility1));
+        }
+
+        if (_offeredAbility2 != Ability.NONE)
+        {
+            Ability2Button.interactable = false;
+        } else
+        {
+            Ability2Button.onClick.AddListener(() => OnChosenAbility(_offeredAbility2));
+        }
+
+        if (_offeredItem != null)
+        {
+            ItemButton.interactable = false;
+        } else
+        {
+            ItemButton.onClick.AddListener(() => OnChosenItem(_offeredItem));
+        }
     }
 
     /// <summary>
@@ -125,21 +139,11 @@ public class ItemAbilityScreenManager : MonoBehaviour
     private void OnChosenAbility(Ability ability)
     {
         Debug.Log("Ability chosen: " + ability.GetName());
+        // Remove ability from list to choose from
+        AbilityOrder.Remove(ability);
         // Add the chosen ability to the player's data
         playerData.LearnAbility(ability);
         StartCoroutine(ReturnAfterReward());
-        Finish();
-    }
-
-    /// <summary>
-    /// Adds the chosen attack to the player's attacks then closes the popup
-    /// </summary>
-    /// <param name="attack">The attack chosen</param>
-    private void OnChosenAttack(Attack attack)
-    {
-        Debug.Log("Attack chosen: " + attack.GetName());
-        // Add the chosen attack to the player's data
-        playerData.LearnAttack(attack);
         Finish();
     }
 
@@ -150,6 +154,8 @@ public class ItemAbilityScreenManager : MonoBehaviour
     private void OnChosenItem(Item item)
     {
         Debug.Log("Item chosen: " + item.GetName());
+        // Remove ability from list to choose from
+        ItemOrder.Dequeue();
         // Add the chosen item to the player's inventory
         InventoryManager.Instance.AddItem(item.GetName(), 1, item.GetSprite());
         Finish();

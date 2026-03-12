@@ -35,8 +35,8 @@ public class InfectedEnemy : Enemy
     /// <param name="p"> The player to attack </param>
     protected override void Attack(PlayerBattler p)
     {
-        Attack[] currentMoves = {global::Attack.BITE, global::Attack.CLAW};
-        Attack chosenMove = currentMoves[Random.Range(0, currentMoves.Length)];
+        Ability[] currentMoves = {global::Ability.BITE, global::Ability.CLAW};
+        Ability chosenMove = currentMoves[Random.Range(0, currentMoves.Length)];
         int attackDamage = chosenMove.GetDamageAmount();
 
         p.TakeDamage(attackDamage);

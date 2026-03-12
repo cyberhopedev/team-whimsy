@@ -8,7 +8,13 @@ public enum StatusEffectType
 {
     NONE,
     POISON,
-    SPORE_SICKNESS
+    SPORE_SICKNESS,
+    GLITTERING,
+    ACID,
+    BLOCK,
+    SHELL,
+    FILTER
+
 }
 /// <summary>
 /// 

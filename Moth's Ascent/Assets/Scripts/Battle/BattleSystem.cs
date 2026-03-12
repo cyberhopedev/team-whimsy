@@ -113,7 +113,7 @@ public class BattleSystem : MonoBehaviour
         {
             e.OnStartTurn -= StartTurn;
             e.OnEndTurn -= EndTurn;
-            Destroy(e.gameObject);
+            // Destroy(e.gameObject);
         }
         enemies.Clear();
 
@@ -143,9 +143,9 @@ public class BattleSystem : MonoBehaviour
         SetupBattle();
     }
 
-    // /// <summary> 
-    // /// ChoseAttack(Enemy enemy) is used when it is the player's turn and the regular attack option is chosen
-    // /// </summary>
+    // // /// <summary> 
+    // // /// ChoseAttack(Enemy enemy) is used when it is the player's turn and the regular attack option is chosen
+    // // /// </summary>
     // public void ChoseAttack(Enemy enemy)
     // {
     //     if(state == BattleState.PLAYERTURN)
@@ -157,11 +157,11 @@ public class BattleSystem : MonoBehaviour
     /// <summary>
     /// Player chose a named attack move against a target enemy.
     /// </summary>
-    public void ChoseAttackMove(Attack move, Enemy target)
+    public void ChoseAttackMove(Ability move, Enemy target)
     {
         if(state == BattleState.PLAYERTURN)
         {
-            Player.UseAttack(move, target);
+            Player.UseAbility(move, target);
         }
             
     }
@@ -286,21 +286,18 @@ public class BattleSystem : MonoBehaviour
     /// </summary>
     private IEnumerator ReturnToOverworld(float delay)
     {
-        Debug.Log("this method is running!!!");
         // Add item to inventory
         // InventoryManager.AddItem();
         yield return new WaitForSeconds(delay);
         // If they wont the battle and there are rewards, give them the reward popup scene
         if(state == BattleState.WON)
         {
-            Debug.Log(" this code is running :) ");
             // Load reward scene on top of battle scene
             SceneManager.LoadScene(rewardScene, LoadSceneMode.Additive);
         }
         else
         // Otherwise, just return to the overworld scene
         {
-            Debug.Log(" this code is running :( ");
             SceneManager.LoadScene(overworldScene);
         }
     }

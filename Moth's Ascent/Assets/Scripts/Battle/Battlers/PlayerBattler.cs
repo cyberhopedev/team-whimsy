@@ -12,7 +12,7 @@ public class PlayerBattler : Battler
     
     // Player Info
     public PlayerData data;
-    public int AttackDMG => data.attackDamage;
+    public int AbilityDMG => data.attackDamage;
     private bool _shieldActive = false;
     private int _exoskeletonTurns = 0;
 
@@ -38,58 +38,60 @@ public class PlayerBattler : Battler
         OnEndTurn?.Invoke();
     }
 
-    // // Call when the player needs to attack
-    // public void Attack(Enemy enemy)
+    // // Call when the player needs to Ability
+    // public void Ability(Enemy enemy)
     // {
-    //     enemy.TakeDamage(AttackDMG);
+    //     enemy.TakeDamage(AbilityDMG);
     //     EndTurn();
     // }
 
     /// <summary>
-    /// Used to apply the effects of the chosen attack move, then ends the player's turn
+    /// Used to apply the effects of the chosen Ability move, then ends the player's turn
     /// </summary>
-    /// <param name="move">The attack move to use</param>
-    /// <param name="enemy">The enemy to attack</param>
-    public void UseAttack(Attack move, Enemy enemy)
+    /// <param name="move">The Ability move to use</param>
+    /// <param name="enemy">The enemy to Ability</param>
+    public void UseAbility(Ability move, Enemy enemy)
     {
         int baseDamage = move.GetDamageAmount();
 
         switch (move)
         {
-            case Attack.CLAW:
+            case Ability.CLAW:
                 // No special effects, just damage
                 enemy.TakeDamage(baseDamage);
                 break;
-            case Attack.BITE:
+            case Ability.BITE:
                 // No special effects, just damage
                 enemy.TakeDamage(baseDamage);
                 break;
-            case Attack.STRUGGLE:
+            case Ability.STRUGGLE:
                 // No special effects, just damage
                 enemy.TakeDamage(baseDamage);
                 break;
-            case Attack.ACID_SPIT:
+            case Ability.ACID_SPIT:
                 // Change to apply poison stats effect
                 enemy.TakeDamage(baseDamage);
                 enemy.ApplyStatusEffect(new StatusEffectInstance(StatusEffectType.POISON, damagePerTurn: 3, duration: 3));
                 break;
-            case Attack.GLITTER:
+            case Ability.GLITTER:
                 // Hits all enemies for the same damage
                 foreach (Enemy e in BattleSystem.Instance.enemies)
                 {
                     e.TakeDamage(baseDamage);
                 }
                 break;
-            case Attack.DRAIN:
-                // Heal the player for half the damage dealt
-                int healAmount = baseDamage / 2;
-                RestoreHealth(healAmount);
-                enemy.TakeDamage(baseDamage);
+            case Ability.RAISE_ARMS:
+                Debug.Log("status effect: block");
                 break;
-            case Attack.VINE:
-                // No special effects, just damage
-                enemy.TakeDamage(baseDamage);
-                break;    
+            case Ability.EXOSKELETON:
+                Debug.Log("status effect: shell");
+                break;
+            case Ability.FILTER_FLUFF:
+                Debug.Log("status effect: filter");
+                break;
+            case Ability.TESTING_CHEAT:
+                enemy.TakeDamage(100);
+                break;
         }
 
         // TODO: Add SFX and/or animation here?
@@ -124,7 +126,7 @@ public class PlayerBattler : Battler
         EndTurn();
     }
 
-    // Call when enemy attacks
+    // Call when enemy Abilitys
     public override void TakeDamage(int amount)
     {   
         // If Raise Arms is active, damage reduction of 50%
