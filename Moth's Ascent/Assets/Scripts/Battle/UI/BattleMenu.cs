@@ -167,18 +167,17 @@ public class BattleMenu : MonoBehaviour
     /// </summary>
     public void Flee()
     {
-        // if(Random.value < 0.4f) // 40% chance to flee successfully
-        // {
-        //     Debug.Log("Flee successful!");
-        //     BattleSystem.Instance.Flee();
-        // }
-        // else
-        // {
-        //     tooSlowMessage.text = "Too Slow!";
-        //     Debug.Log("Flee failed! Enemy gets an extra turn.");
-        //     BattleSystem.Instance.FleeFailure();
-        // }
-        BattleSystem.Instance.ChoseAttackMove(Ability.TESTING_CHEAT, enemy);
+        if(Random.value < 0.4f) // 40% chance to flee successfully
+        {
+            Debug.Log("Flee successful!");
+            BattleSystem.Instance.Flee();
+        }
+        else
+        {
+            tooSlowMessage.text = "Too Slow!";
+            Debug.Log("Flee failed! Enemy gets an extra turn.");
+            BattleSystem.Instance.FleeFailure();
+        }
     }
 
     // Show menu and list attacks/stats
