@@ -155,7 +155,7 @@ public class BattleMenu : MonoBehaviour
             } else
             {
                 buttonTexts[i].text = "";
-                buttonImages[i].sprite = Ability.NONE.GetIcon();
+                buttonImages[i].sprite = Ability.NONE.GetIcon(); // ability locked
             }
         }
     }

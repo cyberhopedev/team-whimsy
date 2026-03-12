@@ -168,7 +168,10 @@ public class ItemAbilityScreenManager : MonoBehaviour
     /// </summary>
     private void Finish()
     {
-        StartCoroutine(ReturnAfterReward());
+        // Tell BattleSystem to load overworld after we unload
+        BattleSystem.Instance.ReturnToOverworldAfterReward();
+        // Then unload this scene
+        SceneManager.UnloadSceneAsync(gameObject.scene);
     }
 
     /// <summary>
@@ -179,6 +182,5 @@ public class ItemAbilityScreenManager : MonoBehaviour
     private IEnumerator ReturnAfterReward()
     {
         yield return SceneManager.UnloadSceneAsync(gameObject.scene);
-        SceneManager.LoadScene(BattleSystem.overworldScene);
     }
 }

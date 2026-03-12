@@ -324,6 +324,12 @@ public class BattleSystem : MonoBehaviour
         return true;
     }
 
+    // Call after battle ends or loot selection scene
+    public void ReturnToOverworldAfterReward()
+    {
+        SceneManager.LoadScene(overworldScene);
+    }
+
     // figure out why BattleSystem is getting destroyed when BattleMenu pops up
     private void OnDestroy()
     {

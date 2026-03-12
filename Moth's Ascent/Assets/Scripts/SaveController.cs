@@ -54,6 +54,7 @@ public class SaveController : MonoBehaviour
         // Reset player data to defaults
         Debug.Log("playerData is: " + playerData); // if this prints null, it's the inspector
         playerData.ResetHP();
+        playerData.knownAbilities = new List<Ability>() { Ability.STRUGGLE }; // reset to default
         
         SaveData saveData = new SaveData
         {
@@ -109,6 +110,7 @@ public class SaveController : MonoBehaviour
             playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position,
             mapBoundary = FindObjectOfType<CinemachineConfiner>().m_BoundingShape2D.gameObject.name,
             currentHP = playerData.currentHP,
+            knownAbilities = playerData.knownAbilities.ConvertAll(a => a.ToString()),
             inventoryItems = InventoryManager.Instance != null 
                 ? new List<ItemData>(InventoryManager.Instance.Items)
                 : new List<ItemData>(),
@@ -150,6 +152,7 @@ public class SaveController : MonoBehaviour
 
         // Restore everything that doesn't need the game scene objects
         playerData.currentHP = saveData.currentHP;
+        playerData.knownAbilities = saveData.knownAbilities.ConvertAll(a => (Ability)Enum.Parse(typeof(Ability), a));
         if (InventoryManager.Instance != null)
             InventoryManager.Instance.Items = new List<ItemData>(saveData.inventoryItems);
         if (ProgressTracker.Instance != null)
