@@ -34,14 +34,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
-         // Apply any control settings that were set before this scene loaded
-        if (SettingsMenu.Instance != null)
-            SetControls(SettingsMenu.Instance.ControlState);
-        else
-            SetControls(2); // default <-- both arrow key sand WASD
-        }
-
+    }
+    
     /// <summary> 
     /// Update is called once per frame
     /// </summary>
@@ -65,31 +59,6 @@ public class PlayerController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
-    }
-
-    // Switch between arrow keys and WASD
-    public void SetControls(int state)
-    {
-        var actions = GetComponent<PlayerInput>().actions;
-
-        switch (state)
-        {
-            case 0: // Arrow Keys (default)
-                actions.FindActionMap("PlayerArrowKeys").Enable();
-                actions.FindActionMap("PlayerWASD").Disable();
-                actions.FindActionMap("Player").Disable();
-                break;
-            case 1: // WASD
-                actions.FindActionMap("PlayerArrowKeys").Disable();
-                actions.FindActionMap("PlayerWASD").Enable();
-                actions.FindActionMap("Player").Disable();
-                break;
-            case 2: // both
-                actions.FindActionMap("PlayerArrowKeys").Disable();
-                actions.FindActionMap("PlayerWASD").Disable();
-                actions.FindActionMap("Player").Enable();
-                break;
-        }
     }
 
     // For communicating with PauseMenu when to close menu
