@@ -9,12 +9,12 @@ public enum Ability
     BITE,
     STRUGGLE, 
     ACID_SPIT,
-    GLITTER,
     RAISE_ARMS,
     EXOSKELETON,
     FILTER_FLUFF,
-    NONE,
-    TESTING_CHEAT
+    GLITTER,
+    DRAIN,
+    NONE
 }
 
 // Ability types (attacks are now categorized as abilities too)
@@ -29,10 +29,10 @@ public static class AbilityTypes
             Ability.BITE => "Bite",
             Ability.STRUGGLE => "Struggle", 
             Ability.ACID_SPIT => "Acid Spit",
-            Ability.GLITTER => "Glitter",
             Ability.RAISE_ARMS => "Raise Arms",
             Ability.EXOSKELETON => "Exoskeleton",
             Ability.FILTER_FLUFF => "Filter Fluff",
+            Ability.GLITTER => "Glitter",
             Ability.NONE => "None",
             _ => string.Empty,
         };
@@ -63,7 +63,11 @@ public static class AbilityTypes
             Ability.BITE => 20,
             Ability.STRUGGLE => 5, 
             Ability.ACID_SPIT => 8,
-            Ability.TESTING_CHEAT => 100,
+            Ability.RAISE_ARMS => 0,
+            Ability.EXOSKELETON => 0,
+            Ability.FILTER_FLUFF => 0,
+            Ability.GLITTER => 0,
+            Ability.DRAIN => 10,
             _ => 0,
         };
     }
