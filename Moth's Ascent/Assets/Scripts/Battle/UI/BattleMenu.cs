@@ -72,8 +72,6 @@ public class BattleMenu : MonoBehaviour
         }
 
         // Text fields
-        MothSpeed.text = (player.speedStat).ToString();
-        EnemySpeed.text = (enemy.speedStat).ToString();
         tooSlowMessage.text = "";
         
         // Attack strategy chosen - set up buttons
