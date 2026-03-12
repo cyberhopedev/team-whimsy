@@ -61,6 +61,7 @@ public class SaveController : MonoBehaviour
             playerPosition = Vector3.zero, 
             mapBoundary = "",
             currentHP = playerData.currentHP,
+            knownAbilities = playerData.knownAbilities.ConvertAll(a => a.ToString()),
             inventoryItems = new List<ItemData>(),
             clearedEncountersFlags = new List<string>(),
             storyProgressionFlags = new List<string>(),
@@ -110,7 +111,6 @@ public class SaveController : MonoBehaviour
             playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position,
             mapBoundary = FindObjectOfType<CinemachineConfiner>().m_BoundingShape2D.gameObject.name,
             currentHP = playerData.currentHP,
-            knownAbilities = playerData.knownAbilities.ConvertAll(a => a.ToString()),
             inventoryItems = InventoryManager.Instance != null 
                 ? new List<ItemData>(InventoryManager.Instance.Items)
                 : new List<ItemData>(),
@@ -129,6 +129,18 @@ public class SaveController : MonoBehaviour
             locationName = locationName,
             sceneName = SceneManager.GetActiveScene().name
         };
+
+        // List of known abilities
+        if (saveData.knownAbilities != null && saveData.knownAbilities.Count > 0)
+        {
+            playerData.knownAbilities = saveData.knownAbilities
+                .ConvertAll(a => (Ability)Enum.Parse(typeof(Ability), a));
+        }
+        else
+        {
+            // Old save file or new game - default to Struggle only
+            playerData.knownAbilities = new List<Ability>() { Ability.STRUGGLE };
+        }
 
         // Write to the JSON save file
         File.WriteAllText(SlotPath(saveSlot), JsonUtility.ToJson(saveData));
