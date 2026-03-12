@@ -58,6 +58,12 @@ public class InventoryManager : MonoBehaviour
         }        
     }
 
+    // For adding item through loot scene
+    public void AddItemData(string itemName, int quantity, string spriteName)
+    {
+        _items.Add(new ItemData(itemName, quantity, spriteName));
+    }
+
     public void AddItem(string itemName, int quantity, Sprite itemSprite)
     {
         for (int i = 0; i < itemSlot.Length; i++)
@@ -77,5 +83,17 @@ public class InventoryManager : MonoBehaviour
     public void LoadItems(List<ItemData> items)
     {
         _items = new List<ItemData>(items);    
+    }
+
+    public void RefreshSlotUI()
+    {
+        for (int i = 0; i < itemSlot.Length; i++)
+        {
+            if (i < _items.Count)
+            {
+                Sprite sprite = Resources.Load<Sprite>("Sprites/" + _items[i].spriteName);
+                itemSlot[i].AddItem(_items[i].itemName, _items[i].quantity, sprite);
+            }
+        }
     }
 }

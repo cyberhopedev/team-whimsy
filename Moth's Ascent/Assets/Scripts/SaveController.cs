@@ -200,24 +200,22 @@ public class SaveController : MonoBehaviour
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
 
+        // Re-enable player controller on scene load
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
-            // Re-enable player controller on scene load
             PlayerController pc = player.GetComponent<PlayerController>();
             if (pc != null) pc.enabled = true;
 
             if (_hasPendingSpawn)
             {
-                Debug.Log($"Applying pending spawn position: {_pendingSpawnPosition}");
                 player.transform.position = _pendingSpawnPosition;
                 _hasPendingSpawn = false;
             }
         }
-        else
-        {
-            Debug.LogWarning("Player missing from scene");
-        }
+        
+        // Refresh inventory UI now that the overworld slots exist
+        InventoryManager.Instance?.RefreshSlotUI();
     }
 
     // Helper property that returns the file path for a given slot index

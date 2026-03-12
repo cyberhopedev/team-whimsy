@@ -58,9 +58,13 @@ public class ItemAbilityScreenManager : MonoBehaviour
                                                             Ability.BITE, Ability.GLITTER,
                                                             Ability.NONE, Ability.NONE};
 
-    private Queue<Item> ItemOrder = new Queue<Item>( new List<Item> {null, null} ); // TWO NONE'S !!!!!!!!!
+    private Queue<Items?> ItemOrder = new Queue<Items?>(new List<Items?> {Items.MEALBERRY,
+                                                                          Items.STURDY_BRANCH,
+                                                                          Items.WEAPON,
+                                                                          Items.OVERGROWN_LOOT,
+                                                                          Items.MEDICINAL_ROOT});
 
-    public void displayOptions(Ability ability1, Ability ability2, Item item1)
+    public void displayOptions(Ability ability1, Ability ability2, Items? item1)
     {
         // Option 1
         Ability1Name.text = ability1.GetName();
@@ -72,10 +76,19 @@ public class ItemAbilityScreenManager : MonoBehaviour
         Ability2Description.text = ability2.GetDescription();
         Ability2Image.sprite = ability2.GetIcon();
 
-        // Option 3
-        // AbilityName.text = Ability.GetName();
-        // AbilityDescription.text = Ability.GetDescription();
-        // AbilityImage.sprite = Ability.GetIcon();
+        // Option 3 - now uses Items enum
+        if (item1.HasValue)
+        {
+            ItemName.text = item1.Value.GetName();
+            ItemDescription.text = item1.Value.GetDescription();
+            ItemImage.sprite = item1.Value.GetIcon();
+        }
+        else
+        {
+            ItemName.text = "";
+            ItemDescription.text = "";
+            ItemImage.sprite = null;
+        }
     }
 
     /// <summary>
@@ -105,7 +118,7 @@ public class ItemAbilityScreenManager : MonoBehaviour
         // Dispaly the next available options
         Ability _offeredAbility1 = availableAbilities[0];
         Ability _offeredAbility2 = availableAbilities[1];
-        Item _offeredItem = ItemOrder.Peek();
+        Items? _offeredItem = ItemOrder.Count > 0 ? ItemOrder.Peek() : null;
 
         // Populate the UI
         displayOptions(_offeredAbility1, _offeredAbility2, _offeredItem);
@@ -137,7 +150,7 @@ public class ItemAbilityScreenManager : MonoBehaviour
             ItemButton.interactable = false;
         } else
         {
-            ItemButton.onClick.AddListener(() => OnChosenItem(_offeredItem));
+            ItemButton.onClick.AddListener(() => OnChosenItem(_offeredItem.Value));
         }
     }
 
@@ -156,12 +169,26 @@ public class ItemAbilityScreenManager : MonoBehaviour
     /// <summary>
     /// Adds the chosen item to the player's inventory then closes the popup
     /// </summary>
-    /// <param name="item">The item chosen</param>
-    private void OnChosenItem(Item item)
+    /// <param name="items">The item chosen</param>
+    private void OnChosenItem(Items item)
     {
+        // Debug.Log("Item chosen: " + item.GetName());
+        // Debug.Log($"InventoryManager.Instance: {InventoryManager.Instance}");
+        
+        // if (InventoryManager.Instance == null)
+        // {
+        //     Debug.LogWarning("InventoryManager.Instance is null!");
+        //     Finish();
+        //     return;
+        // }
+
+        // // Add the chosen item to the player's inventory
+        // Debug.Log($"itemSlot array length: {InventoryManager.Instance.itemSlot?.Length}");
+        // InventoryManager.Instance.AddItem(item.GetName(), 1, item.GetIcon());
+        // Finish();
         Debug.Log("Item chosen: " + item.GetName());
-        // Add the chosen item to the player's inventory
-        InventoryManager.Instance.AddItem(item.GetName(), 1, item.GetSprite());
+        if (InventoryManager.Instance != null)
+            InventoryManager.Instance.AddItemData(item.GetName(), 1, item.GetName());
         Finish();
     }
 
