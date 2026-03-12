@@ -17,6 +17,10 @@ public class PauseMenu : MonoBehaviour
     [SerializeField]
     GameObject exitConfirmation;
     GameObject[] hoverBgs;
+
+    // The save slot currently in
+    [SerializeField] private int currentSaveSlot = 0; // change in Inspector per save slot UI later
+
     //Singleton
     public static PauseMenu Instance;
 
@@ -56,9 +60,15 @@ public class PauseMenu : MonoBehaviour
         PlayerController.Instance.ClosePauseMenu(); 
     }
 
+    /// <summary>
+    /// When the player clicks the save button, show all of the slots, allow them
+    /// to hover over them, when clicked on the slot the game saves to that slot
+    /// and updates
+    /// </summary>
     public void OnSaveButton()
     {
-        
+        // Show the LoadMenu
+        LoadMenu.Instance.ShowMenu();
     }
 
     public void OnSettingsButton()
