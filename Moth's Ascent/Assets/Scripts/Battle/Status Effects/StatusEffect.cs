@@ -101,20 +101,4 @@ public class StatusEffectInstance
             _ => false,
         };
     }
-
-    public static Sprite GetIcon(this StatusEffect statusEffect)
-    {
-        return ability switch
-        {
-            StatusEffect.POISON => Resources.Load<Sprite>("Sprites/"),
-            StatusEffect.SPORE_SICKNESS => Resources.Load<Sprite>("Sprites/"),
-            StatusEffect.ACID => Resources.Load<Sprite>("Sprites/"),
-            StatusEffect.GLITTERING => Resources.Load<Sprite>("Sprites/"),
-            StatusEffect.BLOCK => Resources.Load<Sprite>("Sprites/"),
-            StatusEffect.SHELL => Resources.Load<Sprite>("Sprites/"),
-            StatusEffect.FILTER => Resources.Load<Sprite>("Sprites/"),
-            StatusEffect.NONE => Resources.Load<Sprite>("Sprites/"),
-            _ => null,
-        };
-    }
 }
