@@ -89,9 +89,6 @@ public class PlayerBattler : Battler
             case Ability.FILTER_FLUFF:
                 Debug.Log("status effect: filter");
                 break;
-            case Ability.TESTING_CHEAT:
-                enemy.TakeDamage(100);
-                break;
         }
 
         // TODO: Add SFX and/or animation here?

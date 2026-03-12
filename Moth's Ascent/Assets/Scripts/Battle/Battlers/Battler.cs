@@ -118,8 +118,8 @@ public abstract class Battler : MonoBehaviour
     /// </summary>
     /// <param name="type">The type of status effect to check for</param>
     /// <returns>True if the effect is active, false otherwise</returns>
-    public bool hasStatusEffect(StatusEffectType type)
+    public bool hasStatusEffect(StatusEffectInstance type)
     {
-        return activeStatusEffects.Any(se => se.type == type);
+        return activeStatusEffects.Any(se => se.type == null);
     }
 }
