@@ -8,13 +8,11 @@ using UnityEngine;
 public class ItemData
 {
     public string itemName;
-    public int quantity;
     public string spriteName;
 
-    public ItemData(string itemName, int quantity, string spriteName)
+    public ItemData(string itemName, string spriteName)
     {
         this.itemName = itemName;
-        this.quantity = quantity;
         this.spriteName = spriteName;
     }
 }

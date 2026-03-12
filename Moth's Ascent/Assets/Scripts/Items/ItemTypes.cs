@@ -7,8 +7,6 @@ public enum Items
     POISON_SHROOM,
     MEALBERRY,
     STURDY_BRANCH,
-    WEAPON,
-    OVERGROWN_LOOT,
     MEDICINAL_ROOT
 }
 
@@ -22,8 +20,6 @@ public static class ItemTypes
             Items.POISON_SHROOM => "Poison Shroom",
             Items.MEALBERRY => "Mealberry",
             Items.STURDY_BRANCH => "Sturdy Branch", 
-            Items.WEAPON => "Weapon",
-            Items.OVERGROWN_LOOT => "Loot",
             Items.MEDICINAL_ROOT => "Medicinal Root",
             _ => string.Empty,
         };
@@ -33,12 +29,10 @@ public static class ItemTypes
     {
         return item switch
         {
-            Items.POISON_SHROOM => "...",
-            Items.MEALBERRY => "...",
-            Items.STURDY_BRANCH => "...", 
-            Items.WEAPON => "...",
-            Items.OVERGROWN_LOOT => "...",
-            Items.MEDICINAL_ROOT => "...",
+            Items.POISON_SHROOM => "5 damage to target and applies poison",
+            Items.MEALBERRY => "Heals player by 15 points",
+            Items.STURDY_BRANCH => "Removes any poison you are suffering from", 
+            Items.MEDICINAL_ROOT => "Consumable weapon. 15 damage but only 3 uses",
             _ => string.Empty,
         };
     }
@@ -47,12 +41,10 @@ public static class ItemTypes
     {
         return item switch
         {
-            Items.POISON_SHROOM => null,
-            Items.MEALBERRY => null,
-            Items.STURDY_BRANCH => null, 
-            Items.WEAPON => null,
-            Items.OVERGROWN_LOOT => null,
-            Items.MEDICINAL_ROOT => null,
+            Items.POISON_SHROOM => Resources.Load<Sprite>("Sprites/poisenshroom"),
+            Items.MEALBERRY => Resources.Load<Sprite>("Sprites/mealberry"),
+            Items.STURDY_BRANCH => Resources.Load<Sprite>("Sprites/thornswall"),
+            Items.MEDICINAL_ROOT => Resources.Load<Sprite>("Sprites/bush"),
             _ => null,
         };
     }    

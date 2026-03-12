@@ -20,14 +20,14 @@ public class ItemSlot : MonoBehaviour
     [SerializeField]
     private Image itemImage;
 
-    public void AddItem(string itemName, int quantity, Sprite itemSprite)
+    public void AddItem(string itemName, Sprite itemSprite)
     {
         this.itemName = itemName;
-        this.quantity = quantity;
+        this.quantity = 1;  // always consume 1 item
         this.itemSprite = itemSprite;
         isFull = true;
 
-        quantityText.text = quantity.ToString();
+        quantityText.text = "1";
         quantityText.enabled = true;
         itemImage.sprite = itemSprite;
     }

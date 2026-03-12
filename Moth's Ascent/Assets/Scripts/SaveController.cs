@@ -100,6 +100,9 @@ public class SaveController : MonoBehaviour
         existing.clearedEncountersFlags = ProgressTracker.Instance != null
             ? new List<string>(ProgressTracker.Instance.ClearedEncountersFlags)
             : new List<string>();
+        existing.inventoryItems = InventoryManager.Instance != null  // add this
+            ? new List<ItemData>(InventoryManager.Instance.Items)
+            : new List<ItemData>();
 
         File.WriteAllText(SlotPath(currentSlotIdx), JsonUtility.ToJson(existing));
     }

@@ -60,8 +60,6 @@ public class ItemAbilityScreenManager : MonoBehaviour
 
     private Queue<Items?> ItemOrder = new Queue<Items?>(new List<Items?> {Items.MEALBERRY,
                                                                           Items.STURDY_BRANCH,
-                                                                          Items.WEAPON,
-                                                                          Items.OVERGROWN_LOOT,
                                                                           Items.MEDICINAL_ROOT});
 
     public void displayOptions(Ability ability1, Ability ability2, Items? item1)
@@ -188,7 +186,7 @@ public class ItemAbilityScreenManager : MonoBehaviour
         // Finish();
         Debug.Log("Item chosen: " + item.GetName());
         if (InventoryManager.Instance != null)
-            InventoryManager.Instance.AddItemData(item.GetName(), 1, item.GetName());
+            InventoryManager.Instance.AddItemData(item.GetName(), item.GetName());
         Finish();
     }
 
