@@ -16,14 +16,11 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField]
     private TMP_Text musicVolText;
     [SerializeField]
-    private TMP_Text controlsText;
-    [SerializeField]
     private Slider generalSlider;
     [SerializeField]
     private Slider musicSlider;
     [SerializeField]
     private TMPro.TMP_Dropdown resolutionDropdown;
-    private int controlState;
     
     public AudioMixer audioMixer;
 
@@ -73,9 +70,6 @@ public class SettingsMenu : MonoBehaviour
         }
     }
 
-    // Getter for control state
-    public int ControlState => controlState;
-
     public void ShowMenu()
     {
         gameObject.SetActive(true);
@@ -101,31 +95,6 @@ public class SettingsMenu : MonoBehaviour
         audioMixer.SetFloat("MusicVolume", musicVol - 80); 
     }
 
-    public void SwitchControls(int direction)
-    {
-        // // Control sliding options
-        controlState = (controlState + direction + 3) % 3;
-
-        switch (controlState)
-        {
-            case 0:
-                controlsText.text = "Arrow Keys";
-                break;
-            case 1:
-                controlsText.text = "WASD";
-                break;
-            case 2:
-                controlsText.text = "Both";
-                break;
-        }
-
-        // You can save changes but don't apply them until PlayerController exists
-        // if (PlayerController.Instance != null)
-        // {
-            PlayerController.Instance.SetControls(controlState);   
-        // }
-    }
-
     public void SetResolution(int resolutionIdx)
     {
         Resolution res = resolutions[resolutionIdx];
@@ -143,10 +112,6 @@ public class SettingsMenu : MonoBehaviour
         // Resolution
         resolutionDropdown.value = DEFAULT_RES_IDX;
         resolutionDropdown.RefreshShownValue();
-
-        // // Control Keys - default to both options
-        controlState = 2;
-        controlsText.text = "Both";
     }
 
     public void SettingsDoneButton()

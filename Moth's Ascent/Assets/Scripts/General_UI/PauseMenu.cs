@@ -9,8 +9,6 @@ public class PauseMenu : MonoBehaviour
     [SerializeField]
     GameObject hover1;
     [SerializeField]
-    GameObject hover2;
-    [SerializeField]
     GameObject hover3;
     [SerializeField]
     GameObject hover4;
@@ -47,7 +45,7 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         // Hover buttons list
-        hoverBgs = new GameObject[] {hover1, hover2, hover3, hover4};
+        hoverBgs = new GameObject[] {hover1, null, hover3, hover4}; // removed 2nd button
         
         // Hide stuff
         SettingsMenu.Instance.SettingsDoneButton();
@@ -102,7 +100,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OnEndHover(int buttonIdx)
     {
-        hoverBgs = new GameObject[] {hover1, hover2, hover3, hover4};
+        hoverBgs = new GameObject[] {hover1, null, hover3, hover4};
         hoverBgs[buttonIdx].SetActive(false);
     }
 
