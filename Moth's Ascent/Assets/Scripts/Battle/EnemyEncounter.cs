@@ -15,6 +15,26 @@ public class EnemyEncounter : MonoBehaviour
     // Hold a list of enemies that need to spawn
     public List<GameObject> encounterEnemies;
     private bool _triggered = false;
+    [SerializeField] private string encounterID; // set unique name per encounter in inspector
+
+    private void Start()
+    {
+        // // Destroy self if already cleared
+        // if (ProgressTracker.Instance != null && 
+        //     ProgressTracker.Instance.isEncounterCleared(encounterID))
+        // {
+        //     Destroy(gameObject);
+        // }
+        Debug.Log($"EnemyEncounter '{encounterID}' Start. ProgressTracker: {ProgressTracker.Instance}, " +
+              $"isCleared: {ProgressTracker.Instance?.isEncounterCleared(encounterID)}");
+    
+        if (ProgressTracker.Instance != null && 
+            ProgressTracker.Instance.isEncounterCleared(encounterID))
+        {
+            Debug.Log($"Destroying cleared encounter: {encounterID}");
+            Destroy(gameObject);
+        }
+    }
 
     /// <summary> 
     /// Based on the given collider, if the player triggers it then switch to PlayerBattler
@@ -23,31 +43,18 @@ public class EnemyEncounter : MonoBehaviour
     /// <param name="c">The collider the overworld player triggers</param>
     private void OnTriggerEnter2D(Collider2D c)
     {
-        // If the player collides with an enemy, disable free movement and enable the battle system
-        if(c.TryGetComponent(out PlayerController pc) && !_triggered)
+        BattleTransitionData.PlayerPositionBeforeBattle = c.transform.position;
+        Debug.Log($"Stored player position before battle: {BattleTransitionData.PlayerPositionBeforeBattle}");
+
+        if (c.TryGetComponent(out PlayerController pc) && !_triggered)
         {   
             _triggered = true;
-            // Store the enemies before switching scenes
             BattleTransitionData.EncounterEnemies = encounterEnemies;
-            // Disables player movement
+            BattleTransitionData.EncounterID = encounterID;
+            BattleTransitionData.PlayerPositionBeforeBattle = pc.transform.position; // return to former position on map
             pc.enabled = false;
-            gameObject.SetActive(false); // disable encounter once they get into the battle menu scene
-            SceneManager.LoadScene(battleScene);
-        }
-    }
-
-    // Test function for backend, ensuring that colliders work and that battle starts
-    private void OnTriggerEnter2DTest(Collider2D c)
-    {
-        Debug.Log($"Trigger entered by: {c.gameObject.name}");
-        
-        if (c.TryGetComponent(out PlayerController pc))
-        {
-            Debug.Log("Player detected, starting battle!");
-            pc.enabled = false;
-            pc.GetComponent<PlayerBattler>().enabled = true;
-            BattleSystem.Instance.StartBattle(encounterEnemies);
             gameObject.SetActive(false);
+            SceneManager.LoadScene(battleScene);
         }
     }
 }

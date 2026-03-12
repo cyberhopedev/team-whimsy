@@ -172,15 +172,22 @@ public class ItemAbilityScreenManager : MonoBehaviour
     /// </summary>
     private void Finish()
     {
-        // Auto-save so the new ability persists
-        if (SaveController.Instance != null)
-        {
-            SaveController.Instance.SaveProgressionOnly();   
-        }
+        // // Auto-save so the new ability persists
+        // if (SaveController.Instance != null)
+        // {
+        //     SaveController.Instance.SaveProgressionOnly();   
+        // }
 
-        // Tell BattleSystem to load overworld after we unload
+        // // Tell BattleSystem to load overworld after we unload
+        // BattleSystem.Instance.ReturnToOverworldAfterReward();
+        // // Then unload this scene
+        // SceneManager.UnloadSceneAsync(gameObject.scene);
+
+        Debug.Log("Finish called, saving progression");
+        if (SaveController.Instance != null)
+            SaveController.Instance.SaveProgressionOnly();
+            
         BattleSystem.Instance.ReturnToOverworldAfterReward();
-        // Then unload this scene
         SceneManager.UnloadSceneAsync(gameObject.scene);
     }
 

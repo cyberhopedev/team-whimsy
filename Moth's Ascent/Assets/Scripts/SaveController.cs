@@ -22,6 +22,7 @@ public class SaveController : MonoBehaviour
     private float _sessionStartTime;
     // For when player doesn't exist yet (load screen)
     private Vector3 _pendingSpawnPosition;
+    private bool _hasPendingSpawn = false; 
     // Tracks which game is being played atm
     public int currentSlotIdx;
 
@@ -89,22 +90,18 @@ public class SaveController : MonoBehaviour
         return -1; // No empty slots
     }
 
-    // For when you don't have access to player's position on the map atm
     public void SaveProgressionOnly()
     {
         SaveData existing = ReadSaveSlot(currentSlotIdx);
-        if (existing == null)
-        {
-            Debug.LogWarning("No existing save to update progression on");
-            return;
-        }
+        if (existing == null) return;
 
-        // Only update progression fields, preserve everything else
         existing.knownAbilities = playerData.knownAbilities.ConvertAll(a => a.ToString());
         existing.currentHP = playerData.currentHP;
+        existing.clearedEncountersFlags = ProgressTracker.Instance != null
+            ? new List<string>(ProgressTracker.Instance.ClearedEncountersFlags)
+            : new List<string>();
 
         File.WriteAllText(SlotPath(currentSlotIdx), JsonUtility.ToJson(existing));
-        Debug.Log("Progression saved to slot " + currentSlotIdx);
     }
 
     /// <summary>
@@ -174,6 +171,7 @@ public class SaveController : MonoBehaviour
         playerData.knownAbilities = saveData.knownAbilities.ConvertAll(a => (Ability)Enum.Parse(typeof(Ability), a));
         if (InventoryManager.Instance != null)
             InventoryManager.Instance.Items = new List<ItemData>(saveData.inventoryItems);
+          Debug.Log($"ProgressTracker.Instance at load time: {ProgressTracker.Instance}");
         if (ProgressTracker.Instance != null)
         {
             ProgressTracker.Instance.LoadEncounters(saveData.clearedEncountersFlags);
@@ -182,24 +180,44 @@ public class SaveController : MonoBehaviour
 
         // Store position for after scene loads
         _pendingSpawnPosition = saveData.playerPosition;
+        _hasPendingSpawn = true; 
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         _sessionStartTime = Time.time;
         return saveData.sceneName;
     }
 
+    public void SetPendingSpawn(Vector3 position)
+    {
+        _pendingSpawnPosition = position;
+        _hasPendingSpawn = true;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+}
+
     // Helper method - used Claude code to get the idea for splitting this code off from
     // LoadGame to fix bug with objects that aren't enabled yet
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-{
-    // Unsubscribe immediately so this only fires once
-    SceneManager.sceneLoaded -= OnSceneLoaded;
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
 
-    GameObject player = GameObject.FindGameObjectWithTag("Player");
-    if (player != null)
-        player.transform.position = _pendingSpawnPosition;
-    else
-        Debug.LogWarning("Player missing from scene");
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            // Re-enable player controller on scene load
+            PlayerController pc = player.GetComponent<PlayerController>();
+            if (pc != null) pc.enabled = true;
+
+            if (_hasPendingSpawn)
+            {
+                Debug.Log($"Applying pending spawn position: {_pendingSpawnPosition}");
+                player.transform.position = _pendingSpawnPosition;
+                _hasPendingSpawn = false;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Player missing from scene");
+        }
     }
 
     // Helper property that returns the file path for a given slot index
@@ -213,7 +231,7 @@ public class SaveController : MonoBehaviour
     /// </summary>
     /// <param name="slot">The slot index to read from</param>
     /// <returns>The saved game data, or null if no save file exists</returns>
-    private SaveData ReadSaveSlot(int slot)
+    public SaveData ReadSaveSlot(int slot)
     {
         string path = SlotPath(slot);
         if(File.Exists(path))

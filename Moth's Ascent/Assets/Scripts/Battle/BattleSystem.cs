@@ -327,6 +327,19 @@ public class BattleSystem : MonoBehaviour
     // Call after battle ends or loot selection scene
     public void ReturnToOverworldAfterReward()
     {
+         if (BattleTransitionData.EncounterID != null)
+        {
+            ProgressTracker.Instance?.ClearEncounter(BattleTransitionData.EncounterID);
+            BattleTransitionData.EncounterID = null;
+        }
+
+        // Return player to where they were before the battle
+        if (SaveController.Instance != null)
+        {
+            SaveController.Instance.SaveProgressionOnly(); // save cleared encounters to disk
+            SaveController.Instance.SetPendingSpawn(BattleTransitionData.PlayerPositionBeforeBattle);
+        }
+
         SceneManager.LoadScene(overworldScene);
     }
 

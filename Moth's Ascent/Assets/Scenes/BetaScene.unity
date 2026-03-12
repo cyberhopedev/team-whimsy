@@ -140623,6 +140623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyEncounter
   encounterEnemies:
   - {fileID: 762628054319778368, guid: 53b5c2379b355bb488d938997433abfa, type: 3}
+  encounterID: 1
 --- !u!61 &1670597155
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -140777,6 +140778,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyEncounter
   encounterEnemies:
   - {fileID: 762628054319778368, guid: 53b5c2379b355bb488d938997433abfa, type: 3}
+  encounterID: 0
 --- !u!61 &1684607558
 BoxCollider2D:
   m_ObjectHideFlags: 0

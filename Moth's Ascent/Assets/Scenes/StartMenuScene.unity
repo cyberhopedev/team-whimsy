@@ -1125,6 +1125,7 @@ GameObject:
   - component: {fileID: 144993753}
   - component: {fileID: 144993756}
   - component: {fileID: 144993757}
+  - component: {fileID: 144993758}
   m_Layer: 0
   m_Name: GameManagers
   m_TagString: Untagged
@@ -1158,6 +1159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SaveController
   totalSlots: 3
   playerData: {fileID: 11400000, guid: 47154d89cfe570049950a1479d694209, type: 2}
+  currentSlotIdx: 0
 --- !u!4 &144993755
 Transform:
   m_ObjectHideFlags: 0
@@ -1221,6 +1223,18 @@ MonoBehaviour:
   - {fileID: 845318949}
   - {fileID: 804253877}
   - {fileID: 258415747}
+--- !u!114 &144993758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144993752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e770a0f5dd461498a9d5a39034e3d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProgressTracker
 --- !u!1 &157830740
 GameObject:
   m_ObjectHideFlags: 0
