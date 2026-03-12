@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEditor.Rendering;
 
 // For the loot selection scene
 public class ItemAbilityScreenManager : MonoBehaviour
@@ -107,7 +108,7 @@ public class ItemAbilityScreenManager : MonoBehaviour
         ItemButton.onClick.RemoveAllListeners();
 
         // Set up button or make it non-interactable
-        if (_offeredAbility1 != Ability.NONE)
+        if (_offeredAbility1 == Ability.NONE)
         {
             Ability1Button.interactable = false;
         } else
@@ -115,7 +116,7 @@ public class ItemAbilityScreenManager : MonoBehaviour
             Ability1Button.onClick.AddListener(() => OnChosenAbility(_offeredAbility1));
         }
 
-        if (_offeredAbility2 != Ability.NONE)
+        if (_offeredAbility2 == Ability.NONE)
         {
             Ability2Button.interactable = false;
         } else
@@ -123,7 +124,7 @@ public class ItemAbilityScreenManager : MonoBehaviour
             Ability2Button.onClick.AddListener(() => OnChosenAbility(_offeredAbility2));
         }
 
-        if (_offeredItem != null)
+        if (_offeredItem == null)
         {
             ItemButton.interactable = false;
         } else
@@ -143,8 +144,7 @@ public class ItemAbilityScreenManager : MonoBehaviour
         AbilityOrder.Remove(ability);
         // Add the chosen ability to the player's data
         playerData.LearnAbility(ability);
-        StartCoroutine(ReturnAfterReward());
-        Finish();
+        Finish();  //start coroutine in here
     }
 
     /// <summary>
