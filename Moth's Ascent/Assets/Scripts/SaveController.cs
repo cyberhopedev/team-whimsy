@@ -23,7 +23,7 @@ public class SaveController : MonoBehaviour
     // For when player doesn't exist yet (load screen)
     private Vector3 _pendingSpawnPosition;
     // Tracks which game is being played atm
-    int currentSlotIdx;
+    public int currentSlotIdx;
 
     /// <summary>
     /// Ensures that the SaveController is a singleton instance and persists across scenes. 
@@ -81,13 +81,31 @@ public class SaveController : MonoBehaviour
 
     // Helper method for starting a new game
     public int GetFirstEmptySlot()
-{
-    for (int i = 0; i < totalSlots; i++)
     {
-        if (!SaveSlotExists(i)) return i;
+        for (int i = 0; i < totalSlots; i++)
+        {
+            if (!SaveSlotExists(i)) return i;
+        }
+        return -1; // No empty slots
     }
-    return -1; // No empty slots
-}
+
+    // For when you don't have access to player's position on the map atm
+    public void SaveProgressionOnly()
+    {
+        SaveData existing = ReadSaveSlot(currentSlotIdx);
+        if (existing == null)
+        {
+            Debug.LogWarning("No existing save to update progression on");
+            return;
+        }
+
+        // Only update progression fields, preserve everything else
+        existing.knownAbilities = playerData.knownAbilities.ConvertAll(a => a.ToString());
+        existing.currentHP = playerData.currentHP;
+
+        File.WriteAllText(SlotPath(currentSlotIdx), JsonUtility.ToJson(existing));
+        Debug.Log("Progression saved to slot " + currentSlotIdx);
+    }
 
     /// <summary>
     /// Saves the current game state to a JSON file. This includes the player's position, health, 
@@ -111,6 +129,7 @@ public class SaveController : MonoBehaviour
             playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position,
             mapBoundary = FindObjectOfType<CinemachineConfiner>().m_BoundingShape2D.gameObject.name,
             currentHP = playerData.currentHP,
+            knownAbilities = playerData.knownAbilities.ConvertAll(a => a.ToString()),
             inventoryItems = InventoryManager.Instance != null 
                 ? new List<ItemData>(InventoryManager.Instance.Items)
                 : new List<ItemData>(),
@@ -129,18 +148,6 @@ public class SaveController : MonoBehaviour
             locationName = locationName,
             sceneName = SceneManager.GetActiveScene().name
         };
-
-        // List of known abilities
-        if (saveData.knownAbilities != null && saveData.knownAbilities.Count > 0)
-        {
-            playerData.knownAbilities = saveData.knownAbilities
-                .ConvertAll(a => (Ability)Enum.Parse(typeof(Ability), a));
-        }
-        else
-        {
-            // Old save file or new game - default to Struggle only
-            playerData.knownAbilities = new List<Ability>() { Ability.STRUGGLE };
-        }
 
         // Write to the JSON save file
         File.WriteAllText(SlotPath(saveSlot), JsonUtility.ToJson(saveData));

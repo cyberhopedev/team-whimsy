@@ -151,7 +151,7 @@ public class BattleMenu : MonoBehaviour
             if (i < knownAbilities.Count)
             {
                 buttonTexts[i].text = knownAbilities[i].GetName();
-                buttonImages[i].sprite = Resources.Load<Sprite>("Sprites/Transparent Sprite 1");
+                buttonImages[i].sprite = null;
             } else
             {
                 buttonTexts[i].text = "";

@@ -94,13 +94,21 @@ public class ItemAbilityScreenManager : MonoBehaviour
     /// </summary>
     public void Show()
     {
+        // Filter out abilities the player already knows
+        List<Ability> availableAbilities = AbilityOrder
+            .FindAll(a => a != Ability.NONE && !playerData.knownAbilities.Contains(a));
+
+        // Add NONE buffers if not enough abilities left
+        while (availableAbilities.Count < 2)
+            availableAbilities.Add(Ability.NONE);
+        
         // Dispaly the next available options
-        Ability _offeredAbility1 = AbilityOrder[0];
-        Ability _offeredAbility2 = AbilityOrder[1];
+        Ability _offeredAbility1 = availableAbilities[0];
+        Ability _offeredAbility2 = availableAbilities[1];
         Item _offeredItem = ItemOrder.Peek();
 
         // Populate the UI
-        displayOptions(AbilityOrder[0], AbilityOrder[1], ItemOrder.Peek());
+        displayOptions(_offeredAbility1, _offeredAbility2, _offeredItem);
 
         // Connect to the buttons, clearing any old listeners first
         Ability1Button.onClick.RemoveAllListeners();
@@ -140,8 +148,6 @@ public class ItemAbilityScreenManager : MonoBehaviour
     private void OnChosenAbility(Ability ability)
     {
         Debug.Log("Ability chosen: " + ability.GetName());
-        // Remove ability from list to choose from
-        AbilityOrder.Remove(ability);
         // Add the chosen ability to the player's data
         playerData.LearnAbility(ability);
         Finish();  //start coroutine in here
@@ -154,8 +160,6 @@ public class ItemAbilityScreenManager : MonoBehaviour
     private void OnChosenItem(Item item)
     {
         Debug.Log("Item chosen: " + item.GetName());
-        // Remove ability from list to choose from
-        ItemOrder.Dequeue();
         // Add the chosen item to the player's inventory
         InventoryManager.Instance.AddItem(item.GetName(), 1, item.GetSprite());
         Finish();
@@ -168,6 +172,12 @@ public class ItemAbilityScreenManager : MonoBehaviour
     /// </summary>
     private void Finish()
     {
+        // Auto-save so the new ability persists
+        if (SaveController.Instance != null)
+        {
+            SaveController.Instance.SaveProgressionOnly();   
+        }
+
         // Tell BattleSystem to load overworld after we unload
         BattleSystem.Instance.ReturnToOverworldAfterReward();
         // Then unload this scene
