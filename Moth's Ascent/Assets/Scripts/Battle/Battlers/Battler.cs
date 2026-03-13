@@ -21,16 +21,10 @@ public abstract class Battler : MonoBehaviour
     public Slider healthBar;
     // Speed Stat
     public int speedStat;
+    // Defense stat – modified by Shell/Block/Glittering/Acid effects
+    public int defenseStat = 0;
     // List of active status effects on the battler
     public List<StatusEffectInstance> activeStatusEffects = new List<StatusEffectInstance>();
-
-    // /// <summary> 
-    // /// Constructs a Battler with their assosciated stats
-    // /// </summary>
-    // public Battler()
-    // {
-        
-    // }
 
     /// <summary> 
     /// Sets the current health and
@@ -55,7 +49,10 @@ public abstract class Battler : MonoBehaviour
     public void BeginTurn()
     {
         ProcessStatusEffects();
-        StartTurn();
+        if (!IsDead)
+        {
+            StartTurn();
+        }
     }
 
     /// <summary> 
@@ -64,6 +61,17 @@ public abstract class Battler : MonoBehaviour
     public abstract void TakeDamage(int amount);
     protected abstract void StartTurn();
     protected abstract void EndTurn();
+
+    /// <summary>
+    /// Damage that bypasses the defense stat (Poison, etc.).
+    /// </summary>
+    public void TakeDamageIgnoreDefense(int amount)
+    {
+        currentHP = Mathf.Max(0, currentHP - amount);
+        if(healthBar != null) {
+            healthBar.value = currentHP;
+        }
+    }
 
     /// <summary>
     /// Called at the start of each turn to tick down status effects
@@ -92,12 +100,40 @@ public abstract class Battler : MonoBehaviour
     }
 
     /// <summary>
+    /// Reverse any stat changes when a status effect expires.
+    /// </summary>
+    protected virtual void OnStatusEffectExpired(StatusEffectInstance se)
+    {
+        switch (se.type)
+        {
+            case StatusEffectType.SHELL:
+                defenseStat -= 2;
+                break;
+            case StatusEffectType.ACID:
+                defenseStat += 2;   // restore the reduction
+                break;
+            case StatusEffectType.GLITTERING:
+                defenseStat *= 2;   // restore halved defense
+                break;
+            // BLOCK and SPORE_SICKNESS reversals are handled in PlayerBattler/Enemy subclasses
+        }
+    }
+
+    /// <summary>
     /// Applies a new status effect to the battler, ensuring that the same effect type cannot stack. 
     /// If the same effect type is already active, the new effect will not be applied
     /// </summary>
     /// <param name="newEffect">The new status effect to apply</param>
     public void ApplyStatusEffect(StatusEffectInstance newEffect)
     {
+        // Filter blocks Poison and Spore Sickness
+        if((newEffect.type == StatusEffectType.POISON || newEffect.type == StatusEffectType.SPORE_SICKNESS)
+            && hasStatusEffect(StatusEffectType.FILTER))
+        {
+            Debug.Log($"{gameObject.name} is protected by Filter – {newEffect.type} blocked!");
+            return;
+        }
+
         // Make sure the same effect type cannot stack, instead make it do nothing
         foreach (var existing in activeStatusEffects)
         {
@@ -110,6 +146,23 @@ public abstract class Battler : MonoBehaviour
 
         // Apply the new effect
         activeStatusEffects.Add(newEffect);
+
+        // Immediate stat side-effects on application
+        switch (newEffect.type)
+        {
+            case StatusEffectType.SHELL:
+                defenseStat += 2;
+                Debug.Log($"{gameObject.name} Shell: +2 defense (now {defenseStat})");
+                break;
+            case StatusEffectType.ACID:
+                defenseStat -= 2;
+                Debug.Log($"{gameObject.name} Acid: -2 defense (now {defenseStat})");
+                break;
+            case StatusEffectType.GLITTERING:
+                defenseStat = defenseStat / 2;
+                Debug.Log($"{gameObject.name} Glittering: defense halved (now {defenseStat})");
+                break;
+        }
     }
 
     /// <summary>
@@ -118,8 +171,8 @@ public abstract class Battler : MonoBehaviour
     /// </summary>
     /// <param name="type">The type of status effect to check for</param>
     /// <returns>True if the effect is active, false otherwise</returns>
-    public bool hasStatusEffect(StatusEffectInstance type)
+    public bool hasStatusEffect(StatusEffectType type)
     {
-        return activeStatusEffects.Any(se => se.type == null);
+        return activeStatusEffects.Any(se => se.type == type);
     }
 }
