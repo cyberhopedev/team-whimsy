@@ -6,8 +6,8 @@ public enum Items
 {
     POISON_SHROOM,
     MEALBERRY,
-    STURDY_BRANCH,
-    MEDICINAL_ROOT
+    MEDICINAL_ROOT,
+    STURDY_BRANCH
 }
 
 public static class ItemTypes
@@ -29,11 +29,11 @@ public static class ItemTypes
     {
         return item switch
         {
-            Items.POISON_SHROOM => "5 damage to target and applies poison",
-            Items.MEALBERRY => "Heals player by 15 points",
-            Items.STURDY_BRANCH => "Removes any poison you are suffering from", 
-            Items.MEDICINAL_ROOT => "Consumable weapon. 15 damage but only 3 uses",
-            _ => string.Empty,
+            Items.POISON_SHROOM  => "Throw at an enemy: deals 5 damage and applies Poison.",
+            Items.MEALBERRY      => "Eat to restore 15 HP.",
+            Items.MEDICINAL_ROOT => "Removes all Poison afflictions from the player.",
+            Items.STURDY_BRANCH  => "Consumable weapon. 15 damage (uses a turn) or 5 damage (instant). 3 uses.",
+            _                    => string.Empty,
         };
     }
 
@@ -48,4 +48,16 @@ public static class ItemTypes
             _ => null,
         };
     }    
+
+    /// <summary>
+    /// How many uses an item has before it is consumed.
+    /// </summary>
+    public static int GetMaxUses(this Items item)
+    {
+        return item switch
+        {
+            Items.STURDY_BRANCH => 3,
+            _                   => 1,
+        };
+    }
 }
