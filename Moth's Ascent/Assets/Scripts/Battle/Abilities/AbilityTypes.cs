@@ -83,6 +83,23 @@ public static class AbilityTypes
         };
     }
 
+    /// <summary>
+    /// Returns the status effect type this ability applies to the target (or NONE).
+    /// </summary>
+    public static StatusEffectType GetAppliedStatusEffect(this Ability ability)
+    {
+        return ability switch
+        {
+            Ability.ACID_SPIT    => StatusEffectType.ACID,
+            Ability.RAISE_ARMS   => StatusEffectType.BLOCK,
+            Ability.EXOSKELETON  => StatusEffectType.SHELL,
+            Ability.FILTER_FLUFF => StatusEffectType.FILTER,
+            Ability.GLITTER      => StatusEffectType.GLITTERING,
+            _                    => StatusEffectType.NONE,
+        };
+    }
+
+
     public static Sprite GetIcon(this Ability ability)
     {
         return ability switch
