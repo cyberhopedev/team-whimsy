@@ -124,7 +124,7 @@ public abstract class Battler : MonoBehaviour
     /// If the same effect type is already active, the new effect will not be applied
     /// </summary>
     /// <param name="newEffect">The new status effect to apply</param>
-    public void ApplyStatusEffect(StatusEffectInstance newEffect)
+    public virtual void ApplyStatusEffect(StatusEffectInstance newEffect)
     {
         // Filter blocks Poison and Spore Sickness
         if((newEffect.type == StatusEffectType.POISON || newEffect.type == StatusEffectType.SPORE_SICKNESS)
