@@ -57,12 +57,6 @@ public class Enemy : Battler
         OnEndTurn?.Invoke();
     }
 
-    // If the battle is still going, slowly decrement the turn timer
-    protected void OnDestroy()
-    {
-        
-    }
-
     public IEnumerator DelayEndTurn(float seconds)
     {
         yield return new WaitForSeconds(seconds);
@@ -72,7 +66,8 @@ public class Enemy : Battler
     // Call when losing HP
     public override void TakeDamage(int amount)
     {
-        currentHP -= amount;
+        int effective = Mathf.Max(0, amount - Mathf.Max(0, defenseStat));
+        currentHP = Mathf.Max(0, currentHP - effective);
         healthBar.value = currentHP;
         Debug.Log("current enemy health val: " + healthBar.value);
         Debug.Log("Enemy health: " + healthBar.value);
@@ -80,7 +75,7 @@ public class Enemy : Battler
         // Die condition
         if (currentHP <= 0)
         {
-            // change sprite, destroy object ?
+            gameObject.SetActive(false);
         }
     }
 }
