@@ -27,6 +27,8 @@ public class InfectedEnemy : Enemy
         // Set max HP lower than other enemies due to slower movement and reliance on defense
         maxHP = 80;
         currentHP = maxHP;
+        speedStat = 10;
+        defenseStat = 10;
     }
 
     /// <summary>
@@ -52,17 +54,20 @@ public class InfectedEnemy : Enemy
     {   
         // Apply exoskeleton damage reduction
         int reduced = Mathf.CeilToInt(amount * (1f - physicalDamageReduction));
+        // Also apply defense stat
+        reduced = Mathf.Max(0, reduced - Mathf.Max(0, defenseStat));
         currentHP = Mathf.Max(0, currentHP - reduced);
         if (healthBar != null)
         {
             healthBar.value = currentHP;    
         }
+        Debug.Log($"InfectedEnemy takes {reduced} (original {amount}). HP: {currentHP}/{maxHP}");
 
         // Spore release effect when taking damage
         PlayerBattler p = BattleSystem.Instance?.Player;
         if (p != null)
         {
-            p.ApplyStatusEffect(new StatusEffectInstance(StatusEffectType.SPORE_SICKNESS, damagePerTurn: 3, duration: 3));
+                p.ApplyStatusEffect(new StatusEffectInstance(StatusEffectType.SPORE_SICKNESS, damagePerTurn: 0, duration: StatusEffectInstance.GetDefaultDuration(StatusEffectType.SPORE_SICKNESS)));
             Debug.Log("Infected released spores! Player inflicted with Spore Sickness.");
         }
 
