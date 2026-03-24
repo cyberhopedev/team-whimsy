@@ -20,9 +20,20 @@ public class RitualResolver : MonoBehaviour
     /// </summary>
     public void OnEnable()
     {
-        circlePuzzle.OnPuzzleSolved.AddListener(() => { pass; });
-        incantationPuzzle.OnPuzzleSolved.AddListener(() => { pass; });
-        materialsPuzzle.OnPuzzleSolved.AddListener(() => { pass; });
+        circlePuzzle.OnPuzzleSolved.AddListener(() => {
+            hasMagicCircle = true;
+            Check(); 
+        });
+
+        incantationPuzzle.OnPuzzleSolved.AddListener(() => {
+            hasIncantation = true;
+            Check();
+        });
+
+        materialsPuzzle.OnPuzzleSolved.AddListener(() => {
+            hasMaterials = true;
+            Check(); 
+        });
     }
 
     /// <summary>
@@ -30,6 +41,9 @@ public class RitualResolver : MonoBehaviour
     /// </summary>
     public void Check()
     {
-        
+        if(hasMagicCircle && hasIncantation && hasMaterials)
+        {
+            GameManager.Instance.TriggerVictory();
+        }
     }
 }

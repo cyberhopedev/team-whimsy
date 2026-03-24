@@ -23,7 +23,13 @@ public class Interactable : MonoBehaviour
     /// </summary>
     public void Update()
     {
-    
+        // If the player is within range, press the "E" key to pickup
+        var player = FindObjectOfType<PlayerController>();
+        if(Vector2.Distance(transform.position, player.transform.position) < interactRange
+            && Input.GetKeyDown(KeyCode.E))
+        {
+            Interact();
+        }
     }
 
     /// <summary>
@@ -32,6 +38,8 @@ public class Interactable : MonoBehaviour
     /// </summary>
     public void Interact()
     {
-        
+        onInteract?.Invoke();
+        FindObjectOfType<MaterialsPuzzle>().AddItem(itemData);
+        gameObject.SetActive(false);
     }
-    }
+}
