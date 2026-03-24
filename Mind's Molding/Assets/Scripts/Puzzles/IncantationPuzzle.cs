@@ -14,17 +14,31 @@ public class IncantationPuzzle : BasePuzzle
 
     /// <summary>
     /// Allows the player to select the words in a specific
-    /// slot  
+    /// slot (this approach utilizes dragging given words within the UI)
     /// </summary>
     /// <param name="slot">The slot of the word choice</param>
     /// <param name="word">The data associated with the word</param>
     public void SelectWord(WordSlot slot, WordData word)
     {
-
+        switch(slot)
+        {
+            case WordSlot.Subject:
+                selectedSubject = word;
+                break;
+            case WordSlot.Effect:
+                selectedEffect = word;
+                break;
+            case WordSlot.Target:
+                selectedTarget = word;
+                break;
+        }
     }
 
     /// <summary>
     /// Checks if the player's chosen words are correct   
     /// </summary>
-    public override bool CheckSolution() => pass;
+    public override bool CheckSolution() =>  
+        selectedSubject == correctSubject &&
+        selectedEffect  == correctEffect  &&
+        selectedTarget  == correctTarget;
 }

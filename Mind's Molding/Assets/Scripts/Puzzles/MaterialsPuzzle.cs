@@ -19,7 +19,8 @@ public class MaterialsPuzzle : BasePuzzle
     /// <param name="item">The item to add </param>
     public void AddItem(ItemData item)
     {
-        
+        inventory.Add(item);
+        TryCraft();
     }
 
     /// <summary>
@@ -28,11 +29,24 @@ public class MaterialsPuzzle : BasePuzzle
     /// </summary>
     public void TryCraft()
     {
-        
+        if(inventory.Contains(mudItem) && inventory.Contains(bonesItem)
+            && !inventory.Contains(chalkyMixture))
+        {
+            inventory.Remove(mudItem);
+            inventory.Remove(bonesItem);
+            inventory.Add(chalkyMixture);
+            DialogueManager.Instance.TriggerWhim("crafted_chalky_mixture");
+        }
+
+        if(CheckSolution())
+        {
+            Solve();
+        }
     }
 
     /// <summary>
     /// Checks if the player's inventory has the chalky mixture and the root item    
     /// </summary>
-    public override bool CheckSolution() => pass;
+    public override bool CheckSolution() => 
+        inventory.Contains(chalkyMixture) && inventory.Contains(rootItem);
 }
