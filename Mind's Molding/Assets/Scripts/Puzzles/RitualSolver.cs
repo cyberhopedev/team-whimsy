@@ -1,4 +1,9 @@
+using UnityEngine;
 
+/// <summary>
+/// Subscribes to all three puzzles' `OnPuzzleSolved` events. 
+/// Once all three flags are true, calls `GameManager.TriggerVictory()`.
+/// </summary>
 public class RitualResolver : MonoBehaviour
 {
     // Magic circle puzzle flag
