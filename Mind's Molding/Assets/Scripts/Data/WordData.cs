@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public enum WordSlot { Subject, Effect, Target }
 
 [CreateAssetMenu(menuName = "MindsMolding/WordData")]

@@ -1,6 +1,7 @@
+using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 /// <summary>
 /// Represents an interactable object in the scene that can be engaged with by the player.

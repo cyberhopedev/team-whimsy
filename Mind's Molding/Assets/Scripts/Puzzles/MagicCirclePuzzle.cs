@@ -18,13 +18,21 @@ public class MagicCirclePuzzle : BasePuzzle
     /// </summary>
     public void OnPieceSwapped()
     {
+        if(CheckSolution())
+        {
+            Solve();
+        }
+    }
+
+    public override bool CheckSolution()
+    {
         for(int i = 0; i < pieces.Length; i++)
         {
             if(pieces[i].CurrentSlotIndex != pieces[i].correctSlotIndex)
             {
                 return false;
             }
-            return true;
         }
+        return true;
     }
 }
