@@ -7,4 +7,6 @@ public static class BattleTransitionData
 {
     public static List<GameObject> EncounterEnemies {get; set;}
     public static string ReturnScene = "BetaScene";
+    public static string EncounterID; // unique name per enemy encounter
+    public static Vector3 PlayerPositionBeforeBattle;
 }
