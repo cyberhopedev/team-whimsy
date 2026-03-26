@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // DontDestroyOnLoad(gameObject); <-- messing with BattleSystem initialization
+        // DontDestroyOnLoad(gameObject);
     }
 
     /// <summary> 
