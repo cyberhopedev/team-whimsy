@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 /// <summary>
 /// 
@@ -6,5 +8,17 @@ using UnityEngine;
 public class PuzzleSlot : MonoBehaviour
 {
     public int slotIndex;
-    public PuzzlePiece currentPiece;
+    public PuzzlePiece occupant;
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        // The thing being dragged
+        PuzzlePiece incoming = eventData.pointerDrag?.GetComponent<PuzzlePiece>();
+        if(incoming == null)
+        {
+            return;
+        }
+
+        incoming.LandOnSlot(this);
+    }
 }
