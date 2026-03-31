@@ -1,19 +1,25 @@
 fileFormatVersion: 2
-guid: 6e4a00e51ee0d734393d9d7ab2b5fa17
+guid: cf15affa98d07614b880b64a93705a02
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7242221888866597638
-    second: mudItem_0
+      213: 8249262963833535187
+    second: ChalkyPaste_0
   - first:
-      213: 1375673323244397694
-    second: mudItem_1
+      213: 1499483745942767610
+    second: ChalkyPaste_1
   - first:
-      213: 7285826237687541901
-    second: mudItem_2
+      213: -6257386881437302977
+    second: ChalkyPaste_2
   - first:
-      213: -3006473021004576230
-    second: mudItem_3
+      213: -6532206339484548816
+    second: ChalkyPaste_3
+  - first:
+      213: -2880834832244972630
+    second: ChalkyPaste_4
+  - first:
+      213: -1382743842978512050
+    second: ChalkyPaste_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: mudItem_0
+      name: ChalkyPaste_0
       rect:
         serializedVersion: 2
-        x: 39
-        y: 95
-        width: 178
-        height: 98
+        x: 7
+        y: 47
+        width: 234
+        height: 122
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,18 +130,106 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: af44c8120957e7b90800000000000000
-      internalID: -7242221888866597638
+      spriteID: 3da751a85f44b7270800000000000000
+      internalID: 8249262963833535187
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mudItem_1
+      name: ChalkyPaste_1
       rect:
         serializedVersion: 2
-        x: 175
-        y: 87
+        x: 23
+        y: 31
+        width: 34
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af70467b58c3fc410800000000000000
+      internalID: 1499483745942767610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChalkyPaste_2
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 7
+        width: 34
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3f7dbdc8cb4929a0800000000000000
+      internalID: -6257386881437302977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChalkyPaste_3
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 23
+        width: 50
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 031087f71f0f855a0800000000000000
+      internalID: -6532206339484548816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChalkyPaste_4
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 15
+        width: 33
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa3677fbbf73508d0800000000000000
+      internalID: -2880834832244972630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChalkyPaste_5
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 7
         width: 10
         height: 10
       alignment: 0
@@ -146,52 +240,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e74a6fe499f571310800000000000000
-      internalID: 1375673323244397694
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mudItem_2
-      rect:
-        serializedVersion: 2
-        x: 79
-        y: 31
-        width: 10
-        height: 26
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d8036987c547c1560800000000000000
-      internalID: 7285826237687541901
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mudItem_3
-      rect:
-        serializedVersion: 2
-        x: 175
-        y: 55
-        width: 10
-        height: 26
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a1a0a3467bcd646d0800000000000000
-      internalID: -3006473021004576230
+      spriteID: e4348e70dc18fcce0800000000000000
+      internalID: -1382743842978512050
       vertices: []
       indices: 
       edges: []
@@ -210,10 +260,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      mudItem_0: -7242221888866597638
-      mudItem_1: 1375673323244397694
-      mudItem_2: 7285826237687541901
-      mudItem_3: -3006473021004576230
+      ChalkyPaste_0: 8249262963833535187
+      ChalkyPaste_1: 1499483745942767610
+      ChalkyPaste_2: -6257386881437302977
+      ChalkyPaste_3: -6532206339484548816
+      ChalkyPaste_4: -2880834832244972630
+      ChalkyPaste_5: -1382743842978512050
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
