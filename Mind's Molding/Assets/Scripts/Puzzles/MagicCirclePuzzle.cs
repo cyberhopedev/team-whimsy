@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 /// <summary>
@@ -11,6 +10,8 @@ public class MagicCirclePuzzle : BasePuzzle
 {
     // Pieces used within the magic circle puzzle
     [SerializeField] private PuzzlePiece[] pieces;
+    // Text field for success message
+    [SerializeField] private TextMeshProUGUI message;
 
     /// <summary>
     /// Every time a pieced is swapped by the player, check to see if it matches solution;
@@ -40,5 +41,6 @@ public class MagicCirclePuzzle : BasePuzzle
     public void WinResult()
     {
         Debug.Log("You win ! ");
+        message.text = "Success!";
     }
 }

@@ -12,7 +12,6 @@ public class PuzzleSlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("on drop");
         // The thing being dragged
         PuzzlePiece incoming = eventData.pointerDrag?.GetComponent<PuzzlePiece>();
         if(incoming == null)
