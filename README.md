@@ -2,6 +2,25 @@
 Repository for games made for NCSU CSC486
 
 Group: Danielle Brown, Ethan Flood, Dominic Latiolais, Hope Spence
+## Puzzle Game: Mind's Molding - Beta README
+### Overview
+This beta includes the full functionality of one of our core puzzles.
+
+### Controls:
+- Arrow keys: movement
+- Mouse/Mousepad (drag and drop): puzzle interaction
+
+### Special Instructions:
+You can explore the environment, but you should run into the magic circle to activate its puzzle. You can complete it using your mouse by rearranging the tiles to complete the picture.
+
+### Sources
+NPC Dialogue by Game Code Library: https://www.youtube.com/watch?v=eSH9mzcMRqw 
+
+Top Down Movement by Game Code Library: https://www.youtube.com/watch?v=DQY62meLVCk&list=PLaaFfzxy_80HtVvBnpK_IjSC8_Y9AOhuP&index=3&t=309s 
+
+Pixel Font Asset by Craftron Gaming
+
+Interaction System by Game Code Library: https://www.youtube.com/watch?v=MPP9GLp44Pc
 
 ## Dungeon Crawler: Moth's Ascent
 ### Overview
