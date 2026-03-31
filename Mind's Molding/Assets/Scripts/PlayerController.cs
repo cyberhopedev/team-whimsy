@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         rb.linearVelocity = moveInput * movementSpeed;
+        
 
         // Check for escape press (for pause menu)
         // if (Keyboard.current.escapeKey.wasPressedThisFrame)
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void Move(InputAction.CallbackContext context)
     {
+        Debug.Log("thisl");
         moveInput = context.ReadValue<Vector2>();
     }
 
