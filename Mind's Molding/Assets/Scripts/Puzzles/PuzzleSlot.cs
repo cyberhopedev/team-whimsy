@@ -5,13 +5,14 @@ using UnityEngine.UI;
 /// <summary>
 /// 
 /// </summary>
-public class PuzzleSlot : MonoBehaviour
+public class PuzzleSlot : MonoBehaviour, IDropHandler
 {
     public int slotIndex;
     public PuzzlePiece occupant;
 
     public void OnDrop(PointerEventData eventData)
     {
+        Debug.Log("on drop");
         // The thing being dragged
         PuzzlePiece incoming = eventData.pointerDrag?.GetComponent<PuzzlePiece>();
         if(incoming == null)

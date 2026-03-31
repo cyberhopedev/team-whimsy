@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// Represents each UI Image inside the Magic Circle puzzle grid and handles all the drag-and-drop logic.
 /// Implements three Unity interfaces that the Event System calls automatically.
 /// </summary>
-public class PuzzlePiece : MonoBehaviour, IBeginDragHandler, IDragHandler
+public class PuzzlePiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     /// <summary>
     ///  Inspector data
@@ -105,6 +105,9 @@ public class PuzzlePiece : MonoBehaviour, IBeginDragHandler, IDragHandler
     {
         PuzzleSlot myOldSlot = parentSlot.GetComponent<PuzzleSlot>();
 
+        // Move this piece
+        MoveToSlot(targetSlot);
+
         // Move the other piece to my old slot
         other.MoveToSlot(myOldSlot);
 
@@ -133,5 +136,17 @@ public class PuzzlePiece : MonoBehaviour, IBeginDragHandler, IDragHandler
         parentSlot       = slot.transform;
         CurrentSlotIndex = slot.slotIndex;
         slot.occupant    = this;
+    }
+
+    // You should be able to pick up a piece again after you've moved it
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        // Only if the piece was dropped on empty space.
+        if (canvasGroup.blocksRaycasts == false)
+        {
+            // Return to the original slot
+            MoveToSlot(parentSlot.GetComponent<PuzzleSlot>());
+            canvasGroup.blocksRaycasts = true;
+        }
     }
 }

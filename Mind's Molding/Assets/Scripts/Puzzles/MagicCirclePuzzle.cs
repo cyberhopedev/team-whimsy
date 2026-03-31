@@ -35,4 +35,10 @@ public class MagicCirclePuzzle : BasePuzzle
         }
         return true;
     }
+
+    // win result
+    public void WinResult()
+    {
+        Debug.Log("You win ! ");
+    }
 }
