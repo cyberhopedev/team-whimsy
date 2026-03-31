@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 
 /// </summary>
-public class PuzzleSlot : MonoBehaviour
+public class PuzzleSlot : MonoBehaviour, IDropHandler
 {
     public int slotIndex;
     public PuzzlePiece occupant;

@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         rb.linearVelocity = moveInput * movementSpeed;
+        
 
         // Check for escape press (for pause menu)
         // if (Keyboard.current.escapeKey.wasPressedThisFrame)
