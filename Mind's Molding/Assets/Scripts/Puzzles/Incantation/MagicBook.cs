@@ -27,6 +27,8 @@ public class MagicBook : MonoBehaviour
     [SerializeField] TextMeshProUGUI t1R;
     [SerializeField] TextMeshProUGUI t2R;
     [SerializeField] TextMeshProUGUI t3R;
+    // Header on right page (disappears when page is blank)
+    [SerializeField] TextMeshProUGUI descripHeader;
     // For grouping these fields together in code
     private Image[] leftImages;
     private Image[] rightImages;
@@ -107,5 +109,13 @@ public class MagicBook : MonoBehaviour
         // Update description
         leftDescription.text = spells[leftIdx].GetDescription();
         rightDescription.text = spells[leftIdx + 1].GetDescription();
+
+        // Make header disappear for blank page
+        descripHeader.text = rightDescription.text == "" ? "" : "Description:";
+    }
+
+    public void OnCloseButton()
+    {
+        gameObject.SetActive(false);
     }
 }
