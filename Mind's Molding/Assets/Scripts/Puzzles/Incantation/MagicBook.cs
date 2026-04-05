@@ -50,7 +50,6 @@ public class MagicBook : MonoBehaviour
         // Initialize all rune sprites
         for (int i = 1; i < 16; i++)
         {
-            // runes.Add(Resources.Load<Sprite>("Sprites/rune" + i));
             runes.Add(Resources.Load<Sprite>("Sprites/rune" + i));
         }
         runes.Add(Resources.Load<Sprite>("Sprites/TransparentSprite"));

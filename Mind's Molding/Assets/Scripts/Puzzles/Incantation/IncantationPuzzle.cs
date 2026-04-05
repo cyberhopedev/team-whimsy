@@ -35,12 +35,6 @@ public class IncantationPuzzle : BasePuzzle
         }
     }
 
-    // win result
-    public void WinResult()
-    {
-        Debug.Log("You win ! ");
-    }
-
     public void OnPieceSwapped()
     {
         if(CheckSolution())
@@ -65,13 +59,17 @@ public class IncantationPuzzle : BasePuzzle
                 case 2: target  = piece.wordData; break;
             }
         }
-        Debug.Log("subject: " + subject.translation);
-        Debug.Log("effect: " + effect.translation);
-        Debug.Log("target: " + target.translation);
 
         return subject == correctSubject &&
                effect  == correctEffect  &&
                target  == correctTarget;
+    }
+
+    // win result
+    public void WinResult()
+    {
+        Debug.Log("You win ! ");
+        gameObject.SetActive(false);
     }
         
 }
