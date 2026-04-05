@@ -42,5 +42,11 @@ public class MagicCirclePuzzle : BasePuzzle
     {
         Debug.Log("You win ! ");
         message.text = "Success!";
+
+        // whim will now tell player about materials
+        gameObject.SetActive(false);
+        // go to whim interaction now
+        // mud and bones will now be collectible
+        // player can now create chalky mixture
     }
 }

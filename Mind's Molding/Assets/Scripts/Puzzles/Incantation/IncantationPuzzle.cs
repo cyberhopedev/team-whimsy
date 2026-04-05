@@ -10,6 +10,7 @@ using UnityEngine;
 public class IncantationPuzzle : BasePuzzle
 {
     [SerializeField] private WordData correctSubject, correctEffect, correctTarget;
+    [SerializeField] private PuzzlePiece[] pieces;
     private WordData selectedSubject, selectedEffect, selectedTarget;
 
     /// <summary>
@@ -34,11 +35,41 @@ public class IncantationPuzzle : BasePuzzle
         }
     }
 
+    public void OnPieceSwapped()
+    {
+        if(CheckSolution())
+        {
+            Solve();
+        }
+    }
+
     /// <summary>
     /// Checks if the player's chosen words are correct   
     /// </summary>
-    public override bool CheckSolution() =>  
-        selectedSubject == correctSubject &&
-        selectedEffect  == correctEffect  &&
-        selectedTarget  == correctTarget;
+    public override bool CheckSolution()
+    {
+        WordData subject = null, effect = null, target = null;
+
+        foreach (PuzzlePiece piece in pieces)
+        {
+            switch (piece.CurrentSlotIndex)
+            {
+                case 0: subject = piece.wordData; break;
+                case 1: effect  = piece.wordData; break;
+                case 2: target  = piece.wordData; break;
+            }
+        }
+
+        return subject == correctSubject &&
+               effect  == correctEffect  &&
+               target  == correctTarget;
+    }
+
+    // win result
+    public void WinResult()
+    {
+        Debug.Log("You win ! ");
+        gameObject.SetActive(false);
+    }
+        
 }
