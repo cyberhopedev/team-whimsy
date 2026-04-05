@@ -967,7 +967,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: 8
+  wordData: {fileID: 0}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 0}
 --- !u!225 &123075205
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1149,8 +1151,7 @@ RectTransform:
   m_Children:
   - {fileID: 126555307}
   - {fileID: 1067153169}
-  - {fileID: 1635757838}
-  - {fileID: 1409913551}
+  - {fileID: 1832660767}
   m_Father: {fileID: 1319637673}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3635,6 +3636,7 @@ GameObject:
   - component: {fileID: 624819021}
   - component: {fileID: 624819020}
   - component: {fileID: 624819022}
+  - component: {fileID: 624819023}
   m_Layer: 5
   m_Name: Image (8)
   m_TagString: Untagged
@@ -3712,7 +3714,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: -1
+  wordData: {fileID: 11400000, guid: 3f57113ad7f22b948be7235019cb1a75, type: 2}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 1319637674}
+--- !u!225 &624819023
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624819018}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &649986154
 GameObject:
   m_ObjectHideFlags: 0
@@ -3725,6 +3741,7 @@ GameObject:
   - component: {fileID: 649986157}
   - component: {fileID: 649986156}
   - component: {fileID: 649986158}
+  - component: {fileID: 649986159}
   m_Layer: 5
   m_Name: Image (7)
   m_TagString: Untagged
@@ -3802,7 +3819,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: -1
+  wordData: {fileID: 11400000, guid: 3f57113ad7f22b948be7235019cb1a75, type: 2}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 1319637674}
+--- !u!225 &649986159
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649986154}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &661843101
 GameObject:
   m_ObjectHideFlags: 0
@@ -4499,6 +4530,7 @@ GameObject:
   - component: {fileID: 836742106}
   - component: {fileID: 836742105}
   - component: {fileID: 836742104}
+  - component: {fileID: 836742107}
   m_Layer: 5
   m_Name: Image (14)
   m_TagString: Untagged
@@ -4538,7 +4570,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: -1
+  wordData: {fileID: 11400000, guid: 3f57113ad7f22b948be7235019cb1a75, type: 2}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 1319637674}
 --- !u!114 &836742105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4577,6 +4611,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 836742102}
   m_CullTransparentMesh: 1
+--- !u!225 &836742107
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836742102}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &839325585
 GameObject:
   m_ObjectHideFlags: 0
@@ -4755,6 +4801,7 @@ GameObject:
   - component: {fileID: 855310287}
   - component: {fileID: 855310286}
   - component: {fileID: 855310288}
+  - component: {fileID: 855310289}
   m_Layer: 5
   m_Name: Image (1)
   m_TagString: Untagged
@@ -4832,7 +4879,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: -1
+  wordData: {fileID: 11400000, guid: 3f57113ad7f22b948be7235019cb1a75, type: 2}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 1319637674}
+--- !u!225 &855310289
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855310284}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &863096031
 GameObject:
   m_ObjectHideFlags: 0
@@ -4982,6 +5043,7 @@ GameObject:
   - component: {fileID: 868579383}
   - component: {fileID: 868579382}
   - component: {fileID: 868579384}
+  - component: {fileID: 868579385}
   m_Layer: 5
   m_Name: Image (13)
   m_TagString: Untagged
@@ -5059,7 +5121,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: -1
+  wordData: {fileID: 11400000, guid: 3f57113ad7f22b948be7235019cb1a75, type: 2}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 1319637674}
+--- !u!225 &868579385
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868579380}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &908127858
 GameObject:
   m_ObjectHideFlags: 0
@@ -5241,7 +5317,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: 2
+  wordData: {fileID: 0}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 0}
 --- !u!225 &911445966
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -5397,7 +5475,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: 0
+  wordData: {fileID: 0}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 0}
 --- !u!114 &1007146816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5526,7 +5606,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: 6
+  wordData: {fileID: 0}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 0}
 --- !u!225 &1014517905
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -5855,6 +5937,7 @@ GameObject:
   - component: {fileID: 1060439248}
   - component: {fileID: 1060439247}
   - component: {fileID: 1060439249}
+  - component: {fileID: 1060439250}
   m_Layer: 5
   m_Name: Image (9)
   m_TagString: Untagged
@@ -5901,7 +5984,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8716965552092867276, guid: f6eb402c8871cf64bbe452a7c6846304, type: 3}
+  m_Sprite: {fileID: 4642366037816590755, guid: f6eb402c8871cf64bbe452a7c6846304, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5932,7 +6015,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: 1
+  wordData: {fileID: 11400000, guid: 92ef6cf183f89524e9d6eb1213410058, type: 2}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 1319637674}
+--- !u!225 &1060439250
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1060439245}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1067153168
 GameObject:
   m_ObjectHideFlags: 0
@@ -5968,7 +6065,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -1.75, y: -427.05002}
+  m_AnchoredPosition: {x: -1.75, y: -427.05005}
   m_SizeDelta: {x: 1455.9, y: -1150.66}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1067153170
@@ -6564,7 +6661,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: 3
+  wordData: {fileID: 0}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 0}
 --- !u!225 &1213287044
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -6664,6 +6763,7 @@ GameObject:
   - component: {fileID: 1295773559}
   - component: {fileID: 1295773558}
   - component: {fileID: 1295773560}
+  - component: {fileID: 1295773561}
   m_Layer: 5
   m_Name: Image (6)
   m_TagString: Untagged
@@ -6741,7 +6841,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: 0
+  wordData: {fileID: 11400000, guid: 79edb3fd37ea7d748982208566bd8154, type: 2}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 1319637674}
+--- !u!225 &1295773561
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295773556}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1308933997
 GameObject:
   m_ObjectHideFlags: 0
@@ -6926,10 +7040,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IncantationPuzzle
   OnPuzzleSolved:
     m_PersistentCalls:
-      m_Calls: []
-  correctSubject: {fileID: 0}
-  correctEffect: {fileID: 0}
-  correctTarget: {fileID: 0}
+      m_Calls:
+      - m_Target: {fileID: 1319637674}
+        m_TargetAssemblyTypeName: IncantationPuzzle, Assembly-CSharp
+        m_MethodName: WinResult
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  correctSubject: {fileID: 11400000, guid: 79edb3fd37ea7d748982208566bd8154, type: 2}
+  correctEffect: {fileID: 11400000, guid: 92ef6cf183f89524e9d6eb1213410058, type: 2}
+  correctTarget: {fileID: 11400000, guid: 79167e3257e95fa4199bd88bbed01963, type: 2}
+  pieces:
+  - {fileID: 1440183543}
+  - {fileID: 855310288}
+  - {fileID: 1575102485}
+  - {fileID: 1664726376}
+  - {fileID: 1954339590}
+  - {fileID: 1885081645}
+  - {fileID: 1295773560}
+  - {fileID: 649986158}
+  - {fileID: 624819022}
+  - {fileID: 1060439249}
+  - {fileID: 1715038251}
+  - {fileID: 1657275569}
+  - {fileID: 1567215776}
+  - {fileID: 868579384}
+  - {fileID: 2103391578}
+  - {fileID: 836742104}
 --- !u!1 &1328790066
 GameObject:
   m_ObjectHideFlags: 0
@@ -6981,7 +7124,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: 0
+  wordData: {fileID: 0}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 0}
 --- !u!114 &1328790069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7523,7 +7668,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1409913550}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7531,7 +7676,7 @@ RectTransform:
   - {fileID: 993939854}
   - {fileID: 1058198784}
   - {fileID: 1390167013}
-  m_Father: {fileID: 127600148}
+  m_Father: {fileID: 1832660767}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7727,7 +7872,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: 4
+  wordData: {fileID: 0}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 0}
 --- !u!225 &1422679726
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -7967,7 +8114,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: 0
+  wordData: {fileID: 0}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 0}
 --- !u!225 &1430146908
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -7992,6 +8141,7 @@ GameObject:
   - component: {fileID: 1440183542}
   - component: {fileID: 1440183541}
   - component: {fileID: 1440183543}
+  - component: {fileID: 1440183544}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -8006,7 +8156,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1440183539}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8016,7 +8166,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 135, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1440183541
 MonoBehaviour:
@@ -8069,7 +8219,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: 2
+  wordData: {fileID: 11400000, guid: 79167e3257e95fa4199bd88bbed01963, type: 2}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 1319637674}
+--- !u!225 &1440183544
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440183539}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1470870005
 GameObject:
   m_ObjectHideFlags: 0
@@ -8257,6 +8421,7 @@ GameObject:
   - component: {fileID: 1567215775}
   - component: {fileID: 1567215774}
   - component: {fileID: 1567215776}
+  - component: {fileID: 1567215777}
   m_Layer: 5
   m_Name: Image (12)
   m_TagString: Untagged
@@ -8334,7 +8499,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: -1
+  wordData: {fileID: 11400000, guid: 3f57113ad7f22b948be7235019cb1a75, type: 2}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 1319637674}
+--- !u!225 &1567215777
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567215772}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1575102481
 GameObject:
   m_ObjectHideFlags: 0
@@ -8347,6 +8526,7 @@ GameObject:
   - component: {fileID: 1575102484}
   - component: {fileID: 1575102483}
   - component: {fileID: 1575102485}
+  - component: {fileID: 1575102486}
   m_Layer: 5
   m_Name: Image (2)
   m_TagString: Untagged
@@ -8424,7 +8604,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: -1
+  wordData: {fileID: 11400000, guid: 3f57113ad7f22b948be7235019cb1a75, type: 2}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 1319637674}
+--- !u!225 &1575102486
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575102481}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1635757837
 GameObject:
   m_ObjectHideFlags: 0
@@ -8449,7 +8643,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1635757837}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8470,7 +8664,7 @@ RectTransform:
   - {fileID: 908127859}
   - {fileID: 86425728}
   - {fileID: 605559057}
-  m_Father: {fileID: 127600148}
+  m_Father: {fileID: 1832660767}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8513,6 +8707,7 @@ GameObject:
   - component: {fileID: 1657275568}
   - component: {fileID: 1657275567}
   - component: {fileID: 1657275569}
+  - component: {fileID: 1657275570}
   m_Layer: 5
   m_Name: Image (11)
   m_TagString: Untagged
@@ -8590,7 +8785,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: -1
+  wordData: {fileID: 11400000, guid: 3f57113ad7f22b948be7235019cb1a75, type: 2}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 1319637674}
+--- !u!225 &1657275570
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657275565}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1664187534
 GameObject:
   m_ObjectHideFlags: 0
@@ -8681,7 +8890,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: 1
+  wordData: {fileID: 0}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 0}
 --- !u!225 &1664187539
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -8706,6 +8917,7 @@ GameObject:
   - component: {fileID: 1664726375}
   - component: {fileID: 1664726374}
   - component: {fileID: 1664726376}
+  - component: {fileID: 1664726377}
   m_Layer: 5
   m_Name: Image (3)
   m_TagString: Untagged
@@ -8783,7 +8995,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: -1
+  wordData: {fileID: 11400000, guid: 3f57113ad7f22b948be7235019cb1a75, type: 2}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 1319637674}
+--- !u!225 &1664726377
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664726372}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1686052816
 GameObject:
   m_ObjectHideFlags: 0
@@ -8874,7 +9100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: 7
+  wordData: {fileID: 0}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 0}
 --- !u!225 &1686052821
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -9173,6 +9401,7 @@ GameObject:
   - component: {fileID: 1715038250}
   - component: {fileID: 1715038249}
   - component: {fileID: 1715038251}
+  - component: {fileID: 1715038252}
   m_Layer: 5
   m_Name: Image (10)
   m_TagString: Untagged
@@ -9250,7 +9479,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: -1
+  wordData: {fileID: 11400000, guid: 3f57113ad7f22b948be7235019cb1a75, type: 2}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 1319637674}
+--- !u!225 &1715038252
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715038247}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1750436518
 GameObject:
   m_ObjectHideFlags: 0
@@ -9452,7 +9695,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: 0
+  wordData: {fileID: 0}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 0}
 --- !u!114 &1792808121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9491,6 +9736,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1792808118}
   m_CullTransparentMesh: 1
+--- !u!1 &1832660766
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1832660767}
+  m_Layer: 5
+  m_Name: Slots
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1832660767
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832660766}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1635757838}
+  - {fileID: 1409913551}
+  m_Father: {fileID: 127600148}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1849405493
 GameObject:
   m_ObjectHideFlags: 0
@@ -9864,6 +10146,7 @@ GameObject:
   - component: {fileID: 1885081644}
   - component: {fileID: 1885081643}
   - component: {fileID: 1885081645}
+  - component: {fileID: 1885081646}
   m_Layer: 5
   m_Name: Image (5)
   m_TagString: Untagged
@@ -9941,7 +10224,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: -1
+  wordData: {fileID: 11400000, guid: 3f57113ad7f22b948be7235019cb1a75, type: 2}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 1319637674}
+--- !u!225 &1885081646
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885081641}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1889223317
 GameObject:
   m_ObjectHideFlags: 0
@@ -10045,6 +10342,7 @@ GameObject:
   - component: {fileID: 1954339589}
   - component: {fileID: 1954339588}
   - component: {fileID: 1954339590}
+  - component: {fileID: 1954339591}
   m_Layer: 5
   m_Name: Image (4)
   m_TagString: Untagged
@@ -10122,7 +10420,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: -1
+  wordData: {fileID: 11400000, guid: 3f57113ad7f22b948be7235019cb1a75, type: 2}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 1319637674}
+--- !u!225 &1954339591
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954339586}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1977354730
 GameObject:
   m_ObjectHideFlags: 0
@@ -10474,7 +10786,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: 5
+  wordData: {fileID: 0}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 0}
 --- !u!225 &2087004772
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -10590,6 +10904,7 @@ GameObject:
   - component: {fileID: 2103391577}
   - component: {fileID: 2103391576}
   - component: {fileID: 2103391578}
+  - component: {fileID: 2103391579}
   m_Layer: 5
   m_Name: Image (14)
   m_TagString: Untagged
@@ -10667,7 +10982,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
   correctSlotIndex: -1
+  wordData: {fileID: 11400000, guid: 3f57113ad7f22b948be7235019cb1a75, type: 2}
   originPuzzle: {fileID: 534417334}
+  incantationPuzzle: {fileID: 1319637674}
+--- !u!225 &2103391579
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103391574}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2129790455
 GameObject:
   m_ObjectHideFlags: 0

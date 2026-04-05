@@ -14,8 +14,11 @@ public class PuzzlePiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     [Header("Puzzle Data")]
     public int correctSlotIndex;
     public int CurrentSlotIndex {get; private set;}
+    [Header("Word Data")]
+    public WordData wordData;
     [Header("References")]
     [SerializeField] private MagicCirclePuzzle originPuzzle;
+    [SerializeField] private IncantationPuzzle incantationPuzzle = null; // optional field
 
     // The slot this piece currently lives in
     private Transform parentSlot;
@@ -98,7 +101,13 @@ public class PuzzlePiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         }
 
         canvasGroup.blocksRaycasts = true;
-        originPuzzle.OnPieceSwapped();
+        if (incantationPuzzle == null)
+        {
+            originPuzzle.OnPieceSwapped(); // magic circle puzzle   
+        } else
+        {
+            incantationPuzzle.OnPieceSwapped();
+        }
     }
 
     private void SwapWith(PuzzlePiece other, PuzzleSlot targetSlot)
