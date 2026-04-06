@@ -109,12 +109,12 @@ TextureImporter:
       name: bones_0
       rect:
         serializedVersion: 2
-        x: 31
-        y: 119
-        width: 138
-        height: 50
+        x: 0
+        y: 0
+        width: 256
+        height: 183
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -127,55 +127,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: bones_1
-      rect:
-        serializedVersion: 2
-        x: 87
-        y: 71
-        width: 138
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d939eeb1bf6cde7b0800000000000000
-      internalID: -5193276013480602723
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bones_2
-      rect:
-        serializedVersion: 2
-        x: 15
-        y: 23
-        width: 162
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b807fb0fcc75d91e0800000000000000
-      internalID: -2189497306108170101
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 04e738029170d73498b17f907385f087
     internalID: 0
     vertices: []
     indices: 
