@@ -12,6 +12,8 @@ public class SaveData
     public Vector3 playerPosition;
     // Health of the player, used for loading back with the same health
     public int currentHP;
+    // List of known abilities
+    public List<string> knownAbilities = new List<string>();
     // Inventory of the player, used for loading back with the same items
     public List<ItemData> inventoryItems;
     // Abilities of the player, used for loading back with the same abilities

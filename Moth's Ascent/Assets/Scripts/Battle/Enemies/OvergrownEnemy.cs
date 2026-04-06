@@ -22,31 +22,31 @@ public class OvergrownEnemy : Enemy
         currentHP = maxHP;
     }
 
-    /// <summary>
-    /// When the enemy attacks, it will deal damage to the player and then end its turn after a delay
-    /// </summary>
-    /// <param name="p"> The player to attack </param>
-    protected override void Attack(PlayerBattler p)
-    {
-        Attack[] currentMoves = {global::Attack.VINE, global::Attack.DRAIN};
-        Attack chosenMove = currentMoves[Random.Range(0, currentMoves.Length)];
+    // /// <summary>
+    // /// When the enemy attacks, it will deal damage to the player and then end its turn after a delay
+    // /// </summary>
+    // /// <param name="p"> The player to attack </param>
+    // protected override void Attack(PlayerBattler p)
+    // {
+    //     Ability[] currentMoves = {global::Attack.VINE, global::Attack.DRAIN};
+    //     Ability chosenMove = currentMoves[Random.Range(0, currentMoves.Length)];
         
-        // If the chosen move is the drain attack, heal self before dealing damage to the player
-        if(chosenMove == global::Attack.DRAIN)
-        {
-            // Heal self for drain attack
-            currentHP = Mathf.Min(maxHP, currentHP + corpseHealAmount);
-            if (healthBar != null)
-            {
-                healthBar.value = currentHP;    
-            }
-        }
+    //     // If the chosen move is the drain attack, heal self before dealing damage to the player
+    //     if(chosenMove == global::Attack.DRAIN)
+    //     {
+    //         // Heal self for drain attack
+    //         currentHP = Mathf.Min(maxHP, currentHP + corpseHealAmount);
+    //         if (healthBar != null)
+    //         {
+    //             healthBar.value = currentHP;    
+    //         }
+    //     }
 
-        int attackDamage = chosenMove.GetDamageAmount();
+    //     int attackDamage = chosenMove.GetDamageAmount();
 
-        p.TakeDamage(attackDamage);
-        StartCoroutine(DelayEndTurn(turnDuration));
-    }
+    //     p.TakeDamage(attackDamage);
+    //     StartCoroutine(DelayEndTurn(turnDuration));
+    // }
 
     /// <summary>
     /// When the enemy takes damage, it reduces its current HP and updates the health bar. 

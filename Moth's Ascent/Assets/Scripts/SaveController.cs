@@ -22,8 +22,9 @@ public class SaveController : MonoBehaviour
     private float _sessionStartTime;
     // For when player doesn't exist yet (load screen)
     private Vector3 _pendingSpawnPosition;
+    private bool _hasPendingSpawn = false; 
     // Tracks which game is being played atm
-    int currentSlotIdx;
+    public int currentSlotIdx;
 
     /// <summary>
     /// Ensures that the SaveController is a singleton instance and persists across scenes. 
@@ -54,12 +55,14 @@ public class SaveController : MonoBehaviour
         // Reset player data to defaults
         Debug.Log("playerData is: " + playerData); // if this prints null, it's the inspector
         playerData.ResetHP();
+        playerData.knownAbilities = new List<Ability>() { Ability.STRUGGLE }; // reset to default
         
         SaveData saveData = new SaveData
         {
             playerPosition = Vector3.zero, 
             mapBoundary = "",
             currentHP = playerData.currentHP,
+            knownAbilities = playerData.knownAbilities.ConvertAll(a => a.ToString()),
             inventoryItems = new List<ItemData>(),
             clearedEncountersFlags = new List<string>(),
             storyProgressionFlags = new List<string>(),
@@ -79,13 +82,30 @@ public class SaveController : MonoBehaviour
 
     // Helper method for starting a new game
     public int GetFirstEmptySlot()
-{
-    for (int i = 0; i < totalSlots; i++)
     {
-        if (!SaveSlotExists(i)) return i;
+        for (int i = 0; i < totalSlots; i++)
+        {
+            if (!SaveSlotExists(i)) return i;
+        }
+        return -1; // No empty slots
     }
-    return -1; // No empty slots
-}
+
+    public void SaveProgressionOnly()
+    {
+        SaveData existing = ReadSaveSlot(currentSlotIdx);
+        if (existing == null) return;
+
+        existing.knownAbilities = playerData.knownAbilities.ConvertAll(a => a.ToString());
+        existing.currentHP = playerData.currentHP;
+        existing.clearedEncountersFlags = ProgressTracker.Instance != null
+            ? new List<string>(ProgressTracker.Instance.ClearedEncountersFlags)
+            : new List<string>();
+        existing.inventoryItems = InventoryManager.Instance != null  // add this
+            ? new List<ItemData>(InventoryManager.Instance.Items)
+            : new List<ItemData>();
+
+        File.WriteAllText(SlotPath(currentSlotIdx), JsonUtility.ToJson(existing));
+    }
 
     /// <summary>
     /// Saves the current game state to a JSON file. This includes the player's position, health, 
@@ -109,6 +129,7 @@ public class SaveController : MonoBehaviour
             playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position,
             mapBoundary = FindObjectOfType<CinemachineConfiner>().m_BoundingShape2D.gameObject.name,
             currentHP = playerData.currentHP,
+            knownAbilities = playerData.knownAbilities.ConvertAll(a => a.ToString()),
             inventoryItems = InventoryManager.Instance != null 
                 ? new List<ItemData>(InventoryManager.Instance.Items)
                 : new List<ItemData>(),
@@ -150,8 +171,10 @@ public class SaveController : MonoBehaviour
 
         // Restore everything that doesn't need the game scene objects
         playerData.currentHP = saveData.currentHP;
+        playerData.knownAbilities = saveData.knownAbilities.ConvertAll(a => (Ability)Enum.Parse(typeof(Ability), a));
         if (InventoryManager.Instance != null)
             InventoryManager.Instance.Items = new List<ItemData>(saveData.inventoryItems);
+          Debug.Log($"ProgressTracker.Instance at load time: {ProgressTracker.Instance}");
         if (ProgressTracker.Instance != null)
         {
             ProgressTracker.Instance.LoadEncounters(saveData.clearedEncountersFlags);
@@ -160,24 +183,42 @@ public class SaveController : MonoBehaviour
 
         // Store position for after scene loads
         _pendingSpawnPosition = saveData.playerPosition;
+        _hasPendingSpawn = true; 
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         _sessionStartTime = Time.time;
         return saveData.sceneName;
     }
 
+    public void SetPendingSpawn(Vector3 position)
+    {
+        _pendingSpawnPosition = position;
+        _hasPendingSpawn = true;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+}
+
     // Helper method - used Claude code to get the idea for splitting this code off from
     // LoadGame to fix bug with objects that aren't enabled yet
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-{
-    // Unsubscribe immediately so this only fires once
-    SceneManager.sceneLoaded -= OnSceneLoaded;
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
 
-    GameObject player = GameObject.FindGameObjectWithTag("Player");
-    if (player != null)
-        player.transform.position = _pendingSpawnPosition;
-    else
-        Debug.LogWarning("Player missing from scene");
+        // Re-enable player controller on scene load
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            PlayerController pc = player.GetComponent<PlayerController>();
+            if (pc != null) pc.enabled = true;
+
+            if (_hasPendingSpawn)
+            {
+                player.transform.position = _pendingSpawnPosition;
+                _hasPendingSpawn = false;
+            }
+        }
+        
+        // Refresh inventory UI now that the overworld slots exist
+        InventoryManager.Instance?.RefreshSlotUI();
     }
 
     // Helper property that returns the file path for a given slot index
@@ -191,7 +232,7 @@ public class SaveController : MonoBehaviour
     /// </summary>
     /// <param name="slot">The slot index to read from</param>
     /// <returns>The saved game data, or null if no save file exists</returns>
-    private SaveData ReadSaveSlot(int slot)
+    public SaveData ReadSaveSlot(int slot)
     {
         string path = SlotPath(slot);
         if(File.Exists(path))

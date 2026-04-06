@@ -41,7 +41,7 @@ public class Item : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             Debug.Log("item collision with player has occured!");
-            inventoryManager.AddItem(itemName, quantity, sprite);
+            inventoryManager.AddItem(itemName, sprite);
             Destroy(gameObject);
         }
     }

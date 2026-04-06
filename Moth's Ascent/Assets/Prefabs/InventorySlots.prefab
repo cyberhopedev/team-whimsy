@@ -333,8 +333,8 @@ MonoBehaviour:
   quantity: 0
   itemSprite: {fileID: 0}
   isFull: 0
-  quantityText: {fileID: 0}
-  itemImage: {fileID: 0}
+  quantityText: {fileID: 4651503780131586544}
+  itemImage: {fileID: 3945099099862907172}
 --- !u!1 &6343799236310871324
 GameObject:
   m_ObjectHideFlags: 0

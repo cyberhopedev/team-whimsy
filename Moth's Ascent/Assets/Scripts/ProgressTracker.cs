@@ -22,21 +22,40 @@ public class ProgressTracker : MonoBehaviour
 
     private void Awake()
     {
-        
+        if (Instance == null)
+        {
+            Instance = this;
+            // Load progression data immediately on init
+            if (SaveController.Instance != null && SaveController.Instance.currentSlotIdx >= 0)
+            {
+                SaveData data = SaveController.Instance.ReadSaveSlot(SaveController.Instance.currentSlotIdx);
+                if (data != null)
+                {
+                    _clearedEncountersFlags = new List<string>(data.clearedEncountersFlags);
+                    _storyProgressionFlags = new List<string>(data.storyProgressionFlags);
+                    Debug.Log($"ProgressTracker loaded {_clearedEncountersFlags.Count} cleared encounters");
+                }
+            }
+        }
+        else
+        {
+            Destroy(this);
+        }
     }
 
     public void ClearEncounter(string encounterName)
     {
-
-        
+        if (!_clearedEncountersFlags.Contains(encounterName))
+            _clearedEncountersFlags.Add(encounterName);
     }
-
-    public bool isEncounterCleared(string encounterName) => _clearedEncountersFlags.Contains(encounterName);
 
     public void SetStoryFlag(string flagName)
     {
-        
+        if (!_storyProgressionFlags.Contains(flagName))
+            _storyProgressionFlags.Add(flagName);
     }
+
+    public bool isEncounterCleared(string encounterName) => _clearedEncountersFlags.Contains(encounterName);
 
     public bool hasStoryFlag(string flagName) => _storyProgressionFlags.Contains(flagName);
 

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEditor.Rendering;
 
 // For the loot selection scene
 public class ItemAbilityScreenManager : MonoBehaviour
@@ -36,25 +37,32 @@ public class ItemAbilityScreenManager : MonoBehaviour
 
     // Option 3
     [SerializeField]
-    private TMP_Text AttackName;
+    private TMP_Text ItemName;
     [SerializeField]
-    private TMP_Text AttackDescription;
+    private TMP_Text ItemDescription;
     [SerializeField]
-    private Image AttackImage;
+    private Image ItemImage;
     // Button for option 3
     [SerializeField]
-    private Button AttackButton;
+    private Button ItemButton;
 
-    // Assign in inspector so we can add the chosen ability/attack to the player's data
+    // Assign in inspector so we can add the chosen ability/Ability to the player's data
     [SerializeField] private PlayerData playerData;
 
-    // Tracks what's being offered this popup
-    private Ability _offeredAbility1;
-    private Ability _offeredAbility2;
-    private Attack _offeredAttack;
     private Action _onChosen;
 
-    public void displayOptions(Ability ability1, Ability ability2, Attack attack)
+    // Offered abilities and items - has two buffer none's
+    private List<Ability> AbilityOrder = new List<Ability> {Ability.RAISE_ARMS, 
+                                                            Ability.CLAW, Ability.ACID_SPIT, 
+                                                            Ability.EXOSKELETON, Ability.FILTER_FLUFF, 
+                                                            Ability.BITE, Ability.GLITTER,
+                                                            Ability.NONE, Ability.NONE};
+
+    private Queue<Items?> ItemOrder = new Queue<Items?>(new List<Items?> {Items.MEALBERRY,
+                                                                          Items.STURDY_BRANCH,
+                                                                          Items.MEDICINAL_ROOT});
+
+    public void displayOptions(Ability ability1, Ability ability2, Items? item1)
     {
         // Option 1
         Ability1Name.text = ability1.GetName();
@@ -66,10 +74,19 @@ public class ItemAbilityScreenManager : MonoBehaviour
         Ability2Description.text = ability2.GetDescription();
         Ability2Image.sprite = ability2.GetIcon();
 
-        // Option 3
-        AttackName.text = attack.GetName();
-        AttackDescription.text = attack.GetDescription();
-        AttackImage.sprite = attack.GetIcon();
+        // Option 3 - now uses Items enum
+        if (item1.HasValue)
+        {
+            ItemName.text = item1.Value.GetName();
+            ItemDescription.text = item1.Value.GetDescription();
+            ItemImage.sprite = item1.Value.GetIcon();
+        }
+        else
+        {
+            ItemName.text = "";
+            ItemDescription.text = "";
+            ItemImage.sprite = null;
+        }
     }
 
     /// <summary>
@@ -88,34 +105,51 @@ public class ItemAbilityScreenManager : MonoBehaviour
     /// </summary>
     public void Show()
     {
-        // Pick two distinct random abilities and one random item
-        Ability[] allAbilities = (Ability[])Enum.GetValues(typeof(Ability));
-        List<Ability> abilityPool = new List<Ability>(allAbilities);
+        // Filter out abilities the player already knows
+        List<Ability> availableAbilities = AbilityOrder
+            .FindAll(a => a != Ability.NONE && !playerData.knownAbilities.Contains(a));
 
-        int i1 = UnityEngine.Random.Range(0, abilityPool.Count);
-        _offeredAbility1 = abilityPool[i1];
-        abilityPool.RemoveAt(i1);
-
-        int i2 = UnityEngine.Random.Range(0, abilityPool.Count);
-        _offeredAbility2 = abilityPool[i2];
-        // abilityPool.RemoveAt(i2);
-
-        // Items[] allItems = (Items[])Enum.GetValues(typeof(Items));
-        // _offeredItem = allItems[Random.Range(0, allItems.Length)];
-        Attack[] allAttacks = (Attack[])Enum.GetValues(typeof(Attack));
-        _offeredAttack = allAttacks[UnityEngine.Random.Range(0, allAttacks.Length)];
+        // Add NONE buffers if not enough abilities left
+        while (availableAbilities.Count < 2)
+            availableAbilities.Add(Ability.NONE);
+        
+        // Dispaly the next available options
+        Ability _offeredAbility1 = availableAbilities[0];
+        Ability _offeredAbility2 = availableAbilities[1];
+        Items? _offeredItem = ItemOrder.Count > 0 ? ItemOrder.Peek() : null;
 
         // Populate the UI
-        displayOptions(_offeredAbility1, _offeredAbility2, _offeredAttack);
+        displayOptions(_offeredAbility1, _offeredAbility2, _offeredItem);
 
         // Connect to the buttons, clearing any old listeners first
         Ability1Button.onClick.RemoveAllListeners();
         Ability2Button.onClick.RemoveAllListeners();
-        AttackButton.onClick.RemoveAllListeners();
+        ItemButton.onClick.RemoveAllListeners();
 
-        Ability1Button.onClick.AddListener(() => OnChosenAbility(_offeredAbility1));
-        Ability2Button.onClick.AddListener(() => OnChosenAbility(_offeredAbility2));
-        AttackButton.onClick.AddListener(() => OnChosenAttack(_offeredAttack));
+        // Set up button or make it non-interactable
+        if (_offeredAbility1 == Ability.NONE)
+        {
+            Ability1Button.interactable = false;
+        } else
+        {
+            Ability1Button.onClick.AddListener(() => OnChosenAbility(_offeredAbility1));
+        }
+
+        if (_offeredAbility2 == Ability.NONE)
+        {
+            Ability2Button.interactable = false;
+        } else
+        {
+            Ability2Button.onClick.AddListener(() => OnChosenAbility(_offeredAbility2));
+        }
+
+        if (_offeredItem == null)
+        {
+            ItemButton.interactable = false;
+        } else
+        {
+            ItemButton.onClick.AddListener(() => OnChosenItem(_offeredItem.Value));
+        }
     }
 
     /// <summary>
@@ -127,31 +161,32 @@ public class ItemAbilityScreenManager : MonoBehaviour
         Debug.Log("Ability chosen: " + ability.GetName());
         // Add the chosen ability to the player's data
         playerData.LearnAbility(ability);
-        StartCoroutine(ReturnAfterReward());
-        Finish();
-    }
-
-    /// <summary>
-    /// Adds the chosen attack to the player's attacks then closes the popup
-    /// </summary>
-    /// <param name="attack">The attack chosen</param>
-    private void OnChosenAttack(Attack attack)
-    {
-        Debug.Log("Attack chosen: " + attack.GetName());
-        // Add the chosen attack to the player's data
-        playerData.LearnAttack(attack);
-        Finish();
+        Finish();  //start coroutine in here
     }
 
     /// <summary>
     /// Adds the chosen item to the player's inventory then closes the popup
     /// </summary>
-    /// <param name="item">The item chosen</param>
-    private void OnChosenItem(Item item)
+    /// <param name="items">The item chosen</param>
+    private void OnChosenItem(Items item)
     {
+        // Debug.Log("Item chosen: " + item.GetName());
+        // Debug.Log($"InventoryManager.Instance: {InventoryManager.Instance}");
+        
+        // if (InventoryManager.Instance == null)
+        // {
+        //     Debug.LogWarning("InventoryManager.Instance is null!");
+        //     Finish();
+        //     return;
+        // }
+
+        // // Add the chosen item to the player's inventory
+        // Debug.Log($"itemSlot array length: {InventoryManager.Instance.itemSlot?.Length}");
+        // InventoryManager.Instance.AddItem(item.GetName(), 1, item.GetIcon());
+        // Finish();
         Debug.Log("Item chosen: " + item.GetName());
-        // Add the chosen item to the player's inventory
-        InventoryManager.Instance.AddItem(item.GetName(), 1, item.GetSprite());
+        if (InventoryManager.Instance != null)
+            InventoryManager.Instance.AddItemData(item.GetName(), item.GetName());
         Finish();
     }
 
@@ -162,7 +197,23 @@ public class ItemAbilityScreenManager : MonoBehaviour
     /// </summary>
     private void Finish()
     {
-        StartCoroutine(ReturnAfterReward());
+        // // Auto-save so the new ability persists
+        // if (SaveController.Instance != null)
+        // {
+        //     SaveController.Instance.SaveProgressionOnly();   
+        // }
+
+        // // Tell BattleSystem to load overworld after we unload
+        // BattleSystem.Instance.ReturnToOverworldAfterReward();
+        // // Then unload this scene
+        // SceneManager.UnloadSceneAsync(gameObject.scene);
+
+        Debug.Log("Finish called, saving progression");
+        if (SaveController.Instance != null)
+            SaveController.Instance.SaveProgressionOnly();
+            
+        BattleSystem.Instance.ReturnToOverworldAfterReward();
+        SceneManager.UnloadSceneAsync(gameObject.scene);
     }
 
     /// <summary>
@@ -173,6 +224,5 @@ public class ItemAbilityScreenManager : MonoBehaviour
     private IEnumerator ReturnAfterReward()
     {
         yield return SceneManager.UnloadSceneAsync(gameObject.scene);
-        SceneManager.LoadScene(BattleSystem.overworldScene);
     }
 }

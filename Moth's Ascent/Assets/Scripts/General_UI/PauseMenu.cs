@@ -9,14 +9,16 @@ public class PauseMenu : MonoBehaviour
     [SerializeField]
     GameObject hover1;
     [SerializeField]
-    GameObject hover2;
-    [SerializeField]
     GameObject hover3;
     [SerializeField]
     GameObject hover4;
     [SerializeField]
     GameObject exitConfirmation;
     GameObject[] hoverBgs;
+
+    // The save slot currently in
+    [SerializeField] private int currentSaveSlot = 0; // change in Inspector per save slot UI later
+
     //Singleton
     public static PauseMenu Instance;
 
@@ -43,7 +45,7 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         // Hover buttons list
-        hoverBgs = new GameObject[] {hover1, hover2, hover3, hover4};
+        hoverBgs = new GameObject[] {hover1, null, hover3, hover4}; // removed 2nd button
         
         // Hide stuff
         SettingsMenu.Instance.SettingsDoneButton();
@@ -56,9 +58,15 @@ public class PauseMenu : MonoBehaviour
         PlayerController.Instance.ClosePauseMenu(); 
     }
 
+    /// <summary>
+    /// When the player clicks the save button, show all of the slots, allow them
+    /// to hover over them, when clicked on the slot the game saves to that slot
+    /// and updates
+    /// </summary>
     public void OnSaveButton()
     {
-        
+        // Show the LoadMenu
+        LoadMenu.Instance.ShowMenu();
     }
 
     public void OnSettingsButton()
@@ -92,7 +100,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OnEndHover(int buttonIdx)
     {
-        hoverBgs = new GameObject[] {hover1, hover2, hover3, hover4};
+        hoverBgs = new GameObject[] {hover1, null, hover3, hover4};
         hoverBgs[buttonIdx].SetActive(false);
     }
 

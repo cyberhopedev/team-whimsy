@@ -9,16 +9,6 @@ public class InventoryManager : MonoBehaviour
 {
     [SerializeField]
     public GameObject InventoryMenu;
-
-    [SerializeField] 
-    private PlayerData playerData;
-    [SerializeField] 
-    private TMP_Text ability1;
-    [SerializeField] 
-    private TMP_Text ability2;
-    [SerializeField] 
-    private TMP_Text ability3;
-    private TMP_Text[] abilities;
     private bool showInventory;
 
     // List of items in the inventory, used for saving and loading the inventory state.
@@ -51,7 +41,6 @@ public class InventoryManager : MonoBehaviour
         }
 
         // Hide inventory until opened
-        abilities = new TMP_Text[] {ability1, ability2, ability3};
         showInventory = false;
         InventoryMenu.SetActive(false);
     }
@@ -64,29 +53,26 @@ public class InventoryManager : MonoBehaviour
         {
             showInventory = !showInventory;
             InventoryMenu.SetActive(showInventory);
-            UpdateAbilities();
             // Pause game while in menu
             Time.timeScale = showInventory ? 0 : 1;
         }        
     }
 
-    public void AddItem(string itemName, int quantity, Sprite itemSprite)
+    // For adding item through loot scene
+    public void AddItemData(string itemName, string spriteName)
+    {
+        _items.Add(new ItemData(itemName, spriteName));
+    }
+
+    public void AddItem(string itemName, Sprite itemSprite)
     {
         for (int i = 0; i < itemSlot.Length; i++)
         {
             if (!itemSlot[i].isFull)
             {
-                itemSlot[i].AddItem(itemName, quantity, itemSprite);
+                itemSlot[i].AddItem(itemName, itemSprite);
                 return;
             }
-        }
-    }
-
-    public void UpdateAbilities()
-    {
-        for (int i = 0; i < playerData.knownAbilities.Count; i++)
-        {
-            abilities[i].text = playerData.knownAbilities[i].GetName();
         }
     }
 
@@ -97,5 +83,17 @@ public class InventoryManager : MonoBehaviour
     public void LoadItems(List<ItemData> items)
     {
         _items = new List<ItemData>(items);    
+    }
+
+    public void RefreshSlotUI()
+    {
+        for (int i = 0; i < itemSlot.Length; i++)
+        {
+            if (i < _items.Count)
+            {
+                Sprite sprite = Resources.Load<Sprite>("Sprites/" + _items[i].spriteName);
+                itemSlot[i].AddItem(_items[i].itemName, sprite);
+            }
+        }
     }
 }
