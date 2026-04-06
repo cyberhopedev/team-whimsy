@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: 206879dae29d8ed4e82520e669ad5cc0
+guid: 8a82f699f141e34489095f51dfebf2e3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7958977230025357684
-    second: rune10_0
+      213: 3219084086770127776
+    second: bones_0
   - first:
-      213: 5060349606972934932
-    second: rune10_1
+      213: -5193276013480602723
+    second: bones_1
+  - first:
+      213: -2189497306108170101
+    second: bones_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rune10_0
+      name: bones_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 320
-        height: 320
+        width: 256
+        height: 183
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,8 +121,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c868ae4b0680c8190800000000000000
-      internalID: -7958977230025357684
+      spriteID: 0a3db06ebeb7cac20800000000000000
+      internalID: 3219084086770127776
       vertices: []
       indices: 
       edges: []
@@ -128,7 +131,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 41f47edb540ae1644a47c8ad93e7011e
+    spriteID: 04e738029170d73498b17f907385f087
     internalID: 0
     vertices: []
     indices: 
@@ -138,8 +141,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      rune10_0: -7958977230025357684
-      rune10_1: 5060349606972934932
+      bones_0: 3219084086770127776
+      bones_1: -5193276013480602723
+      bones_2: -2189497306108170101
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

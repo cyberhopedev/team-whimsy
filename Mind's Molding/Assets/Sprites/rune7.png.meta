@@ -109,11 +109,11 @@ TextureImporter:
       name: rune7_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 89
-        width: 132
-        height: 102
-      alignment: 0
+        x: 0
+        y: 0
+        width: 1518
+        height: 1518
+      alignment: 9
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -127,55 +127,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: rune7_1
-      rect:
-        serializedVersion: 2
-        x: 29
-        y: 9
-        width: 282
-        height: 262
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3a14569a05ffc6040800000000000000
-      internalID: 4642366037816590755
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rune7_2
-      rect:
-        serializedVersion: 2
-        x: 129
-        y: 179
-        width: 162
-        height: 122
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a6bc15cc997d0c160800000000000000
-      internalID: 7043866872765336426
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 8821d285b4000de45b687c2e8e7c1094
     internalID: 0
     vertices: []
     indices: 

@@ -106,12 +106,12 @@ TextureImporter:
       name: rune11_0
       rect:
         serializedVersion: 2
-        x: 27
-        y: 126
-        width: 1029
-        height: 903
+        x: 0
+        y: 0
+        width: 1056
+        height: 1056
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -124,33 +124,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: rune11_1
-      rect:
-        serializedVersion: 2
-        x: 390
-        y: 27
-        width: 573
-        height: 441
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9ad5f42ad59c9d550800000000000000
-      internalID: 6186196967162338729
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: f48e3001e8cee424e841d96ac345f0d5
     internalID: 0
     vertices: []
     indices: 
