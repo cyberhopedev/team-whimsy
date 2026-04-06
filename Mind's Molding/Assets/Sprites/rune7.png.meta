@@ -109,10 +109,10 @@ TextureImporter:
       name: rune7_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 89
-        width: 132
-        height: 102
+        x: 46
+        y: 425
+        width: 620
+        height: 478
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,10 +131,10 @@ TextureImporter:
       name: rune7_1
       rect:
         serializedVersion: 2
-        x: 29
-        y: 9
-        width: 282
-        height: 262
+        x: 141
+        y: 46
+        width: 1331
+        height: 1236
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,10 +153,10 @@ TextureImporter:
       name: rune7_2
       rect:
         serializedVersion: 2
-        x: 129
-        y: 179
-        width: 162
-        height: 122
+        x: 615
+        y: 852
+        width: 762
+        height: 573
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
