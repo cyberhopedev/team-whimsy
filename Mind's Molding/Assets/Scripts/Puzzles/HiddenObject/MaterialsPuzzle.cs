@@ -53,7 +53,10 @@ public class MaterialsPuzzle : BasePuzzle
             inventory.Remove(mudItem);
             inventory.Remove(bonesItem);
             inventory.Add(chalkyMixture);
-            // DialogueManager.Instance.TriggerWhim("crafted_chalky_mixture");
+            item1.sprite = Resources.Load<Sprite>("Sprites/ChalkyPaste");
+            item2.sprite = Resources.Load<Sprite>("Sprites/TransparentSprite");
+            TempCatalyst.Instance.SetProgressIdx(1);
+            DialogueManager.Instance.TriggerWhim("crafted_chalky_mixture");
         }
 
         if(CheckSolution())

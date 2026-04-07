@@ -35,6 +35,18 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
+
+    // Public getter for speed of the player
+    public float GetPlayerSpeed()
+    {
+        return movementSpeed;
+    }
+
+    // Public setter for the speed of the player
+    public void SetPlayerSpeed(float speed)
+    {
+        movementSpeed = speed;
+    }
     
     /// <summary> 
     /// Update is called once per frame

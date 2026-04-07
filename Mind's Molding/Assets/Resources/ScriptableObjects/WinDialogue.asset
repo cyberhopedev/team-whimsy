@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0a663575cba5a64886a6bdb08734bb7, type: 3}
+  m_Name: WinDialogue
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueNode
+  speakerName: Whim
+  lines:
+  - The ache in your head goes away. Every limb that felt as though it were growing
+    distant returns to you. The parasite fungus, its network structure vaguely in
+    the shape of you, hits the ground before you ineffectually.
+  - "\u201COh, wonderful~! You do have potential after all! Now that we have the
+    time for introductions, my name is Whim. I\u2019m aware you don\u2019t have a
+    name. We\u2019ll find you one later.\u201D"
+  - "\u201CNow, don\u2019t bask in your freedom too long. You owe me, remember?\u201D"
+  - "\u201CHow would you like to purify the entire forest for me?\u201D"
+  - You Win!
+  triggerKey: Finish
+  nextNode: {fileID: 0}
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  typingSpeed: 0.05
+  autoProgressDelay: 1.5
