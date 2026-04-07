@@ -22,7 +22,8 @@ MonoBehaviour:
     the target. The subject describes what something is happening to. The effect
     describes what\u2019s happening. The target describes where it\u2019s happening.\u201D"
   - "\u201CPick and choose the pieces for the spell you need!\u201D"
-  - '"Go check out the incantation table once you''ve figured out the spell." '
+  - '"Go check out the incantation table once you''ve figured out the spell that
+    will help rid you of this infection." '
   triggerKey: Book
   nextNode: {fileID: 0}
   onComplete:

@@ -8,7 +8,7 @@ public class TempCatalyst : MonoBehaviour
     [SerializeField] GameObject puzzleInterface;
     [SerializeField] GameObject materialPuzzleInterface;
     [SerializeField][TextArea] private string itemName = "";
-    private int progressIdx = 0; // 0 = start magic circle, 1 = apply chalk, -1 = can't interact
+    private int progressIdx = 0; // 0 = start magic circle, 1 = apply chalk, 2 = win condition, -1 = can't interact
     public static TempCatalyst Instance;
     private SpriteRenderer spriteRenderer;
 
@@ -46,6 +46,10 @@ public class TempCatalyst : MonoBehaviour
                 materialPuzzleInterface.SetActive(false);
                 progressIdx = -1;
                 DialogueManager.Instance.TriggerWhim("Book", () => TableTrigger.Instance.SetInteractable(true));
+            }
+            else if (itemName == "Circle" && progressIdx == 2)
+            {
+                DialogueManager.Instance.TriggerWhim("Finish");
             }
             else if (itemName == "Circle" && progressIdx == -1)
             {

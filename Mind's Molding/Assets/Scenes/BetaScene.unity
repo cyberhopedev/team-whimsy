@@ -2308,6 +2308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   puzzleInterface: {fileID: 903647793}
   item: {fileID: 11400000, guid: f7eb1ff3c960a86448954961ccd99a38, type: 2}
+  itemName: Root
 --- !u!61 &306556897
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3847,7 +3848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4238,6 +4239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   puzzleInterface: {fileID: 903647793}
   item: {fileID: 11400000, guid: 56c55b3edffd5a041b7dc06f5f322aae, type: 2}
+  itemName: 
 --- !u!1 &605559056
 GameObject:
   m_ObjectHideFlags: 0
@@ -6990,6 +6992,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 48f2106ea369ab2468ecbbd0fd65c50e, type: 2}
   - {fileID: 11400000, guid: c42a6aa1f1fabc547ba7b08c9a83046c, type: 2}
   - {fileID: 11400000, guid: c8707d80e93a6ff40b5eb72861001168, type: 2}
+  - {fileID: 11400000, guid: 2c5bd8893b46e294daed915c55a3d7e8, type: 2}
+  - {fileID: 11400000, guid: e8bacc74672162843a819d241a8d3bc7, type: 2}
   dialogueText: {fileID: 1352260831}
   textBackground: {fileID: 1738796417}
   dialogueCanvas: {fileID: 999855979}
@@ -11774,8 +11778,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -2.5001984, y: 0}
-  m_SizeDelta: {x: 5.0005, y: 0}
+  m_AnchoredPosition: {x: 5.217, y: 0}
+  m_SizeDelta: {x: 20.434, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1578192037
 MonoBehaviour:
@@ -11790,7 +11794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.23113209, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -17299,6 +17303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   puzzleInterface: {fileID: 903647793}
   item: {fileID: 11400000, guid: f7eb1ff3c960a86448954961ccd99a38, type: 2}
+  itemName: 
 --- !u!61 &2033566458
 BoxCollider2D:
   m_ObjectHideFlags: 0
