@@ -49,7 +49,7 @@ public class TempCatalyst : MonoBehaviour
             }
             else if (itemName == "Circle" && progressIdx == 2)
             {
-                DialogueManager.Instance.TriggerWhim("Finish");
+                DialogueManager.Instance.TriggerWhim("Finish", () => InfectionMeter.Instance.PauseInfection(true));
             }
             else if (itemName == "Circle" && progressIdx == -1)
             {

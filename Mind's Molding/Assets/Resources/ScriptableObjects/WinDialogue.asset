@@ -22,7 +22,7 @@ MonoBehaviour:
     name. We\u2019ll find you one later.\u201D"
   - "\u201CNow, don\u2019t bask in your freedom too long. You owe me, remember?\u201D"
   - "\u201CHow would you like to purify the entire forest for me?\u201D"
-  - YOU WIN!
+  - You Win!
   triggerKey: Finish
   nextNode: {fileID: 0}
   onComplete:

@@ -29,7 +29,7 @@ public class EnvironmentItem : MonoBehaviour
            // If picking up root
             if (itemName == "Root")
             {
-                DialogueManager.Instance.TriggerWhim($"Found", () => TempCatalyst.Instance.SetProgressIdx(2));
+                DialogueManager.Instance.TriggerWhim("Found", () => TempCatalyst.Instance.SetProgressIdx(2));
             }
 
            gameObject.SetActive(false);

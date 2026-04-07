@@ -6994,10 +6994,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c8707d80e93a6ff40b5eb72861001168, type: 2}
   - {fileID: 11400000, guid: 2c5bd8893b46e294daed915c55a3d7e8, type: 2}
   - {fileID: 11400000, guid: e8bacc74672162843a819d241a8d3bc7, type: 2}
+  - {fileID: 11400000, guid: b7b5bad8f59df294aa5e2d0932559260, type: 2}
   dialogueText: {fileID: 1352260831}
   textBackground: {fileID: 1738796417}
   dialogueCanvas: {fileID: 999855979}
   puzzleCanvas: {fileID: 2129790455}
+  gameOver: 0
 --- !u!114 &999855981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8247,7 +8249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a9ea38944ec9b47b39f32c29d5ae61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  movementSpeed: 5
+  movementSpeed: 4
 --- !u!61 &1159712204
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11149,7 +11151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   meter: {fileID: 1449691056}
-  timeLimitMins: 3
+  timeLimitMins: 6
   minJitterInterval: 8
   maxJitterInterval: 3
   jitterIntensity: 70
@@ -11778,7 +11780,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 5.217, y: 0}
+  m_AnchoredPosition: {x: 5.217003, y: 0}
   m_SizeDelta: {x: 20.434, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1578192037

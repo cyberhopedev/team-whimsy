@@ -15,6 +15,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject dialogueCanvas;
     [SerializeField] private GameObject puzzleCanvas;
     private Action onDialogueComplete;
+    public bool gameOver = false;
     private int nodeIdx = 0;
     // For skipping through dialogue
     private bool isTyping = false;
@@ -115,7 +116,10 @@ public class DialogueManager : MonoBehaviour
         dialogueCanvas.layer = 5;
         // Go back to gameplay
         puzzleCanvas.SetActive(true);
-        InfectionMeter.Instance.PauseInfection(false);
+        if (!gameOver)
+        {
+            InfectionMeter.Instance.PauseInfection(false);   
+        }
 
         onDialogueComplete?.Invoke();
         onDialogueComplete = null;

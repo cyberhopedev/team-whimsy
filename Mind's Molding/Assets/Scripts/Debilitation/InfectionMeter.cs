@@ -8,7 +8,7 @@ public class InfectionMeter : MonoBehaviour
     // Meter 
     [SerializeField] Slider meter;
     private float currAmt;
-    [Range(3, 20)]
+    [Range(1, 20)]
     [SerializeField] float timeLimitMins = 10f;
     private float timeLimitSeconds;
     // Player effects
@@ -66,6 +66,7 @@ public class InfectionMeter : MonoBehaviour
         pause = yesOrNo;
     }
 
+    // Gets worse rogressively (in a log like fashion, fast change at first and then levels off)
     float InfectionCurve(float t)
     {
         // t = currAmt (0 → 1)
@@ -75,12 +76,21 @@ public class InfectionMeter : MonoBehaviour
 
     void Update()
     {
+
         if (!pause)
         {
             // Infection meter
             currAmt += Time.deltaTime / timeLimitSeconds;
             currAmt = Mathf.Clamp01(currAmt);
             meter.value = currAmt;
+
+            // Check for lose condition
+            if (currAmt >= 1)
+            {
+                PauseInfection(true);
+                DialogueManager.Instance.gameOver = true;
+                DialogueManager.Instance.TriggerWhim("Lose");
+            }
 
             // Player slowdown
             ApplyPlayerSlowdown();
@@ -96,14 +106,9 @@ public class InfectionMeter : MonoBehaviour
                 ApplyCursorLag();
             }   
         }
-
-        // Visual effects
-        // UpdateVisualEffects();
-        // ApplyCameraSway();
     }
 
 
-    // Progressively (in a log like fashion, fast change at first and then levels off)
     void ApplyPlayerSlowdown()
     {
         float curve = InfectionCurve(currAmt);
