@@ -34,8 +34,21 @@ public class InfectionMeter : MonoBehaviour
     private Vector2 driftDirection;
 
     [SerializeField] private float driftJitterCutoff = 0.2f; // 20%
+    private bool pause = true;
 
+    public static InfectionMeter Instance;
 
+    private void Awake()
+    {
+        // Singleton instance
+        if (Instance == null)
+        {
+            Instance = this;
+        } else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -47,6 +60,12 @@ public class InfectionMeter : MonoBehaviour
         maxPlayerSpeed = PlayerController.Instance.GetPlayerSpeed();
     }
 
+    // Public setter for pause
+    public void PauseInfection(bool yesOrNo)
+    {
+        pause = yesOrNo;
+    }
+
     float InfectionCurve(float t)
     {
         // t = currAmt (0 → 1)
@@ -56,23 +75,26 @@ public class InfectionMeter : MonoBehaviour
 
     void Update()
     {
-        // Infection meter
-        currAmt += Time.deltaTime / timeLimitSeconds;
-        currAmt = Mathf.Clamp01(currAmt);
-        meter.value = currAmt;
-
-        // Player slowdown
-        ApplyPlayerSlowdown();
-
-        // Cursor effects
-        if (currAmt < driftJitterCutoff)
+        if (!pause)
         {
-            HandleCursorJitter();
-            HandleCursorDrift();
-        }
-        else
-        {
-            ApplyCursorLag();
+            // Infection meter
+            currAmt += Time.deltaTime / timeLimitSeconds;
+            currAmt = Mathf.Clamp01(currAmt);
+            meter.value = currAmt;
+
+            // Player slowdown
+            ApplyPlayerSlowdown();
+
+            // Cursor effects
+            if (currAmt < driftJitterCutoff)
+            {
+                HandleCursorJitter();
+                HandleCursorDrift();
+            }
+            else
+            {
+                ApplyCursorLag();
+            }   
         }
 
         // Visual effects

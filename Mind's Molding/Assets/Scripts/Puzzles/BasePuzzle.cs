@@ -28,5 +28,6 @@ public abstract class BasePuzzle : MonoBehaviour
         IsSolved = true;
         OnPuzzleSolved?.Invoke();
         // DialogueManager.Instance.TriggerWhim($"puzzle_{name}_complete"); // comment out for beta
+        Debug.Log($"puzzle_{name}_complete");
     }
 }

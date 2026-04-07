@@ -11,4 +11,6 @@ public class DialogueNode : ScriptableObject
     public string triggerKey;
     public DialogueNode nextNode;
     public UnityEvent onComplete;
+    public float typingSpeed = 0.05f;
+    public float autoProgressDelay = 1.5f;
 }
