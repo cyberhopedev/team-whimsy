@@ -27,7 +27,7 @@ public abstract class BasePuzzle : MonoBehaviour
         // Otherwise, when this method is called update IsSolved, invoke the event, , and trigger dialogue for Whim stating completion
         IsSolved = true;
         OnPuzzleSolved?.Invoke();
-        // DialogueManager.Instance.TriggerWhim($"puzzle_{name}_complete"); // comment out for beta
+        // DialogueManager.Instance.TriggerWhim($"puzzle_{name}_complete", () => puzzleInterface.SetActive(true)); // comment out for beta
         Debug.Log($"puzzle_{name}_complete");
     }
 }

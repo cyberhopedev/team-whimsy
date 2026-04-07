@@ -12,6 +12,8 @@ public class MagicCirclePuzzle : BasePuzzle
     [SerializeField] private PuzzlePiece[] pieces;
     // Text field for success message
     [SerializeField] private TextMeshProUGUI message;
+    [SerializeField] private GameObject nextPuzzleInterface;
+    [SerializeField] private EnvironmentItem[] collectableItems;
 
     /// <summary>
     /// Every time a pieced is swapped by the player, check to see if it matches solution;
@@ -48,5 +50,10 @@ public class MagicCirclePuzzle : BasePuzzle
         // go to whim interaction now
         // mud and bones will now be collectible
         // player can now create chalky mixture
+        DialogueManager.Instance.TriggerWhim($"puzzle_{name}_complete", () => nextPuzzleInterface.SetActive(true));
+        foreach (EnvironmentItem item in collectableItems)
+        {
+            item.AllowGrab();
+        }
     }
 }

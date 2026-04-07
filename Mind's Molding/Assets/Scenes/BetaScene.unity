@@ -3656,6 +3656,10 @@ MonoBehaviour:
   - {fileID: 1422679725}
   - {fileID: 1014517904}
   message: {fileID: 244527642}
+  nextPuzzleInterface: {fileID: 903647791}
+  collectableItems:
+  - {fileID: 553754326}
+  - {fileID: 2033566457}
 --- !u!114 &549442406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5904,7 +5908,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1014, y: -25}
+  m_AnchoredPosition: {x: 1014, y: 1094}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &903647793
@@ -6619,6 +6623,8 @@ MonoBehaviour:
   allNodes:
   - {fileID: 11400000, guid: 15fc8bf50d50c044ea5a44348071254b, type: 2}
   - {fileID: 11400000, guid: 767ff27e243c31a498cb0ce4f6bf8f09, type: 2}
+  - {fileID: 11400000, guid: 0dc682a589424c54a8ec015233be5822, type: 2}
+  - {fileID: 11400000, guid: 48f2106ea369ab2468ecbbd0fd65c50e, type: 2}
   dialogueText: {fileID: 1352260831}
   textBackground: {fileID: 1738796417}
   dialogueCanvas: {fileID: 999855979}
@@ -17289,9 +17295,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 534417333}
+  - {fileID: 903647792}
   - {fileID: 402682437}
   - {fileID: 1319637673}
-  - {fileID: 903647792}
   - {fileID: 751877781}
   - {fileID: 1449691055}
   m_Father: {fileID: 0}
