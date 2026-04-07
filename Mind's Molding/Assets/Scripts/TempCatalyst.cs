@@ -6,6 +6,7 @@ public class TempCatalyst : MonoBehaviour
     private Rigidbody2D rb;
     // Reference to puzzle it will reveal
     [SerializeField] GameObject puzzleInterface;
+    [SerializeField] GameObject materialPuzzleInterface;
     [SerializeField][TextArea] private string itemName = "";
     private int progressIdx = 0; // 0 = start magic circle, 1 = apply chalk, -1 = can't interact
     public static TempCatalyst Instance;
@@ -42,7 +43,9 @@ public class TempCatalyst : MonoBehaviour
             {
                 // turn to chalk stuff
                 spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/CompleteWChalk");
+                materialPuzzleInterface.SetActive(false);
                 progressIdx = -1;
+                DialogueManager.Instance.TriggerWhim("Book", () => TableTrigger.Instance.SetInteractable(true));
             }
             else if (itemName == "Circle" && progressIdx == -1)
             {

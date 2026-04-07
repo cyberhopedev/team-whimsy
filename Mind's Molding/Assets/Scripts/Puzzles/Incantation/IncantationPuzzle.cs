@@ -12,6 +12,7 @@ public class IncantationPuzzle : BasePuzzle
     [SerializeField] private WordData correctSubject, correctEffect, correctTarget;
     [SerializeField] private PuzzlePiece[] pieces;
     private WordData selectedSubject, selectedEffect, selectedTarget;
+    [SerializeField] private EnvironmentItem root;
 
     /// <summary>
     /// Allows the player to select the words in a specific
@@ -69,6 +70,7 @@ public class IncantationPuzzle : BasePuzzle
     public void WinResult()
     {
         Debug.Log("You win ! ");
+        DialogueManager.Instance.TriggerWhim($"puzzle_{name}_complete", () => root.AllowGrab());
         gameObject.SetActive(false);
     }
         
