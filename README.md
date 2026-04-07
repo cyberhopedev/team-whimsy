@@ -2,7 +2,7 @@
 Repository for games made for NCSU CSC486
 
 Group: Danielle Brown, Ethan Flood, Dominic Latiolais, Hope Spence
-## Puzzle Game: Mind's Molding - Beta README
+## Puzzle Game: Mind's Molding - README
 ### Overview
 This beta includes the full functionality of one of our core puzzles.
 
@@ -11,7 +11,7 @@ This beta includes the full functionality of one of our core puzzles.
 - Mouse/Mousepad (drag and drop): puzzle interaction
 
 ### Special Instructions:
-You can explore the environment, but you should run into the magic circle to activate its puzzle. You can complete it using your mouse by rearranging the tiles to complete the picture.
+You can explore the environment, but you should run into the magic circle to activate its puzzle. 
 
 ### Sources
 NPC Dialogue by Game Code Library: https://www.youtube.com/watch?v=eSH9mzcMRqw 
@@ -21,6 +21,14 @@ Top Down Movement by Game Code Library: https://www.youtube.com/watch?v=DQY62meL
 Pixel Font Asset by Craftron Gaming
 
 Interaction System by Game Code Library: https://www.youtube.com/watch?v=MPP9GLp44Pc
+
+Free sound effects: https://kenney.nl/assets
+
+Unity Documentation:
+Unity Mouse Input: https://docs.unity3d.com/Packages/com.unity.inputsystem@0.2/manual/Mouse.html 
+Unity Lerp Documentation: https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Vector2.Lerp.html 
+
+Mouse Inputs & Mouse Position Tutorial by Modding by Kaupenjoe: https://www.youtube.com/watch?v=zfUCf7_-dMs 
 
 ## Dungeon Crawler: Moth's Ascent
 ### Overview
