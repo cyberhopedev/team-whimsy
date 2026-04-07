@@ -1,19 +1,25 @@
 fileFormatVersion: 2
-guid: 6e4a00e51ee0d734393d9d7ab2b5fa17
+guid: 21ab169d7dc27b14295e79e5e1f66099
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7242221888866597638
-    second: mudItem_0
+      213: 8249262963833535187
+    second: ChalkyPaste_0
   - first:
-      213: 1375673323244397694
-    second: mudItem_1
+      213: 1499483745942767610
+    second: ChalkyPaste_1
   - first:
-      213: 7285826237687541901
-    second: mudItem_2
+      213: -6257386881437302977
+    second: ChalkyPaste_2
   - first:
-      213: -3006473021004576230
-    second: mudItem_3
+      213: -6532206339484548816
+    second: ChalkyPaste_3
+  - first:
+      213: -2880834832244972630
+    second: ChalkyPaste_4
+  - first:
+      213: -1382743842978512050
+    second: ChalkyPaste_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,7 +115,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: mudItem_0
+      name: ChalkyPaste_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,8 +130,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: af44c8120957e7b90800000000000000
-      internalID: -7242221888866597638
+      spriteID: 3da751a85f44b7270800000000000000
+      internalID: 8249262963833535187
       vertices: []
       indices: 
       edges: []
@@ -134,7 +140,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4f0e11ffd54195344b795d03282ea2d4
+    spriteID: 7cc046b6187766b4ab17b3b9e02d9d09
     internalID: 0
     vertices: []
     indices: 
@@ -144,10 +150,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      mudItem_0: -7242221888866597638
-      mudItem_1: 1375673323244397694
-      mudItem_2: 7285826237687541901
-      mudItem_3: -3006473021004576230
+      ChalkyPaste_0: 8249262963833535187
+      ChalkyPaste_1: 1499483745942767610
+      ChalkyPaste_2: -6257386881437302977
+      ChalkyPaste_3: -6532206339484548816
+      ChalkyPaste_4: -2880834832244972630
+      ChalkyPaste_5: -1382743842978512050
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

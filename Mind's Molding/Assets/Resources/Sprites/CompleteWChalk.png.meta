@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 6e4a00e51ee0d734393d9d7ab2b5fa17
+guid: 7432bd0f5d0aeef4ea142a25e9677a45
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7242221888866597638
-    second: mudItem_0
-  - first:
-      213: 1375673323244397694
-    second: mudItem_1
-  - first:
-      213: 7285826237687541901
-    second: mudItem_2
-  - first:
-      213: -3006473021004576230
-    second: mudItem_3
+      213: 737540639929407873
+    second: CompleteWChalk_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: mudItem_0
+      name: CompleteWChalk_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 256
-        height: 256
+        x: 7
+        y: 15
+        width: 242
+        height: 226
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: af44c8120957e7b90800000000000000
-      internalID: -7242221888866597638
+      spriteID: 189186aed454c3a00800000000000000
+      internalID: 737540639929407873
       vertices: []
       indices: 
       edges: []
@@ -134,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4f0e11ffd54195344b795d03282ea2d4
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -144,10 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      mudItem_0: -7242221888866597638
-      mudItem_1: 1375673323244397694
-      mudItem_2: 7285826237687541901
-      mudItem_3: -3006473021004576230
+      CompleteWChalk_0: 737540639929407873
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

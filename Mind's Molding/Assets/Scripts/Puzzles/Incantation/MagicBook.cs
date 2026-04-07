@@ -115,6 +115,7 @@ public class MagicBook : MonoBehaviour
 
     public void OnCloseButton()
     {
+        Debug.Log("close");
         gameObject.SetActive(false);
     }
 }

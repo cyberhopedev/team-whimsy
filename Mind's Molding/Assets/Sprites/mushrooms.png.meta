@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 6e4a00e51ee0d734393d9d7ab2b5fa17
+guid: 6eda7b89930ecc544b88ce62eea860db
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7242221888866597638
-    second: mudItem_0
-  - first:
-      213: 1375673323244397694
-    second: mudItem_1
-  - first:
-      213: 7285826237687541901
-    second: mudItem_2
-  - first:
-      213: -3006473021004576230
-    second: mudItem_3
+      213: -3097342991762851659
+    second: mushrooms_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -60,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 160
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -109,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: mudItem_0
+      name: mushrooms_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 256
+        width: 160
+        height: 160
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: af44c8120957e7b90800000000000000
-      internalID: -7242221888866597638
+      spriteID: 5b8fd6c95f60405d0800000000000000
+      internalID: -3097342991762851659
       vertices: []
       indices: 
       edges: []
@@ -134,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4f0e11ffd54195344b795d03282ea2d4
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -144,10 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      mudItem_0: -7242221888866597638
-      mudItem_1: 1375673323244397694
-      mudItem_2: 7285826237687541901
-      mudItem_3: -3006473021004576230
+      mushrooms_0: -3097342991762851659
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -8,7 +8,7 @@ public class InfectionMeter : MonoBehaviour
     // Meter 
     [SerializeField] Slider meter;
     private float currAmt;
-    [Range(3, 20)]
+    [Range(1, 20)]
     [SerializeField] float timeLimitMins = 10f;
     private float timeLimitSeconds;
     // Player effects
@@ -34,8 +34,21 @@ public class InfectionMeter : MonoBehaviour
     private Vector2 driftDirection;
 
     [SerializeField] private float driftJitterCutoff = 0.2f; // 20%
+    private bool pause = true;
 
+    public static InfectionMeter Instance;
 
+    private void Awake()
+    {
+        // Singleton instance
+        if (Instance == null)
+        {
+            Instance = this;
+        } else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -47,6 +60,13 @@ public class InfectionMeter : MonoBehaviour
         maxPlayerSpeed = PlayerController.Instance.GetPlayerSpeed();
     }
 
+    // Public setter for pause
+    public void PauseInfection(bool yesOrNo)
+    {
+        pause = yesOrNo;
+    }
+
+    // Gets worse rogressively (in a log like fashion, fast change at first and then levels off)
     float InfectionCurve(float t)
     {
         // t = currAmt (0 → 1)
@@ -56,32 +76,39 @@ public class InfectionMeter : MonoBehaviour
 
     void Update()
     {
-        // Infection meter
-        currAmt += Time.deltaTime / timeLimitSeconds;
-        currAmt = Mathf.Clamp01(currAmt);
-        meter.value = currAmt;
 
-        // Player slowdown
-        ApplyPlayerSlowdown();
-
-        // Cursor effects
-        if (currAmt < driftJitterCutoff)
+        if (!pause)
         {
-            HandleCursorJitter();
-            HandleCursorDrift();
-        }
-        else
-        {
-            ApplyCursorLag();
-        }
+            // Infection meter
+            currAmt += Time.deltaTime / timeLimitSeconds;
+            currAmt = Mathf.Clamp01(currAmt);
+            meter.value = currAmt;
 
-        // Visual effects
-        // UpdateVisualEffects();
-        // ApplyCameraSway();
+            // Check for lose condition
+            if (currAmt >= 1)
+            {
+                PauseInfection(true);
+                DialogueManager.Instance.gameOver = true;
+                DialogueManager.Instance.TriggerWhim("Lose");
+            }
+
+            // Player slowdown
+            ApplyPlayerSlowdown();
+
+            // Cursor effects
+            if (currAmt < driftJitterCutoff)
+            {
+                HandleCursorJitter();
+                HandleCursorDrift();
+            }
+            else
+            {
+                ApplyCursorLag();
+            }   
+        }
     }
 
 
-    // Progressively (in a log like fashion, fast change at first and then levels off)
     void ApplyPlayerSlowdown()
     {
         float curve = InfectionCurve(currAmt);
