@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0a663575cba5a64886a6bdb08734bb7, type: 3}
+  m_Name: LoseDialogue
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueNode
+  speakerName: Whim
+  lines:
+  - "The world dims for a final time. You feel your body slip away from you. It\u2019s
+    too hard to think about\u2026 It\u2019s too hard."
+  - Your body moves jerkily. You watch it from far within. All you can do is watch.
+  - "\u201COh, what a shame\u2026\u201D The Pixie\u2019s voice echoes quietly, on
+    the other side of a door. \u201CYou\u2019ll meet your end eventually. Toodloo~\u201D"
+  - You Lose
+  triggerKey: Lose
+  nextNode: {fileID: 0}
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  typingSpeed: 0.05
+  autoProgressDelay: 1.5

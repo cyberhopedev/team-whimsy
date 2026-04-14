@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0a663575cba5a64886a6bdb08734bb7, type: 3}
+  m_Name: OpeningDialogue
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueNode
+  speakerName: Whim
+  lines:
+  - "You fall into a dream, gently. It\u2019s softer than everything else you\u2019ve
+    experienced today, in this life, in this horrid forest. You float in an endless
+    world of vibrant colors slowly shifting, amorphous, touching to create new colors\u2026"
+  - A hand takes your arm and pulls you down, backward, through a wood-paneled door,
+    onto a wooden floor. The door shutting before you. You mourn the tranquility
+    you had before this interruption.
+  - "\u201CHello!\u201D"
+  - "You\u2019ve never heard speech before, but you understand it. That fact is almost
+    frightening."
+  - "\u201CHello?\u201D"
+  - "The young woman sounds more disappointed than concerned when you don\u2019t
+    respond. Then, something tiny and bright and colorful whips around you, coming
+    to a halt directly in your eyeline."
+  - "It\u2019s a creature. It\u2019s something like you; upright with legs and arms.
+    The unfathomable part of your mind that somehow understands all of this feeds
+    you the words: person, Pixie. It\u2019s a Pixie. She\u2019s a Pixie."
+  - "\u201CI thought you\u2019d be able to understand me\u2026\u201D"
+  - '> Respond'
+  - You make a noise, attempting speech for the first time. It comes out broken,
+    not like anything, but she seems to understand that, at the very least, you were
+    trying to prove her correct.
+  - "\u201COh~! Wonderful! This is incredibly fortunate, you know. It\u2019s a miracle
+    one of my old projects survived in there.\u201D Her giggle is unsettling after
+    those words. You try to put together the implications, but she interrupts you
+    again quickly."
+  - "\u201CYou\u2019re in trouble. You probably can\u2019t tell yet, but you\u2019ve
+    been infected. There\u2019s a fungus growing in your head\u2014\u201D She flutters
+    closer and pokes your forehead. \u201C\u2014and soon enough it\u2019ll turn you
+    into another monster roaming the swamp. You don\u2019t want that, do you?\u201D"
+  - '> No'
+  - You find it easier to shake your head.
+  - "\u201CGood. Then listen carefully. Also\u2026\u201D "
+  - "She gestures to the air, and a few seconds later, something rectangular flies
+    to her open arms. She places it in your hands. It\u2019s a book. "
+  - "\u201CHold this. Now, you don\u2019t have a lot of time. You need to assemble
+    a ritual to fix yourself. It will need a magic circle and an incantation\u2026
+    and probably some materials too. I can only do so much from out here, but I will
+    help. For a favor, of course, but I have a feeling you\u2019d do what I want
+    anyways, once you\u2019re safe, yourself. Now\u2026\u201D "
+  - 'She flutters to the side, and the door opens to the colorful void. Tendrils
+    of desaturation encroach upon it already. '
+  - "\u201CGet up and get going!\u201D You are thrust out of the door, tumbling in
+    vibrant space until you awake, dizzy, on the forest floor, that book in your
+    arms."
+  triggerKey: Intro
+  nextNode: {fileID: 0}
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  typingSpeed: 0.05
+  autoProgressDelay: 1.5
