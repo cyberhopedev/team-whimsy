@@ -96,10 +96,10 @@ public class TileManager : MonoBehaviour
 
         foreach(var dir in directions)
         {
-            Tile t = GetTile(pos + dir);
-            if(t != null)
+            // Tile t = GetTile(pos + dir);
+            // if(t != null)
             {
-                neighbors.Add(t);
+                // neighbors.Add(t);
             }
         }
 

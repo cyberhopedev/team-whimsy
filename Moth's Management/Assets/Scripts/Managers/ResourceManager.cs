@@ -10,6 +10,13 @@ public class ResourceManager : MonoBehaviour
     // Track current amounts
     private int amtChalk;
     private int amtMagic;
+    // Key status phrases
+    private string magicRateT = "Magic Generated Per Click: ";
+    private string magicCapT = "Max Magic Capacity: ";
+    private string costT = "Cost: ";
+    private string radiusT = "Purification Radius: ";
+    
+
 
 
 
