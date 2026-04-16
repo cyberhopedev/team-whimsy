@@ -28,15 +28,10 @@ public class CorruptionManager : MonoBehaviour
     /// Every frame update the timer is updated, spread if timer is >
     /// than spread interval, then reset timer to 0 to loop spread effect
     /// </summary>
-    void Update()
+    public void ProcessTick()
     {
-        timer += Time.deltaTime;
-        if(timer > spreadInterval)
-        {
-            ProcessImpurity();
-            Spread();
-            timer = 0;
-        }
+        ProcessImpurity();
+        Spread();
     }
 
     /// <summary>

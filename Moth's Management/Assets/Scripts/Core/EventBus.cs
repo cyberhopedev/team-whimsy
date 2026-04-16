@@ -12,4 +12,5 @@ public static class EventBus
     public static Action OnResourceChanged;
     public static Action OnRitualCompleted;
     public static Action<bool> OnGameOver;
+    public static Action OnTick;
 }
