@@ -5,33 +5,74 @@ using UnityEngine;
 /// </summary>
 public class Tile : MonoBehaviour
 {   
-    // State of the current Tile
-    public TileState State { get; private set; }
+    // Position of the current tile
+    public Vector2Int GridPosition;
+    // Type of the tile
+    public TileType Type;
 
-    public Vector2Int GridPosition {get; private set;}
+    // Current impurity and max impurity of the tile
+    public int Impurity;
+    public int MaxImpurity;
+
+    // Represent if a tile is locked or not
+    public bool IsLocked;
 
     /// <summary>
-    /// Initializes the Tile's position, needed in TileManager
+    /// Initialize tile
     /// </summary>
-    /// <param name="pos">The currenrt position of the tile</param>
     public void Init(Vector2Int pos)
     {
         GridPosition = pos;
+        Type = TileType.ForestPure;
+        Impurity = 0;
+        IsLocked = false;
     }
 
     /// <summary>
-    /// Sets/updates the state of the tile, if the tile is corrupted,
-    /// invoke the OnTileCorrupted Action
+    /// Adds impurity and converts tile if needed
     /// </summary>
-    /// <param name="newState"></param>
-    public void SetState(TileState newState)
+    public void AddImpurity(int amount)
     {
-        State = newState;
-        if(newState == TileState.CORRUPTED)
+        if (IsLocked) return;
+
+        Impurity += amount;
+
+        if (Impurity >= MaxImpurity)
         {
-            EventBus.OnTileCorrupted?.Invoke(this);
+            ConvertToImpure();
         }
+
+        EventBus.OnTileChanged?.Invoke(this);
     }
+
+    /// <summary>
+    /// Purifies tile
+    /// </summary>
+    public void Purify()
+    {
+        Impurity = 0;
+
+        if (Type == TileType.ForestImpure || Type == TileType.CorruptedForest)
+        {
+            Type = TileType.ForestPure;
+        }
+
+        EventBus.OnTileChanged?.Invoke(this);
+    }
+
+    /// <summary>
+    /// Checks if the current tile is corrupted
+    /// </summary>
+    /// <returns>True if the tile is corrupted, false if otherwise</returns>
+    public bool IsCorrupted()
+    {
+        if(Type == TileType.CorruptedForest || Type.CorruptedRitualCircle)
+        {
+            return true;
+        }
+        return false;
+    }
+
 
     /// <summary>
     /// Checks if the tile can be built on based on if it empty
@@ -40,13 +81,10 @@ public class Tile : MonoBehaviour
     /// <returns>True if the tile can be built on, false if otherwise</returns>
     public bool IsBuildable()
     {
-        if(State == TileState.EMPTY || State == TileState.PURIFIED)
+        if(Type == TileType.ForestPure && !IsLocked)
         {
             return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 }

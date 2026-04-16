@@ -12,23 +12,22 @@ public class TileManager : MonoBehaviour
 
     // Grid settings to be set within Unity, also be sure to make a Prefab for the Tile
     [Header("Grid Settings")]
-    public int width = 10;
-    public int height = 10;
+    public int width = 21;
+    public int height = 21;
     public GameObject tilePrefab;
 
     // Core storage of the tiles within the environment
     private Dictionary<Vector2Int, Tile> tiles = new Dictionary<Vector2Int, Tile>();
 
-    // List of the corrupted tiles
+    // Lists to hold the varying types of tiles
     private List<Tile> corruptedTiles = new List<Tile>();
-    // Dictionary of the corruption tiles, holding lists of tiles with different levels of corruption (0, 1, 2, 3 -> 0 means pure)
-    private Dictionary<int, List<Tile>> corruptionLevels = new Dictionary<int, List<Tile>>()
-    {
-        {0, new List<Tile>()},
-        {1, new List<Tile>()},
-        {2, new List<Tile>()},
-        {3, new List<Tile>()}
-    };
+     private List<Tile> pureTiles = new List<Tile>();
+    private List<Tile> impureTiles = new List<Tile>();
+    private List<Tile> ritualTiles = new List<Tile>();
+    private List<Tile> corruptedRitualTiles = new List<Tile>();
+
+    // Amount of rituals the player has completed
+    private int ritualCount = 0;
 
     void Awake()
     {
@@ -37,12 +36,14 @@ public class TileManager : MonoBehaviour
 
     void OnEnable()
     {
-        EventBus.OnTileCorrupted += OnTileCorruptionChanged;
+        EventBus.OnTileCorrupted += UpdateTileCaches;
+        EventBus.OnBuildingPlaced += OnBuildingPlaced;
     }
 
     void OnDisable()
     {
-        EventBus.OnTileCorrupted -= OnTileCorruptionChanged;
+        EventBus.OnTileCorrupted -= UpdateTileCaches;
+        EventBus.OnBuildingPlaced -= OnBuildingPlaced;
     }
 
     /// <summary>
@@ -68,13 +69,38 @@ public class TileManager : MonoBehaviour
                 Tile tile = obj.GetComponent<Tile>();
 
                 tile.Init(pos);
+                tile.Type = TileType.ForestPure;
 
                 tiles.Add(pos, tile);
-
-                // Initialize cache
-                corruptionLevels[0].Add(tile);
+                pureTiles.Add(tile);
             }
         }
+    }
+
+    /// <summary>
+    /// Initialize the safe space cottage area on the map
+    /// </summary>
+    void InitializeCottage()
+    {
+        Vector2Int center = new(width / 2, height / 2);
+        Tile centerTile = GetTile(center);
+        centerTile.Type = TileType.Cottage;
+
+        // Purify starting radius (initial ritual effect)
+        foreach(var t in GetTilesInRange(center, 2))
+        {
+            t.Impurity = 0;
+        }
+    }
+
+    /// <summary>
+    /// Helper to get a tile at a specific position
+    /// </summary>
+    /// <param name="pos">The position of the tile</param>
+    /// <returns></returns>
+    public Tile GetTile(Vector2Int pos)
+    {
+        return tiles.TryGetValue(pos, out var tile) ? tile : null;
     }
 
     /// <summary>
@@ -84,8 +110,7 @@ public class TileManager : MonoBehaviour
     /// <returns>A list of neighboring tiles</returns>
     public List<Tile> GetNeighbors(Vector2Int pos)
     {
-        List<Tile> neighbors = new List<Tile>();
-
+        // Initialize the directions
         Vector2Int[] directions =
         {
             Vector2Int.up,
@@ -94,6 +119,8 @@ public class TileManager : MonoBehaviour
             Vector2Int.right
         };
 
+        // Get the list of neigbors and return it
+        List<Tile> neighbors = new List<Tile>();
         foreach(var dir in directions)
         {
             Tile t = GetTile(pos + dir);
@@ -102,35 +129,9 @@ public class TileManager : MonoBehaviour
                 neighbors.Add(t);
             }
         }
-
         return neighbors;
     }
-
-    /// <summary>
-    /// Gets all of the corrupted tiles
-    /// </summary>
-    /// <returns>A list containing all of the corrupted tils</returns>
-    public List<Tile> GetCorruptedTiles()
-    {
-        return corruptedTiles;
-    }
-
-    /// <summary>
-    /// Gets the levels of corrupted tiles, otherwise just returns a 
-    /// new list of tiles
-    /// </summary>
-    /// <param name="level">The level of corruption</param>
-    /// <returns>A list of corruption levels associated with the tiles</returns>
-    public List<Tile> GetTilesWithCorruption(int level)
-    {
-        if(corruptionLevels.ContainsKey(level))
-        {
-            return corruptionLevels[level];
-        }
-
-        return new List<Tile>();
-    }
-
+    
     /// <summary>
     /// Gets all of the tiles "in range" from a centering position
     /// as a list
@@ -153,38 +154,129 @@ public class TileManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets all of the tiles that the player can build on
+    /// Gets the tile that is currently being hovered over based on
+    /// mouse position
     /// </summary>
-    /// <returns>A list of tiles that can be built on</returns>
-    public List<Tile> GetBuildableTiles()
+    /// <returns>Position of the tile being hovered over</returns>
+    public Tile GetTileFromMouse()
     {
-        return tiles.Values.Where(t => t.IsBuildable()).ToList();
+        Vector3 world = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2Int pos = new(Mathf.RoundToInt(world.x), Mathf.RoundToInt(world.y));
+        return GetTile(pos);
     }
-
 
     /// <summary>
-    /// Updates the tile storage after a change occurs relating
-    /// to corruption
+    /// Helper to update all of the saved tiles
     /// </summary>
-    /// <param name="tile">The current changing tile</param>
-    void OnTileCorruptionChanged(Tile tile)
+    /// <param name="tile">The tile being updated</param>
+    void UpdateTileCaches(Tile tile)
     {
-        // Remove from all lists first
-        foreach(var list in corruptionLevels.Values)
-        {
-            list.Remove(tile);
-        }
+        // Remove from all
+        pureTiles.Remove(tile);
+        impureTiles.Remove(tile);
         corruptedTiles.Remove(tile);
+        ritualTiles.Remove(tile);
+        corruptedRitualTiles.Remove(tile);
 
-        // Add to correct list
-        int level = tile.CorruptionLevel;
-        if (corruptionLevels.ContainsKey(level))
+        // Reassign
+        switch (tile.Type)
         {
-            corruptionLevels[level].Add(tile);
-        }
-        if (level > 0)
-        {
-            corruptedTiles.Add(tile);
+            case TileType.ForestPure:
+                pureTiles.Add(tile);
+                break;
+
+            case TileType.ForestImpure:
+                impureTiles.Add(tile);
+                break;
+
+            case TileType.CorruptedForest:
+                corruptedTiles.Add(tile);
+                break;
+
+            case TileType.RitualCircle:
+                ritualTiles.Add(tile);
+                break;
+
+            case TileType.CorruptedRitualCircle:
+                corruptedRitualTiles.Add(tile);
+                break;
         }
     }
+
+    void OnBuildingPlaced(Building building)
+    {
+        Tile tile = building.tile;
+
+        if (tile.Type == TileType.RitualCircle)
+        {
+            ritualCount++;
+
+            // Every 4th ritual → spawn corruption
+            if (ritualCount % 4 == 0)
+            {
+                CorruptionManager.Instance.SpawnRandomCorruption();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets all of the pure tiles
+    /// </summary>
+    /// <returns>A list containing all of the pure tiles</returns>
+    public List<Tile> GetPureTiles()
+    {
+        return pureTiles;
+    }
+    /// <summary>
+    /// Gets all of the impure tiles
+    /// </summary>
+    /// <returns>A list containing all of the impure tiles</returns>
+    public List<Tile> GetImpureTiles()
+    {
+        return impureTiles;
+    }
+    /// <summary>
+    /// Gets all of the corrupted tiles
+    /// </summary>
+    /// <returns>A list containing all of the corrupted tiles</returns>
+    public List<Tile> GetCorruptedTiles()
+    {
+        return corruptedTiles;
+    }
+    /// <summary>
+    /// Gets all of the ritual tiles
+    /// </summary>
+    /// <returns>A list containing all of the ritual tiles</returns>
+    public List<Tile> GetRitualTiles()
+    {
+        return ritualTiles;
+    }
+
+    /// <summary>
+    /// Checks if the center is corrupted
+    /// </summary>
+    /// <returns>True if the center is corrupted, false if otherwise</returns>
+    public bool IsCenterCorrupted()
+    {
+        Tile center = GetTile(new Vector2Int(width / 2, height / 2));
+        return center.Type == TileType.CorruptedForest;
+    }
+    /// <summary>
+    /// Check if the player has lost
+    /// </summary>
+    /// <returns>True if the player lost due to center being corrupted OR 3 corrupted ritual circles exists, false if otherwise</returns>
+    public bool HasLost()
+    {
+        return IsCenterCorrupted() || corruptedRitualTiles.Count >= 3;
+    }
+    /// <summary>
+    /// Check if the player has won
+    /// </summary>
+    /// <param name="totalRitualsRequired">The number of rituals needed to be completed in order to win</param>
+    /// <returns>True if the player has completed the # of rituals needed, false if otherwise</returns>
+    public bool HasWon(int totalRitualsRequired)
+    {
+        return ritualTiles.Count >= totalRitualsRequired && corruptedTiles.Count == 0;
+    }
+
 }
