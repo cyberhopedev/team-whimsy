@@ -8,11 +8,16 @@ using System.Collections.Generic;
 /// </summary>
 public class CorruptionManager : MonoBehaviour
 {
+    // Instance for the corruption manager
     public static CorruptionManager Instance;
+
+    [Header("Timing")]
     public float spreadInterval = 5f;
     private float timer;
-    public float spreadChance = 0.3f;
-    public float impurityChance = 0.25f;
+
+    [Header("Chances")]
+    public float spreadChance = 0.3f;   // H%
+    public float impurityChance = 0.25f; // G%
 
     void Awake()
     {
@@ -78,7 +83,7 @@ public class CorruptionManager : MonoBehaviour
         // For every tile in the existing corrupted tiles, check it's neighbors and apply spreading rules
         foreach(var tile in corruptedTiles)
         {
-            var neighbors = TileManager.Instance.GetNeighbors(tile.GridPositon);
+            var neighbors = TileManager.Instance.GetNeighbors(tile.GridPosition);
             foreach(var n in neighbors)
             {
                 // If tile is locked or already corrupted, continue to next neighbor

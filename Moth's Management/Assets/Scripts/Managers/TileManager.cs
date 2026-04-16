@@ -20,10 +20,10 @@ public class TileManager : MonoBehaviour
     private Dictionary<Vector2Int, Tile> tiles = new Dictionary<Vector2Int, Tile>();
 
     // Lists to hold the varying types of tiles
-    private List<Tile> corruptedTiles = new List<Tile>();
      private List<Tile> pureTiles = new List<Tile>();
     private List<Tile> impureTiles = new List<Tile>();
     private List<Tile> ritualTiles = new List<Tile>();
+    private List<Tile> corruptedTiles = new List<Tile>();
     private List<Tile> corruptedRitualTiles = new List<Tile>();
 
     // Amount of rituals the player has completed
@@ -36,22 +36,23 @@ public class TileManager : MonoBehaviour
 
     void OnEnable()
     {
-        EventBus.OnTileCorrupted += UpdateTileCaches;
+        EventBus.OnTileChanged += UpdateTileCaches;
         EventBus.OnBuildingPlaced += OnBuildingPlaced;
     }
 
     void OnDisable()
     {
-        EventBus.OnTileCorrupted -= UpdateTileCaches;
+        EventBus.OnTileChanged -= UpdateTileCaches;
         EventBus.OnBuildingPlaced -= OnBuildingPlaced;
     }
 
     /// <summary>
-    /// As soon as game starts, generate the grid
+    /// As soon as game starts, generate the grid and place the cottage
     /// </summary>
     void Start()
     {
         GenerateGrid();
+        InitializeCottage();
     }
 
     /// <summary>
@@ -89,7 +90,7 @@ public class TileManager : MonoBehaviour
         // Purify starting radius (initial ritual effect)
         foreach(var t in GetTilesInRange(center, 2))
         {
-            t.Impurity = 0;
+            t.Purify();
         }
     }
 
@@ -141,16 +142,16 @@ public class TileManager : MonoBehaviour
     /// <returns></returns>
     public List<Tile> GetTilesInRange(Vector2Int center, int range)
     {
-        List<Tile> result = new List<Tile>();
-        foreach (var kvp in tiles)
+        List<Tile> tilesInRange = new List<Tile>();
+        foreach(var t in tiles)
         {
-            if(Vector2Int.Distance(kvp.Key, center) <= range)
+            if(Vector2Int.Distance(t.Key, center) <= range)
             {
-                result.Add(kvp.Value);
+                tilesInRange.Add(t.Value);
             }
         }
 
-        return result;
+        return tilesInRange;
     }
 
     /// <summary>
@@ -179,41 +180,39 @@ public class TileManager : MonoBehaviour
         corruptedRitualTiles.Remove(tile);
 
         // Reassign
-        switch (tile.Type)
+        switch(tile.Type)
         {
             case TileType.ForestPure:
                 pureTiles.Add(tile);
                 break;
-
             case TileType.ForestImpure:
                 impureTiles.Add(tile);
                 break;
-
             case TileType.CorruptedForest:
                 corruptedTiles.Add(tile);
                 break;
-
             case TileType.RitualCircle:
                 ritualTiles.Add(tile);
                 break;
-
             case TileType.CorruptedRitualCircle:
                 corruptedRitualTiles.Add(tile);
                 break;
         }
     }
-
+    /// <summary>
+    /// Checks for if the building placed is a ritual circle, if it is
+    /// ritual count is increased and delegates logic for ritual circle
+    /// placement in CorruptionManager
+    /// </summary>
+    /// <param name="building">The bilding currently being placed by the player</param>
     void OnBuildingPlaced(Building building)
     {
-        Tile tile = building.tile;
-
-        if (tile.Type == TileType.RitualCircle)
+        if(building.tile.Type == TileType.RitualCircle)
         {
             ritualCount++;
-
-            // Every 4th ritual → spawn corruption
-            if (ritualCount % 4 == 0)
+            if(ritualCount % 4 == 0)
             {
+                // Delegate to CorruptionManager
                 CorruptionManager.Instance.SpawnRandomCorruption();
             }
         }

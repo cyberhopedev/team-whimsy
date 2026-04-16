@@ -11,11 +11,11 @@ public class Tile : MonoBehaviour
     public TileType Type;
 
     // Current impurity and max impurity of the tile
-    public int Impurity;
-    public int MaxImpurity;
+    public int Impurity = 0;
+    public int MaxImpurity = 100;
 
     // Represent if a tile is locked or not
-    public bool IsLocked;
+    public bool IsLocked = false;
 
     /// <summary>
     /// Initialize tile
@@ -46,6 +46,17 @@ public class Tile : MonoBehaviour
     }
 
     /// <summary>
+    /// Converts tile when impurity maxes out
+    /// </summary>
+    void ConvertToImpure()
+    {
+        if (Type == TileType.ForestPure)
+        {
+            Type = TileType.ForestImpure;
+        }
+    }
+
+    /// <summary>
     /// Purifies tile
     /// </summary>
     public void Purify()
@@ -66,7 +77,7 @@ public class Tile : MonoBehaviour
     /// <returns>True if the tile is corrupted, false if otherwise</returns>
     public bool IsCorrupted()
     {
-        if(Type == TileType.CorruptedForest || Type.CorruptedRitualCircle)
+        if(Type == TileType.CorruptedForest || Type == TileType.CorruptedRitualCircle)
         {
             return true;
         }

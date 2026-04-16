@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public static class EventBus
 {
-    public static Action<Tile> OnTileCorrupted;
+    public static Action<Tile> OnTileChanged;
     public static Action<Building> OnBuildingPlaced;
     public static Action OnResourceChanged;
     public static Action OnRitualCompleted;
