@@ -2,6 +2,36 @@
 Repository for games made for NCSU CSC486
 
 Group: Danielle Brown, Ethan Flood, Dominic Latiolais, Hope Spence
+
+## Resource Management: Moth's Management - Beta README
+Group:
+Danielle Brown, Ethan Flood, Dominic Latiolais, Hope Spence
+
+You are trying to purify as many tiles as possible. Be careful because the infected tiles will spread if you’re too slow.
+
+Special Commands: 
+
+- Click on cottage (tile in very center) to get magic
+- Hover over tiles to see description
+- Click on pure forest tiles and select Magic Circle to place the tile, this will purify the surrounding tiles (make sure you have enough magic to get a Magic Circle)
+
+
+Sources
+
+Inspiration Games
+Terra Nil Wikipedia Page and Gameplay
+https://en.wikipedia.org/wiki/Terra_Nil 
+https://www.youtube.com/watch?v=TedKHTfSmiI 
+Stop the Darkness
+https://flori9.itch.io/stop-the-darkness 
+
+Tutorials
+How to Make a Resource Gathering Game by Chris’ Tutorials: https://www.youtube.com/playlist?list=PLyH-qXFkNSxn2opz8dkLnl6O7ct3R3f2v 
+Building an Idle Clicker in Unity by Sunny Valley Studio
+https://www.youtube.com/watch?v=GK9jQryYVCk 
+CSC 411 Problem Set(s)
+LINQ in Unity: A Beginner-Friendly Introduction by JUMAMUROD ARALOV  https://medium.com/@250509/linq-in-unity-a-beginner-friendly-introduction-7ca190d41eac 
+
 ## Puzzle Game: Mind's Molding - README
 ### Overview
 This beta includes the full functionality of one of our core puzzles.
