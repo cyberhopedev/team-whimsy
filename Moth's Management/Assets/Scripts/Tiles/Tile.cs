@@ -98,4 +98,26 @@ public class Tile : MonoBehaviour
         }
         return false;
     }
+
+    public void OnHoverEnter()
+    {
+        // e.g. highlight the tile visually
+        Debug.Log($"Hovering over tile at {GridPosition}");
+    }
+
+    public void OnHoverExit()
+    {
+        // e.g. remove highlight
+    }
+
+    public void OnSelect()
+    {
+        Debug.Log($"Selected tile at {GridPosition} | Type: {Type}");
+        EventBus.OnTileSelected?.Invoke(this);
+    }
+
+    public void OnDeselect()
+    {
+        // e.g. remove selection indicator
+    }
 }

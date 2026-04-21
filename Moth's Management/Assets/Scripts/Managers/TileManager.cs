@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 /// <summary>
 /// Manages and intializes the tiles within the grid/environment for the gameplay
@@ -53,6 +54,7 @@ public class TileManager : MonoBehaviour
     {
         GenerateGrid();
         InitializeCottage();
+        FitCamera();
     }
 
     /// <summary>
@@ -92,6 +94,19 @@ public class TileManager : MonoBehaviour
         {
             t.Purify();
         }
+    }
+
+    // This method makes sure the camera will show all tiles
+    void FitCamera()
+    {
+        Camera cam = Camera.main;
+        cam.transform.position = new Vector3(width / 2f + 2f, height / 2f, -10f);
+
+        float verticalSize = height / 2f;
+        float horizontalSize = (width / 2f) / cam.aspect;
+
+        // Use whichever is larger to ensure that all tiles are visible
+        cam.orthographicSize = Mathf.Max(verticalSize, horizontalSize) + 0.5f; // +0.5 for padding
     }
 
     /// <summary>

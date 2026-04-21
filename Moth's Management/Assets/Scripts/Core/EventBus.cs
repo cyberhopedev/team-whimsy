@@ -13,4 +13,5 @@ public static class EventBus
     public static Action OnRitualCompleted;
     public static Action<bool> OnGameOver;
     public static Action OnTick;
+    public static Action<Tile> OnTileSelected;
 }
