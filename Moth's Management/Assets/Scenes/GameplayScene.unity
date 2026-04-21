@@ -2742,6 +2742,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2d6dcb7af7356945ba367bc9ceca492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TileSelector
+  nameT: {fileID: 730604051}
+  levelT: {fileID: 985555521}
+  descriptionT: {fileID: 491123531}
+  icon: {fileID: 848097798}
 --- !u!114 &1640869407
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,6 @@
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 /// <summary>
 /// Handles mouse input and tile selection/interaction
@@ -7,6 +9,14 @@ public class TileSelector : MonoBehaviour
 {
     private Tile hoveredTile;
     private Tile selectedTile;
+
+    // UI Stuff
+    [Header("UI Fields")]
+    [SerializeField] private TextMeshProUGUI nameT;
+    [SerializeField] private TextMeshProUGUI levelT;
+    [SerializeField] private TextMeshProUGUI descriptionT;
+    [SerializeField] private Image icon;
+
 
     void Update()
     {
@@ -27,6 +37,14 @@ public class TileSelector : MonoBehaviour
         hoveredTile?.OnHoverExit();
         hoveredTile = tile;
         hoveredTile?.OnHoverEnter();
+
+        // Update UI display
+        if (tile != null)
+        {
+            nameT.text = TileTypes.GetName(tile.GetTileType());
+            descriptionT.text = TileTypes.GetDescription(tile.GetTileType());
+            icon.sprite = TileTypes.GetIcon(tile.GetTileType());   
+        }
     }
 
     /// <summary>

@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq;
-using System;
 
 /// <summary>
 /// Manages and intializes the tiles within the grid/environment for the gameplay

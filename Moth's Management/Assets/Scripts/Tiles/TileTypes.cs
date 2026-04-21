@@ -29,30 +29,50 @@ public enum TileType
 
 public static class TileTypes
 {
-    // Getter for the name of attack
-    // public static string GetName(this Items item)
-    // {
-    //     return item switch
-    //     {
-    //         Items.POISON_SHROOM => "Poison Shroom",
-    //         Items.MEALBERRY => "Mealberry",
-    //         Items.STURDY_BRANCH => "Sturdy Branch", 
-    //         Items.MEDICINAL_ROOT => "Medicinal Root",
-    //         _ => string.Empty,
-    //     };
-    // }
+    // Getter for the name of tile
+    public static string GetName(this TileType tileType)
+    {
+        return tileType switch
+        {
+            TileType.ForestPure => "Forest (Pure)",
+            TileType.ForestImpure => "Forest (Impure)",
+            TileType.CorruptedForest => "Forest (Corrupted)",
+            TileType.Lake => "Lake",
+            TileType.Cottage => "Cottage",  //cabinTwo, cabinThree
+            TileType.RitualCircle => "Ritual Circle",
+            TileType.CorruptedRitualCircle => "Ritual Circle (Corrupted)",
+            TileType.MagicCircle => "Magic Circle", 
+            TileType.MagicCircleWard => "Magic Circle Ward", //magicCircleThree
+            TileType.Anthill => "Anthill",
+            TileType.BerryBush => "Berry Bushes",
+            TileType.BerryBushPlus => "Berry Bushes +",
+            TileType.MonsterDen => "Monster Den",
+            _ => string.Empty,
+        };
+    }  
 
-    // public static string GetDescription(this Items item)
-    // {
-    //     return item switch
-    //     {
-    //         Items.POISON_SHROOM  => "Throw at an enemy: deals 5 damage and applies Poison.",
-    //         Items.MEALBERRY      => "Eat to restore 15 HP.",
-    //         Items.MEDICINAL_ROOT => "Removes all Poison afflictions from the player.",
-    //         Items.STURDY_BRANCH  => "Consumable weapon. 15 damage (uses a turn) or 5 damage (instant). 3 uses.",
-    //         _                    => string.Empty,
-    //     };
-    // }
+    // Getter for the tile description
+    public static string GetDescription(this TileType tileType)
+    {
+        // return tileType switch
+        // {
+        //     TileType.ForestPure => "Forest (Pure)",
+        //     TileType.ForestImpure => "Forest (Impure)",
+        //     TileType.CorruptedForest => "Forest (Corrupted)",
+        //     TileType.Lake => "Lake",
+        //     TileType.Cottage => "Cottage",  //cabinTwo, cabinThree
+        //     TileType.RitualCircle => "Ritual Circle",
+        //     TileType.CorruptedRitualCircle => "Ritual Circle (Corrupted)",
+        //     TileType.MagicCircle => "Magic Circle", 
+        //     TileType.MagicCircleWard => "Magic Circle Ward", //magicCircleThree
+        //     TileType.Anthill => "Anthill",
+        //     TileType.BerryBush => "Berry Bushes",
+        //     TileType.BerryBushPlus => "Berry Bushes +",
+        //     TileType.MonsterDen => "Monster Den",
+        //     _ => string.Empty,
+        // };
+        return "Description here.";
+    }  
 
     public static Sprite GetIcon(this TileType tileType)
     {

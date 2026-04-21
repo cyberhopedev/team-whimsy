@@ -102,6 +102,12 @@ public class Tile : MonoBehaviour
         return false;
     }
 
+    // Public getter for tile type
+    public TileType GetTileType()
+    {
+        return Type;
+    }
+
     // Allows sprite to be set from another class
     public void SetSprite(Sprite sprite)
     {
