@@ -12,6 +12,7 @@ public class BuildingManager : MonoBehaviour
     public GameObject antHillPrefab;
     public GameObject berryPrefab;
     public GameObject cottagePrefab;
+    public GameObject magicCirclePrefab;
 
     private void Awake()
     {
@@ -46,6 +47,7 @@ public class BuildingManager : MonoBehaviour
         if (prefab == antHillPrefab) return TileType.Anthill;
         if (prefab == berryPrefab) return TileType.BerryBush;
         if (prefab == cottagePrefab) return TileType.Cottage;
+        if (prefab == magicCirclePrefab) return TileType.MagicCircle;
         return TileType.ForestPure;
     }
 
@@ -55,8 +57,9 @@ public class BuildingManager : MonoBehaviour
         selectedPrefab = buildingName switch
         {
             // "ritual" => ritualPrefab,
-            "anthill" => antHillPrefab,
-            "berry" => berryPrefab,
+            "Anthill" => antHillPrefab,
+            "BerryBush" => berryPrefab,
+            "MagicCircle" => magicCirclePrefab,
             _ => null
         };
     }

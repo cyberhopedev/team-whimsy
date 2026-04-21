@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d012dfc6790cc847a76269e09ac676b, type: 3}
   m_Name: Cottage2Data
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  buildingName: Cottage
+  buildingName: Cottage2
   chalkChost: 5
   berryCost: 5
   magicCost: 5

@@ -17,6 +17,11 @@ public class TileSelector : MonoBehaviour
     [SerializeField] private TextMeshProUGUI descriptionT;
     [SerializeField] private Image icon;
 
+    // Re-evaluate this later, auto assumes you want to build a magic circle
+    void Start()
+    {
+        BuildingManager.Instance.SelectBuilding("magicCircle");
+    }
 
     void Update()
     {

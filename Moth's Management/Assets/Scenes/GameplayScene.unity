@@ -2783,6 +2783,7 @@ MonoBehaviour:
   antHillPrefab: {fileID: 1679057190689474957, guid: 3832da498e0c9a44fabcbd8ee4350b88, type: 3}
   berryPrefab: {fileID: 1679057190689474957, guid: 29d8ceb65a4deb84ebfe9061b695437e, type: 3}
   cottagePrefab: {fileID: 1679057190689474957, guid: 8492fd070434baf48b7dcac44301090e, type: 3}
+  magicCirclePrefab: {fileID: 3127365300420947695, guid: fffd1734ed41bc445acadea1c8cd6fa1, type: 3}
 --- !u!114 &1640869411
 MonoBehaviour:
   m_ObjectHideFlags: 0
