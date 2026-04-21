@@ -73,6 +73,7 @@ public class TileManager : MonoBehaviour
 
                 tile.Init(pos);
                 tile.Type = TileType.ForestPure;
+                tile.SetSprite(TileTypes.GetIcon(TileType.ForestPure));
 
                 tiles.Add(pos, tile);
                 pureTiles.Add(tile);
@@ -86,14 +87,16 @@ public class TileManager : MonoBehaviour
     void InitializeCottage()
     {
         Vector2Int center = new(width / 2, height / 2);
-        Tile centerTile = GetTile(center);
-        centerTile.Type = TileType.Cottage;
 
         // Purify starting radius (initial ritual effect)
         foreach(var t in GetTilesInRange(center, 2))
         {
             t.Purify();
         }
+
+        Tile centerTile = GetTile(center);
+        centerTile.Type = TileType.Cottage;
+        EventBus.OnTileChanged?.Invoke(centerTile);
     }
 
     // This method makes sure the camera will show all tiles
@@ -213,6 +216,9 @@ public class TileManager : MonoBehaviour
                 corruptedRitualTiles.Add(tile);
                 break;
         }
+
+        // Update tile sprite
+        tile.SetSprite(TileTypes.GetIcon(tile.Type));
     }
     /// <summary>
     /// Checks for if the building placed is a ritual circle, if it is

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f1fad199f44d9174eb677c21ecf0f7e6
+guid: 865cdbada94d391459da634d0c610ea2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6345630999986366071
-    second: mealberrybush_0
+      213: -4289252028465095549
+    second: corruptRitualCircle_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: mealberrybush_0
+      name: corruptRitualCircle_0
       rect:
         serializedVersion: 2
-        x: 84
-        y: 153
-        width: 139
-        height: 106
+        x: 0
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 776e4ed16c5301850800000000000000
-      internalID: 6345630999986366071
+      spriteID: 38cd63b61048974c0800000000000000
+      internalID: -4289252028465095549
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: e9a76723afe4dc441a54a2c790f61bb2
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      mealberrybush_0: 6345630999986366071
+      corruptRitualCircle_0: -4289252028465095549
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

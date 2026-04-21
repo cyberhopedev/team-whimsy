@@ -99,15 +99,20 @@ public class Tile : MonoBehaviour
         return false;
     }
 
+    // Allows sprite to be set from another class
+    public void SetSprite(Sprite sprite)
+    {
+        GetComponent<SpriteRenderer>().sprite = sprite;
+    }
+
     public void OnHoverEnter()
     {
-        // e.g. highlight the tile visually
         Debug.Log($"Hovering over tile at {GridPosition}");
     }
 
     public void OnHoverExit()
     {
-        // e.g. remove highlight
+        // something
     }
 
     public void OnSelect()
@@ -118,6 +123,6 @@ public class Tile : MonoBehaviour
 
     public void OnDeselect()
     {
-        // e.g. remove selection indicator
+        // something
     }
 }
