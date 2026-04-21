@@ -17,6 +17,9 @@ public class Tile : MonoBehaviour
     // Represent if a tile is locked or not
     public bool IsLocked = false;
 
+    // Means a ritual site should be placed here
+    public bool IsRitualSite = false;
+
     /// <summary>
     /// Initialize tile
     /// </summary>

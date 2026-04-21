@@ -53,7 +53,8 @@ public class TileManager : MonoBehaviour
     void Start()
     {
         GenerateGrid();
-        InitializeCottage();
+        // InitializeCottage();
+        LoadMapFromFile("map01");
         FitCamera();
     }
 
@@ -113,10 +114,62 @@ public class TileManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Loads a map layout from a text file from Resources/MapFiles/
+    /// </summary>
+    void LoadMapFromFile(string mapName)
+    {
+        TextAsset mapFile = Resources.Load<TextAsset>($"MapFiles/{mapName}");
+
+        // Split into rows and reverse so row 0 is the bottom of the map
+        string[] rows = mapFile.text.Split('\n');
+        System.Array.Reverse(rows);
+
+        for (int y = 0; y < rows.Length; y++)
+        {
+            string row = rows[y].Trim();
+            for (int x = 0; x < row.Length; x++)
+            {
+                Tile tile = GetTile(new Vector2Int(x, y));
+                if (tile == null) continue;
+
+                char symbol = row[x];
+                ApplySymbolToTile(symbol, tile, new Vector2Int(x, y));
+            }
+        }
+    }
+
+    /// <summary>
+    /// Maps a character symbol to a tile type and applies it
+    /// </summary>
+    void ApplySymbolToTile(char symbol, Tile tile, Vector2Int pos)
+    {
+        switch (symbol)
+        {
+            case 'X':
+                tile.Type = TileType.ForestImpure;
+                break;
+            case '*':
+                tile.Type = TileType.ForestPure;
+                break;
+            case '~':
+                tile.Type = TileType.Lake;
+                break;
+            case 'O':
+                tile.Type = TileType.ForestImpure;
+                tile.IsRitualSite = true; // means a ritual site should go here later
+                break;
+            case 'H':
+                tile.Type = TileType.Cottage;
+                break;
+        }
+
+        tile.SetSprite(TileTypes.GetIcon(tile.Type));
+        EventBus.OnTileChanged?.Invoke(tile);
+    }
+
+    /// <summary>
     /// Helper to get a tile at a specific position
     /// </summary>
-    /// <param name="pos">The position of the tile</param>
-    /// <returns></returns>
     public Tile GetTile(Vector2Int pos)
     {
         return tiles.TryGetValue(pos, out var tile) ? tile : null;
@@ -125,8 +178,6 @@ public class TileManager : MonoBehaviour
     /// <summary>
     /// Gets the neighboring tiles of the current Tile position
     /// </summary>
-    /// <param name="pos">The position of the current Tile</param>
-    /// <returns>A list of neighboring tiles</returns>
     public List<Tile> GetNeighbors(Vector2Int pos)
     {
         // Initialize the directions
@@ -155,9 +206,6 @@ public class TileManager : MonoBehaviour
     /// Gets all of the tiles "in range" from a centering position
     /// as a list
     /// </summary>
-    /// <param name="center">The centering position</param>
-    /// <param name="range">The distance from the centering tile</param>
-    /// <returns></returns>
     public List<Tile> GetTilesInRange(Vector2Int center, int range)
     {
         List<Tile> tilesInRange = new List<Tile>();
