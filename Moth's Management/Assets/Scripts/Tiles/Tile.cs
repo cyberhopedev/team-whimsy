@@ -17,6 +17,9 @@ public class Tile : MonoBehaviour
     // Represent if a tile is locked or not
     public bool IsLocked = false;
 
+    // Means a ritual site should be placed here
+    public bool IsRitualSite = false;
+
     /// <summary>
     /// Initialize tile
     /// </summary>
@@ -97,5 +100,22 @@ public class Tile : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    // Public getter for tile type
+    public TileType GetTileType()
+    {
+        return Type;
+    }
+
+    // Allows sprite to be set from another class
+    public void SetSprite(Sprite sprite)
+    {
+        GetComponent<SpriteRenderer>().sprite = sprite;
+    }
+
+    public void OnHoverEnter()
+    {
+        Debug.Log($"Hovering over tile at {GridPosition}");
     }
 }
