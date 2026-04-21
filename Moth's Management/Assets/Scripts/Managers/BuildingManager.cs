@@ -5,10 +5,18 @@ using UnityEngine;
 /// </summary>
 public class BuildingManager : MonoBehaviour
 {
-    public GameObject ritualPrefab;
+    // Instance of the BuildingManager
+    public static BuildingManager Instance { get; private set; }
+    private GameObject selectedPrefab;
+    // public GameObject ritualPrefab;
     public GameObject antHillPrefab;
     public GameObject berryPrefab;
     public GameObject cottagePrefab;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     /// <summary>
     /// Places the building prefab based on if the tile type is able
@@ -18,6 +26,44 @@ public class BuildingManager : MonoBehaviour
     /// <param name="prefab">The Building's prefab</param>
     public void PlaceBuilding(Tile tile, GameObject prefab)
     {
-        
+        if (tile == null || !tile.IsBuildable()) {
+            return;
+        }
+
+        // Create building
+        GameObject obj = Instantiate(prefab, new Vector3(tile.GridPosition.x, tile.GridPosition.y, 0), Quaternion.identity);
+        Building building = obj.GetComponent<Building>();
+        building.Init(tile);
+
+        // Update the tile type based on what was placed
+        tile.Type = GetTileTypeForPrefab(prefab);
+        EventBus.OnTileChanged?.Invoke(tile);
+    }
+
+    TileType GetTileTypeForPrefab(GameObject prefab)
+    {
+        // if (prefab == ritualPrefab) return TileType.RitualCircle;
+        if (prefab == antHillPrefab) return TileType.Anthill;
+        if (prefab == berryPrefab) return TileType.BerryBush;
+        if (prefab == cottagePrefab) return TileType.Cottage;
+        return TileType.ForestPure;
+    }
+
+    // Called by UI buttons
+    public void SelectBuilding(string buildingName)
+    {
+        selectedPrefab = buildingName switch
+        {
+            // "ritual" => ritualPrefab,
+            "anthill" => antHillPrefab,
+            "berry" => berryPrefab,
+            _ => null
+        };
+    }
+
+    public void TryPlaceSelected(Tile tile)
+    {
+        if (selectedPrefab == null) return;
+        PlaceBuilding(tile, selectedPrefab);
     }
 }

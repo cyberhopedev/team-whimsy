@@ -95,6 +95,7 @@ public class CorruptionManager : MonoBehaviour
                 if(n.Type == TileType.RitualCircle)
                 {
                     n.Type = TileType.CorruptedRitualCircle;
+                    EventBus.OnTileChanged?.Invoke(n);
                     continue;
                 }
                 // Handles the H% chance to convert any adjacent tile
@@ -110,6 +111,7 @@ public class CorruptionManager : MonoBehaviour
         {
             tile.Type = TileType.CorruptedForest;
             tile.AddImpurity(100);
+            EventBus.OnTileChanged?.Invoke(tile);
         }
     }
 
@@ -126,5 +128,6 @@ public class CorruptionManager : MonoBehaviour
 
         randomTile.Type = TileType.CorruptedForest;
         randomTile.AddImpurity(100);
+        EventBus.OnTileChanged?.Invoke(randomTile);
     }
 }

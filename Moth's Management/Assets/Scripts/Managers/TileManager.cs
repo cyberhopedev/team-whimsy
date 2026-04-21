@@ -96,6 +96,7 @@ public class TileManager : MonoBehaviour
         Tile centerTile = GetTile(center);
         centerTile.Type = TileType.Cottage;
         EventBus.OnTileChanged?.Invoke(centerTile);
+        BuildingManager.Instance.PlaceBuilding(centerTile, BuildingManager.Instance.cottagePrefab);
     }
 
     // This method makes sure the camera will show all tiles
@@ -158,6 +159,10 @@ public class TileManager : MonoBehaviour
                 break;
             case 'H':
                 tile.Type = TileType.Cottage;
+                // Spawn cottage building directly, bypassing IsBuildable check
+                GameObject obj = Instantiate(BuildingManager.Instance.cottagePrefab, new Vector3(pos.x, pos.y, 0), Quaternion.identity);
+                Building building = obj.GetComponent<Building>();
+                building.Init(tile);
                 break;
         }
 

@@ -2587,9 +2587,12 @@ GameObject:
   - component: {fileID: 1640869402}
   - component: {fileID: 1640869401}
   - component: {fileID: 1640869405}
-  - component: {fileID: 1640869404}
-  - component: {fileID: 1640869406}
   - component: {fileID: 1640869407}
+  - component: {fileID: 1640869408}
+  - component: {fileID: 1640869409}
+  - component: {fileID: 1640869410}
+  - component: {fileID: 1640869412}
+  - component: {fileID: 1640869411}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2671,21 +2674,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1640869404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1640869400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb0423b8ea44528459b23bfcde884f3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TileManager
-  width: 21
-  height: 21
-  tilePrefab: {fileID: 2795925063282499194, guid: 37e71b279622cb44688aa634d51c826e, type: 3}
 --- !u!114 &1640869405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2730,7 +2718,41 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!114 &1640869406
+--- !u!114 &1640869407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640869400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d46bd4efeba8164cb60f27f135297d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResourceManager
+  magic: 5
+  maxMagic: 50
+  chalk: 5
+  berries: 5
+  magicT: {fileID: 1335395404}
+  chalkT: {fileID: 792228835}
+  berriesT: {fileID: 415568082}
+--- !u!114 &1640869408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640869400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb0423b8ea44528459b23bfcde884f3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TileManager
+  width: 21
+  height: 21
+  tilePrefab: {fileID: 2795925063282499194, guid: 37e71b279622cb44688aa634d51c826e, type: 3}
+--- !u!114 &1640869409
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2746,7 +2768,7 @@ MonoBehaviour:
   levelT: {fileID: 985555521}
   descriptionT: {fileID: 491123531}
   icon: {fileID: 848097798}
---- !u!114 &1640869407
+--- !u!114 &1640869410
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2755,16 +2777,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 1640869400}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d46bd4efeba8164cb60f27f135297d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6bab9ac7fa6b39743a9920b806ed6186, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ResourceManager
-  magic: 0
-  maxMagic: 50
-  chalk: 0
-  berries: 0
-  magicT: {fileID: 792228835}
-  chalkT: {fileID: 1335395404}
-  berriesT: {fileID: 415568082}
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingManager
+  antHillPrefab: {fileID: 1679057190689474957, guid: 3832da498e0c9a44fabcbd8ee4350b88, type: 3}
+  berryPrefab: {fileID: 1679057190689474957, guid: 29d8ceb65a4deb84ebfe9061b695437e, type: 3}
+  cottagePrefab: {fileID: 1679057190689474957, guid: 8492fd070434baf48b7dcac44301090e, type: 3}
+--- !u!114 &1640869411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640869400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d8e5f9af887e22408a8f50416084eb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  tickInterval: 2
+--- !u!114 &1640869412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640869400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5371850e517a1d42b67073eeda6c7a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CorruptionManager
+  spreadInterval: 5
+  spreadChance: 0.3
+  impurityChance: 0.25
 --- !u!1 &1977782528
 GameObject:
   m_ObjectHideFlags: 0

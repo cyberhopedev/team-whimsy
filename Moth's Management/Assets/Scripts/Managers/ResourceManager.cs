@@ -49,6 +49,7 @@ public class ResourceManager : MonoBehaviour
     /// <param name="amount">The amount of chalk to add</param>
     public void AddChalk(int amount)
     {
+        berries -= amount;
         chalk += amount;
         // Update UI
         chalkT.text = chalk.ToString();
@@ -94,5 +95,20 @@ public class ResourceManager : MonoBehaviour
     public bool SpendBerries(int amount)
     {
         return berries >= amount;
+    }
+
+    // This method assumes you've checked that you can afford these
+    public bool Buy(int magicAmt, int chalkAmt, int berriesAmt)
+    {
+        // Make sure this can be afforded
+        if (!SpendMagic(magicAmt) || !SpendChalk(chalkAmt) || !SpendBerries(berriesAmt))
+        {
+            return false;
+        }
+
+        magic -= magicAmt;
+        chalk -= chalkAmt;
+        berries -= berriesAmt;
+        return true;
     }
 }

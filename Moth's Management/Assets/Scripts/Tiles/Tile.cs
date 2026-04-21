@@ -118,20 +118,4 @@ public class Tile : MonoBehaviour
     {
         Debug.Log($"Hovering over tile at {GridPosition}");
     }
-
-    public void OnHoverExit()
-    {
-        // something
-    }
-
-    public void OnSelect()
-    {
-        Debug.Log($"Selected tile at {GridPosition} | Type: {Type}");
-        EventBus.OnTileSelected?.Invoke(this);
-    }
-
-    public void OnDeselect()
-    {
-        // something
-    }
 }

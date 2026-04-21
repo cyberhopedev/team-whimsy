@@ -33,10 +33,10 @@ public class TileSelector : MonoBehaviour
 
         if (tile == hoveredTile) return;
 
-        // Mouse moved to a new tile
-        hoveredTile?.OnHoverExit();
-        hoveredTile = tile;
-        hoveredTile?.OnHoverEnter();
+        // // Mouse moved to a new tile
+        // hoveredTile?.OnHoverExit();
+        // hoveredTile = tile;
+        // hoveredTile?.OnHoverEnter();
 
         // Update UI display
         if (tile != null)
@@ -57,8 +57,23 @@ public class TileSelector : MonoBehaviour
         Tile tile = TileManager.Instance.GetTileFromMouse();
         if (tile == null) return;
 
-        selectedTile?.OnDeselect();
-        selectedTile = tile;
-        selectedTile.OnSelect();
+        // If clicking the cottage, collect magic
+        if (tile.Type == TileType.Cottage)
+        {
+            Debug.Log("reached here");
+            // FindObjectOfType<Cottage>()?.CollectMagic();
+            Cottage cottageTile = FindAnyObjectByType<Cottage>();
+            if (cottageTile != null)
+            {
+                cottageTile.CollectMagic();
+            } else
+            {
+                Debug.Log(":(");
+            }
+            return;
+        }
+
+        // Otherwise attempt to place selected building
+        BuildingManager.Instance.TryPlaceSelected(tile);
     }
 }
