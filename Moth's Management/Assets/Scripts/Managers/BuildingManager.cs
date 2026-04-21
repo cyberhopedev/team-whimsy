@@ -7,7 +7,7 @@ public class BuildingManager : MonoBehaviour
 {
     // Instance of the BuildingManager
     public static BuildingManager Instance { get; private set; }
-    private GameObject selectedPrefab;
+    // private GameObject selectedPrefab;
     // public GameObject ritualPrefab;
     public GameObject antHillPrefab;
     public GameObject berryPrefab;
@@ -27,9 +27,11 @@ public class BuildingManager : MonoBehaviour
     /// <param name="prefab">The Building's prefab</param>
     public void PlaceBuilding(Tile tile, GameObject prefab)
     {
+        Debug.Log("thisll");
         if (tile == null || !tile.IsBuildable()) {
             return;
         }
+        Debug.Log("in place building");
 
         // Create building
         GameObject obj = Instantiate(prefab, new Vector3(tile.GridPosition.x, tile.GridPosition.y, 0), Quaternion.identity);
@@ -38,6 +40,7 @@ public class BuildingManager : MonoBehaviour
 
         // Update the tile type based on what was placed
         tile.Type = GetTileTypeForPrefab(prefab);
+        tile.SetSprite(TileTypes.GetIcon(tile.GetTileType()));
         EventBus.OnTileChanged?.Invoke(tile);
     }
 
@@ -51,8 +54,17 @@ public class BuildingManager : MonoBehaviour
         return TileType.ForestPure;
     }
 
+    public GameObject GetPrefabForTileType(TileType tile)
+    {
+        if (tile == TileType.Anthill) return antHillPrefab;
+        if (tile == TileType.BerryBush) return berryPrefab;
+        if (tile == TileType.Cottage) return cottagePrefab;
+        if (tile == TileType.MagicCircle) return magicCirclePrefab;
+        return null;
+    }
+
     // Called by UI buttons
-    public void SelectBuilding(string buildingName)
+    public void SelectBuilding(string buildingName, GameObject selectedPrefab)
     {
         selectedPrefab = buildingName switch
         {
@@ -64,8 +76,9 @@ public class BuildingManager : MonoBehaviour
         };
     }
 
-    public void TryPlaceSelected(Tile tile)
+    public void TryPlaceSelected(Tile tile, GameObject selectedPrefab)
     {
+        Debug.Log("here - prefab: " + selectedPrefab);
         if (selectedPrefab == null) return;
         PlaceBuilding(tile, selectedPrefab);
     }
