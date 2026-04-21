@@ -103,13 +103,23 @@ public class TileManager : MonoBehaviour
     void FitCamera()
     {
         Camera cam = Camera.main;
-        cam.transform.position = new Vector3(width / 2f + 2f, height / 2f, -10f);
 
         float verticalSize = height / 2f;
         float horizontalSize = (width / 2f) / cam.aspect;
+        cam.orthographicSize = Mathf.Max(verticalSize, horizontalSize) + 0.5f;
 
-        // Use whichever is larger to ensure that all tiles are visible
-        cam.orthographicSize = Mathf.Max(verticalSize, horizontalSize) + 0.5f; // +0.5 for padding
+        // Calculate how wide the full screen is in world units
+        float screenWorldWidth = cam.orthographicSize * 2f * cam.aspect;
+
+        // .25 is to consider the space the UI takes up
+        float uiWidthFraction = 0.25f;
+        float offset = (screenWorldWidth * uiWidthFraction) / 2f;
+
+        // Center on the grid, then shift left to account for UI panel
+        float centerX = (width - 1) / 2f + offset;
+        float centerY = (height - 1) / 2f;
+
+        cam.transform.position = new Vector3(centerX, centerY, -10f);
     }
 
     /// <summary>
