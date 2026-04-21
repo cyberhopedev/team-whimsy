@@ -43,7 +43,7 @@ public class Cottage : Building
         ResourceManager resources = ResourceManager.Instance;
         BuildingData nextLevel = tierLevel == 0 ? upgradeData[1] : upgradeData[2];
 
-        if (!resources.Buy(nextLevel.magicCost, nextLevel.chalkChost, nextLevel.berryCost)) return false;
+        if (!resources.Buy(nextLevel.magicCost, nextLevel.chalkCost, nextLevel.berryCost)) return false;
          
         tierLevel++;
         if (tierLevel == 2)

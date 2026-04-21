@@ -7,7 +7,7 @@ using UnityEngine;
 public class BuildingData : ScriptableObject
 {
     public string buildingName;
-    public int chalkChost;
+    public int chalkCost;
     public int berryCost;
     public int magicCost;
 }
