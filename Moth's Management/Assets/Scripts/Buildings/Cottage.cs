@@ -25,7 +25,6 @@ public class Cottage : Building
     /// </summary>
     public int CollectMagic()
     {
-        Debug.Log("here :)");
         int amount = Mathf.Min(magicPerClick[tierLevel], magicCapacity[tierLevel] - currentMagic);
         currentMagic += amount;
         ResourceManager.Instance.AddMagic(amount);

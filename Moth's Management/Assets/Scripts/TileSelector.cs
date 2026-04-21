@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 /// <summary>
 /// Handles mouse input and tile selection/interaction
@@ -16,12 +17,9 @@ public class TileSelector : MonoBehaviour
     [SerializeField] private TextMeshProUGUI levelT;
     [SerializeField] private TextMeshProUGUI descriptionT;
     [SerializeField] private Image icon;
-
-    // Re-evaluate this later, auto assumes you want to build a magic circle
-    void Start()
-    {
-        BuildingManager.Instance.SelectBuilding("magicCircle");
-    }
+    [SerializeField] private GameObject buttons;
+    [SerializeField] private GameObject ritualButton;
+    private Boolean buttonsVisible = false;
 
     void Update()
     {
@@ -61,12 +59,13 @@ public class TileSelector : MonoBehaviour
 
         Tile tile = TileManager.Instance.GetTileFromMouse();
         if (tile == null) return;
+        selectedTile = tile;
+
+        Debug.Log("tile type: " + tile.GetTileType() + "  ||  " + "ritualSite?: " + tile.IsRitualSite);
 
         // If clicking the cottage, collect magic
         if (tile.Type == TileType.Cottage)
         {
-            Debug.Log("reached here");
-            // FindObjectOfType<Cottage>()?.CollectMagic();
             Cottage cottageTile = FindAnyObjectByType<Cottage>();
             if (cottageTile != null)
             {
@@ -79,6 +78,27 @@ public class TileSelector : MonoBehaviour
         }
 
         // Otherwise attempt to place selected building
-        BuildingManager.Instance.TryPlaceSelected(tile);
+        // BuildingManager.Instance.TryPlaceSelected(tile);
+        buttonsVisible = !buttonsVisible;
+        buttons.SetActive(buttonsVisible);
+        if (selectedTile.IsRitualSite) {
+            ritualButton.SetActive(buttonsVisible);
+        } 
+        else
+        {
+            ritualButton.SetActive(false);
+        }
+    }
+
+    public void OnBuildMagicCircle()
+    {
+        Debug.Log("selectedTile: " + selectedTile);
+        BuildingManager.Instance.TryPlaceSelected(selectedTile, BuildingManager.Instance.GetPrefabForTileType(TileType.MagicCircle));
+    }
+
+    public void OnRitualCircle()
+    {
+        Debug.Log("selectedTile: " + selectedTile);
+        BuildingManager.Instance.TryPlaceSelected(selectedTile, BuildingManager.Instance.GetPrefabForTileType(TileType.MagicCircle));
     }
 }
