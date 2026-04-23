@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55e007f5e54a52147b48863ae33b5d3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MagicCircle
-  tile: {fileID: 0}
+  tile: {fileID: 4362952391687432331, guid: 37e71b279622cb44688aa634d51c826e, type: 3}
   purifyRadius: 1
 --- !u!1001 &6218379196475580025
 PrefabInstance:

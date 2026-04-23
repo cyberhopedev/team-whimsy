@@ -20,7 +20,7 @@ public class TileManager : MonoBehaviour
     private Dictionary<Vector2Int, Tile> tiles = new Dictionary<Vector2Int, Tile>();
 
     // Lists to hold the varying types of tiles
-     private List<Tile> pureTiles = new List<Tile>();
+    private List<Tile> pureTiles = new List<Tile>();
     private List<Tile> impureTiles = new List<Tile>();
     private List<Tile> ritualTiles = new List<Tile>();
     private List<Tile> corruptedTiles = new List<Tile>();
