@@ -12,14 +12,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // Singleton instance
-        if (Instance == null)
-        {
-            Instance = this;
-        } else
-        {
-            Destroy(gameObject);
-        }
+        Instance = this;
     }
 
     void Update()
