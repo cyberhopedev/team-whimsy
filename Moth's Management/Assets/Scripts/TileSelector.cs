@@ -99,6 +99,12 @@ public class TileSelector : MonoBehaviour
     public void OnRitualCircle()
     {
         Debug.Log("selectedTile: " + selectedTile);
-        BuildingManager.Instance.TryPlaceSelected(selectedTile, BuildingManager.Instance.GetPrefabForTileType(TileType.MagicCircle));
+        BuildingManager.Instance.TryPlaceSelected(selectedTile, BuildingManager.Instance.GetPrefabForTileType(TileType.RitualCircle));
+    }
+
+    public void OnBerryBush()
+    {
+        Debug.Log("selectedTile: " + selectedTile);
+        BuildingManager.Instance.TryPlaceSelected(selectedTile, BuildingManager.Instance.GetPrefabForTileType(TileType.BerryBush));
     }
 }
