@@ -55,6 +55,7 @@ public class TileManager : MonoBehaviour
         // InitializeCottage();
         LoadMapFromFile("map01");
         FitCamera();
+        InitCanvas();
     }
 
     /// <summary>
