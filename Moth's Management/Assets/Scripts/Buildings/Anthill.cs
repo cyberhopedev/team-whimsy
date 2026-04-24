@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class AntHill : Building
 {
     public int chalkPerTick = 5;

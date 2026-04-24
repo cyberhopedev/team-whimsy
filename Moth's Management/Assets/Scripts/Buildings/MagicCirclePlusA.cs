@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
-/// Magic cirlce upgrade that provides the permanent ward
+/// Magic circle upgrade that provides the permanent ward
 /// </summary>
 public class MagicCirclePlusA : Building
 {
