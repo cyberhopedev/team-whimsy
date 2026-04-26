@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BerryBushData
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   buildingName: BerryBush
-  chalkChost: 3
+  chalkCost: 0
   berryCost: 0
-  magicCost: 1
+  magicCost: 10

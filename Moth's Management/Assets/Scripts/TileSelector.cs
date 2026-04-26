@@ -32,6 +32,9 @@ public class TileSelector : MonoBehaviour
     /// </summary>
     void HandleHover()
     {
+        // Don't show hover stuff unless no tile selected
+        if (selectedTile != null) return;
+
         Tile tile = TileManager.Instance.GetTileFromMouse();
 
         if (tile == hoveredTile) return;
@@ -58,10 +61,18 @@ public class TileSelector : MonoBehaviour
         if (!Input.GetMouseButtonDown(0)) return;
 
         Tile tile = TileManager.Instance.GetTileFromMouse();
-        if (tile == null) return;
+        // Deselect tile if they click on no tile or same tile
+        if (tile == null || tile == selectedTile)  {
+            Debug.Log("this is running :/");
+            selectedTile = null;
+            buttonsVisible = false;
+            buttons.SetActive(buttonsVisible);
+            return;
+        }
         selectedTile = tile;
 
-        Debug.Log("tile type: " + tile.GetTileType() + "  ||  " + "ritualSite?: " + tile.IsRitualSite);
+        Debug.Log("selectedTile: " + selectedTile.GetTileType());
+        // Debug.Log("tile type: " + tile.GetTileType() + "  ||  " + "ritualSite?: " + tile.IsRitualSite);
 
         // If clicking the cottage, collect magic
         if (tile.Type == TileType.Cottage)
@@ -106,5 +117,11 @@ public class TileSelector : MonoBehaviour
     {
         Debug.Log("selectedTile: " + selectedTile);
         BuildingManager.Instance.TryPlaceSelected(selectedTile, BuildingManager.Instance.GetPrefabForTileType(TileType.BerryBush));
+    }
+
+    public void OnAnthill()
+    {
+        Debug.Log("selectedTile: " + selectedTile);
+        BuildingManager.Instance.TryPlaceSelected(selectedTile, BuildingManager.Instance.GetPrefabForTileType(TileType.Anthill));
     }
 }

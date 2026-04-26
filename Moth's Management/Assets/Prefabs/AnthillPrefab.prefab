@@ -156,4 +156,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AntHill
   tile: {fileID: 1984183215730010632}
+  buildingData: {fileID: 11400000, guid: d6d45fa7b8c738e40bfdd26767f1ff9d, type: 2}
   chalkPerTick: 5

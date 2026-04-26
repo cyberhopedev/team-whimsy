@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cottage
   tile: {fileID: 1984183215730010632}
+  buildingData: {fileID: 11400000, guid: 5c40900a1887a93418ccea750e2de7b0, type: 2}
   magicPerClick: 0a000000140000001e000000
   magicCapacity: 64000000c80000002c010000
   upgradeData:
@@ -106,12 +107,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362952391687432331, guid: 37e71b279622cb44688aa634d51c826e, type: 3}
       propertyPath: Type
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5529990931032202704, guid: 37e71b279622cb44688aa634d51c826e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 210200d1e64bc50448e1e6d80c91fa6c, type: 3}
+      objectReference: {fileID: 21300000, guid: 784cc66974005874a9c7d168d2e171c1, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

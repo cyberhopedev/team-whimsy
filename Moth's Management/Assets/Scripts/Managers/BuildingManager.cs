@@ -8,7 +8,7 @@ public class BuildingManager : MonoBehaviour
     // Instance of the BuildingManager
     public static BuildingManager Instance { get; private set; }
     // private GameObject selectedPrefab;
-    // public GameObject ritualPrefab;
+    public GameObject ritualPrefab;
     public GameObject antHillPrefab;
     public GameObject berryPrefab;
     public GameObject cottagePrefab;
@@ -27,7 +27,6 @@ public class BuildingManager : MonoBehaviour
     /// <param name="prefab">The Building's prefab</param>
     public void PlaceBuilding(Tile tile, GameObject prefab)
     {
-        Debug.Log("thisll");
         if (tile == null || !tile.IsBuildable()) {
             return;
         }
@@ -46,7 +45,7 @@ public class BuildingManager : MonoBehaviour
 
     TileType GetTileTypeForPrefab(GameObject prefab)
     {
-        // if (prefab == ritualPrefab) return TileType.RitualCircle;
+        if (prefab == ritualPrefab) return TileType.RitualCircle;
         if (prefab == antHillPrefab) return TileType.Anthill;
         if (prefab == berryPrefab) return TileType.BerryBush;
         if (prefab == cottagePrefab) return TileType.Cottage;
@@ -56,6 +55,7 @@ public class BuildingManager : MonoBehaviour
 
     public GameObject GetPrefabForTileType(TileType tile)
     {
+        if (tile == TileType.RitualCircle) return ritualPrefab;
         if (tile == TileType.Anthill) return antHillPrefab;
         if (tile == TileType.BerryBush) return berryPrefab;
         if (tile == TileType.Cottage) return cottagePrefab;
@@ -68,7 +68,7 @@ public class BuildingManager : MonoBehaviour
     {
         selectedPrefab = buildingName switch
         {
-            // "ritual" => ritualPrefab,
+            "ritual" => ritualPrefab,
             "Anthill" => antHillPrefab,
             "BerryBush" => berryPrefab,
             "MagicCircle" => magicCirclePrefab,
@@ -80,6 +80,9 @@ public class BuildingManager : MonoBehaviour
     {
         Debug.Log("here - prefab: " + selectedPrefab);
         if (selectedPrefab == null) return;
+        // Make sure you can afford it
+        BuildingData costInfo = selectedPrefab.GetComponent<Building>().GetBuildingData();
+        if (!ResourceManager.Instance.CanBuy(costInfo.magicCost, costInfo.chalkCost, costInfo.berryCost)) return;
         PlaceBuilding(tile, selectedPrefab);
     }
 }

@@ -156,5 +156,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BerryBush
   tile: {fileID: 1984183215730010632}
+  buildingData: {fileID: 11400000, guid: 212eb893baf83044fa78b9d809558392, type: 2}
   berriesPerTick: 3
   bonusBerriesNearWater: 2

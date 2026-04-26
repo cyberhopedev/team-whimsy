@@ -98,7 +98,7 @@ public class ResourceManager : MonoBehaviour
     }
 
     // This method assumes you've checked that you can afford these
-    public bool Buy(int magicAmt, int chalkAmt, int berriesAmt)
+    public bool CanBuy(int magicAmt, int chalkAmt, int berriesAmt)
     {
         // Make sure this can be afforded
         if (!SpendMagic(magicAmt) || !SpendChalk(chalkAmt) || !SpendBerries(berriesAmt))
