@@ -15,4 +15,8 @@ public static class EventBus
     public static Action<bool> OnGameOver;
     public static Action OnTick;
     public static Action<Tile> OnTileSelected;
+
+    // Monster Events
+    public static Action<Tile> OnMonsterSpawned;
+    public static Action<Tile> OnMonsterMoved;
 }

@@ -19,6 +19,13 @@ public class CorruptionManager : MonoBehaviour
     public float spreadChance = 0.3f;   // H%
     public float impurityChance = 0.25f; // G%
 
+    // Monster manager added logic for dens
+    public float denFormChance   = 0.05f; // Z% — isolated impure tile forming a Monster Den
+    public float denFormInterval = 10f;   // N seconds between den formation checks
+    [Header("Monster Den Rules")]
+    public int denMinDistance = 4; // Minimum tile distance between Monster Dens
+
+
     void Awake()
     {
         Instance = this;
