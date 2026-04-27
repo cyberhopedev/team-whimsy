@@ -35,7 +35,7 @@ public class MonsterManager : MonoBehaviour
         }
     }
  
-    void ProcessTick()
+    public void ProcessTick()
     {
         SpawnFromDens();
         MoveMonsters();
