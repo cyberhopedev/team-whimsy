@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Handles mouse input and tile selection/interaction
@@ -17,9 +18,23 @@ public class TileSelector : MonoBehaviour
     [SerializeField] private TextMeshProUGUI levelT;
     [SerializeField] private TextMeshProUGUI descriptionT;
     [SerializeField] private Image icon;
-    [SerializeField] private GameObject buttons;
-    [SerializeField] private GameObject ritualButton;
-    private Boolean buttonsVisible = false;
+    [Header("UI Panels")]
+    [SerializeField] private GameObject CottageHover;
+    [SerializeField] private GameObject AntBerryHover;
+    [SerializeField] private GameObject MagicCircleHover;
+    [SerializeField] private GameObject PlaceBuildingHover;
+    [SerializeField] private GameObject PlaceRitualHover;
+    [SerializeField] private GameObject UpgradeStuffHover;
+    private List<GameObject> uiHovers;
+
+    void Start()
+    {
+        // uiHovers.Add(CottageHover);
+        // uiHovers.Add(AntBerryHover);
+        // uiHovers.Add(MagicCircleHover);
+        // uiHovers.Add(PlaceBuildingHover);
+        // uiHovers.Add(PlaceRitualHover);
+    }
 
     void Update()
     {
@@ -39,18 +54,65 @@ public class TileSelector : MonoBehaviour
 
         if (tile == hoveredTile) return;
 
-        // // Mouse moved to a new tile
-        // hoveredTile?.OnHoverExit();
-        // hoveredTile = tile;
-        // hoveredTile?.OnHoverEnter();
-
         // Update UI display
         if (tile != null)
         {
             nameT.text = TileTypes.GetName(tile.GetTileType());
             descriptionT.text = TileTypes.GetDescription(tile.GetTileType());
             icon.sprite = TileTypes.GetIcon(tile.GetTileType());   
+            levelT.text = TileTypes.GetTierLvl(tile.GetTileType());
+
+            // Determine which UI sections should be displayed
+            switch (tile.GetTileType())
+            {
+                case TileType.Cottage:
+                case TileType.Cottage2:
+                    ShowUI(CottageHover);
+                    UpgradeStuffHover.SetActive(true);
+                    break;
+                case TileType.Cottage3:
+                    ShowUI(CottageHover);
+                    break;
+                case TileType.Anthill:
+                case TileType.BerryBush:
+                case TileType.BerryBushPlus:
+                    ShowUI(AntBerryHover);
+                    break;
+                case TileType.MagicCircle:
+                case TileType.MagicCircleA:
+                    ShowUI(MagicCircleHover);
+                    UpgradeStuffHover.SetActive(true);
+                    break;
+                case TileType.MagicCircleB:
+                    ShowUI(MagicCircleHover);
+                    break;
+                case TileType.ForestPure:
+                    ShowUI(PlaceBuildingHover);
+                    break;
+            }
+
+            // - cottage hover
+            // - antberryhover
+            // - magiccirclehover
+            // - placebuildinghover
+            // - placeritualhover
+            // - upgrade stuff
         }
+    }
+
+    private void ShowUI(GameObject hover)
+    {
+        foreach (GameObject uiGroup in uiHovers)
+        {
+            if (uiGroup != hover)
+            {
+                uiGroup.SetActive(false);
+            } else
+            {
+                uiGroup.SetActive(true);
+            }
+        }
+        UpgradeStuffHover.SetActive(false);
     }
 
     /// <summary>
@@ -63,10 +125,7 @@ public class TileSelector : MonoBehaviour
         Tile tile = TileManager.Instance.GetTileFromMouse();
         // Deselect tile if they click on no tile or same tile
         if (tile == null || tile == selectedTile)  {
-            Debug.Log("this is running :/");
             selectedTile = null;
-            buttonsVisible = false;
-            buttons.SetActive(buttonsVisible);
             return;
         }
         selectedTile = tile;
@@ -86,18 +145,6 @@ public class TileSelector : MonoBehaviour
                 Debug.Log(":(");
             }
             return;
-        }
-
-        // Otherwise attempt to place selected building
-        // BuildingManager.Instance.TryPlaceSelected(tile);
-        buttonsVisible = !buttonsVisible;
-        buttons.SetActive(buttonsVisible);
-        if (selectedTile.IsRitualSite) {
-            ritualButton.SetActive(buttonsVisible);
-        } 
-        else
-        {
-            ritualButton.SetActive(false);
         }
     }
 
