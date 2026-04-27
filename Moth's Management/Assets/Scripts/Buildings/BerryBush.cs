@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class BerryBush : Building
 {
     public int berriesPerTick = 3;
@@ -22,6 +24,12 @@ public class BerryBush : Building
     {
         var neighbors = TileManager.Instance.GetNeighbors(tile.GridPosition);
         isNearWater = neighbors.Exists(t => t.Type == TileType.Lake);
+
+        if (isNearWater)
+        {
+            tile.SetTileType(TileType.BerryBushPlus);
+            tile.SetSprite(TileTypes.GetIcon(tile.GetTileType()));
+        }
     }
 
     void ProduceBerries()
@@ -29,4 +37,10 @@ public class BerryBush : Building
         int amount = isNearWater ? berriesPerTick + bonusBerriesNearWater : berriesPerTick;
         ResourceManager.Instance.AddBerries(amount);
     }
+
+    public AntBerryUIData GetAntBerryUIData() => new AntBerryUIData
+    {
+        productionIcon = Resources.Load<Sprite>("Sprites/BerryIcon"),
+        productionAmount = berriesPerTick
+    };
 }

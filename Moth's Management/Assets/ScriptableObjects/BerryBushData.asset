@@ -15,4 +15,7 @@ MonoBehaviour:
   buildingName: BerryBush
   chalkCost: 0
   berryCost: 0
-  magicCost: 10
+  magicCost: 12
+  magicProduction: 0
+  chalkProduction: 0
+  berryProduction: 3

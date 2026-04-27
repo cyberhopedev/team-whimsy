@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEditor.Rendering;
 
 /// <summary>
 /// Handles all of the resources the player can use, which includes
@@ -100,15 +101,20 @@ public class ResourceManager : MonoBehaviour
     // This method assumes you've checked that you can afford these
     public bool CanBuy(int magicAmt, int chalkAmt, int berriesAmt)
     {
+        Debug.Log("magicCost: " + magicAmt);
+        Debug.Log("chalkCost: " + chalkAmt);
+        Debug.Log("berriesCost: " + berriesAmt);
         // Make sure this can be afforded
         if (!SpendMagic(magicAmt) || !SpendChalk(chalkAmt) || !SpendBerries(berriesAmt))
         {
+            Debug.Log("can't afford");
             return false;
         }
 
         magic -= magicAmt;
         chalk -= chalkAmt;
         berries -= berriesAmt;
+        Debug.Log("Bought");
         return true;
     }
 }

@@ -28,9 +28,10 @@ public class BuildingManager : MonoBehaviour
     public void PlaceBuilding(Tile tile, GameObject prefab)
     {
         if (tile == null || !tile.IsBuildable()) {
+            Debug.Log("tile is null!!!!!!!!!!!!!!!!");
             return;
         }
-        Debug.Log("in place building");
+        Debug.Log("inside place building");
 
         // Create building
         GameObject obj = Instantiate(prefab, new Vector3(tile.GridPosition.x, tile.GridPosition.y, 0), Quaternion.identity);
@@ -84,5 +85,24 @@ public class BuildingManager : MonoBehaviour
         BuildingData costInfo = selectedPrefab.GetComponent<Building>().GetBuildingData();
         if (!ResourceManager.Instance.CanBuy(costInfo.magicCost, costInfo.chalkCost, costInfo.berryCost)) return;
         PlaceBuilding(tile, selectedPrefab);
+    }
+
+    // Place building data
+    public PlaceBuildingUIData GetPlaceBuildingUIData()
+    {
+        AntHill anthill = antHillPrefab.GetComponent<AntHill>();
+        BerryBush berry = berryPrefab.GetComponent<BerryBush>();
+        MagicCircle circle = magicCirclePrefab.GetComponent<MagicCircle>();
+
+        return new PlaceBuildingUIData
+        {
+            anthillChalkPerTick = anthill.chalkPerTick,
+            anthillMagicCost = anthill.GetBuildingData().magicCost,
+            berryBushBerriesPerTick = berry.berriesPerTick,
+            berryBushMagicCost = berry.GetBuildingData().magicCost,
+            magicCircleRadius = circle.purifyRadiusPerTier[circle.TierLevel],
+            magicCircleMagicCost = circle.GetBuildingData().magicCost,
+            magicCircleChalkCost = circle.GetBuildingData().chalkCost
+        };
     }
 }

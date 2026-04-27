@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: AnthillData
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   buildingName: Anthill
-  chalkChost: 0
-  berryCost: 3
-  magicCost: 0
+  chalkCost: 0
+  berryCost: 0
+  magicCost: 15
+  magicProduction: 0
+  chalkProduction: 1
+  berryProduction: 0

@@ -19,6 +19,9 @@ public class Tile : MonoBehaviour
 
     // Means a ritual site should be placed here
     public bool IsRitualSite = false;
+    // Highlight border for when you click on a tile
+    [SerializeField] private GameObject border;
+    public Building OccupyingBuilding { get; set; }
 
     /// <summary>
     /// Initialize tile
@@ -108,6 +111,12 @@ public class Tile : MonoBehaviour
         return Type;
     }
 
+    // Public setter for tile type (for upgrades)
+    public void SetTileType(TileType type)
+    {
+        Type = type;
+    }
+
     // Allows sprite to be set from another class
     public void SetSprite(Sprite sprite)
     {
@@ -117,5 +126,11 @@ public class Tile : MonoBehaviour
     public void OnHoverEnter()
     {
         Debug.Log($"Hovering over tile at {GridPosition}");
+    }
+
+    public void SetHighlight(bool active)
+    {
+        if (border != null)
+            border.SetActive(active);
     }
 }

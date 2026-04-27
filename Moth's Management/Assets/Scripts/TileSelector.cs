@@ -25,15 +25,25 @@ public class TileSelector : MonoBehaviour
     [SerializeField] private GameObject PlaceBuildingHover;
     [SerializeField] private GameObject PlaceRitualHover;
     [SerializeField] private GameObject UpgradeStuffHover;
-    private List<GameObject> uiHovers;
+    [Header("Cottage Fields")]
+    [SerializeField] private TextMeshProUGUI cottageCurrAmt;
+    [SerializeField] private TextMeshProUGUI cottageMaxAmt;
+    [Header("Upgrade Fields")]
+    [SerializeField] private TextMeshProUGUI upgradeNextTier;
+    [SerializeField] private TextMeshProUGUI upgradeMagicCost;
+    [SerializeField] private TextMeshProUGUI upgradeChalkCost;
+    [SerializeField] private TextMeshProUGUI upgradeBerriesCost;
+
+    private List<GameObject> uiHovers = new List<GameObject>();
 
     void Start()
     {
-        // uiHovers.Add(CottageHover);
-        // uiHovers.Add(AntBerryHover);
-        // uiHovers.Add(MagicCircleHover);
-        // uiHovers.Add(PlaceBuildingHover);
-        // uiHovers.Add(PlaceRitualHover);
+        uiHovers.Add(CottageHover);
+        uiHovers.Add(AntBerryHover);
+        uiHovers.Add(MagicCircleHover);
+        uiHovers.Add(PlaceBuildingHover);
+        uiHovers.Add(PlaceRitualHover);
+        uiHovers.Add(UpgradeStuffHover);
     }
 
     void Update()
@@ -47,13 +57,18 @@ public class TileSelector : MonoBehaviour
     /// </summary>
     void HandleHover()
     {
-        // Don't show hover stuff unless no tile selected
+        // Don't change ui if something is selected
         if (selectedTile != null) return;
 
         Tile tile = TileManager.Instance.GetTileFromMouse();
-
         if (tile == hoveredTile) return;
 
+        hoveredTile = tile;
+        UpdateUIDisplay(tile);
+    }
+
+    private void UpdateUIDisplay(Tile tile)
+    {
         // Update UI display
         if (tile != null)
         {
@@ -68,10 +83,13 @@ public class TileSelector : MonoBehaviour
                 case TileType.Cottage:
                 case TileType.Cottage2:
                     ShowUI(CottageHover);
+                    FillCottageUI(tile);
                     UpgradeStuffHover.SetActive(true);
+                    FillUpgradeUI(tile);
                     break;
                 case TileType.Cottage3:
                     ShowUI(CottageHover);
+                    FillCottageUI(tile);
                     break;
                 case TileType.Anthill:
                 case TileType.BerryBush:
@@ -89,14 +107,15 @@ public class TileSelector : MonoBehaviour
                 case TileType.ForestPure:
                     ShowUI(PlaceBuildingHover);
                     break;
+                case TileType.Lake:
+                case TileType.ForestImpure:
+                case TileType.CorruptedForest:
+                    foreach (GameObject uiGroup in uiHovers)
+                    {
+                        uiGroup.SetActive(false);
+                    }
+                    break;
             }
-
-            // - cottage hover
-            // - antberryhover
-            // - magiccirclehover
-            // - placebuildinghover
-            // - placeritualhover
-            // - upgrade stuff
         }
     }
 
@@ -112,7 +131,6 @@ public class TileSelector : MonoBehaviour
                 uiGroup.SetActive(true);
             }
         }
-        UpgradeStuffHover.SetActive(false);
     }
 
     /// <summary>
@@ -121,17 +139,28 @@ public class TileSelector : MonoBehaviour
     void HandleClick()
     {
         if (!Input.GetMouseButtonDown(0)) return;
+        if (Input.mousePosition.x >= 1889) return;  // just clicking on ui
 
         Tile tile = TileManager.Instance.GetTileFromMouse();
         // Deselect tile if they click on no tile or same tile
-        if (tile == null || tile == selectedTile)  {
+        if (tile == null || (tile == selectedTile && selectedTile.GetTileType() != TileType.Cottage))  {
+            // Clear highlight on deselect
+            if (selectedTile != null)
+                selectedTile.SetHighlight(false);
             selectedTile = null;
+            Debug.Log("deselecting tile");
             return;
         }
+        // Clear previous selection's highlight
+        if (selectedTile != null)
+            selectedTile.SetHighlight(false);
         selectedTile = tile;
+        selectedTile.SetHighlight(true); // border highlight
 
         Debug.Log("selectedTile: " + selectedTile.GetTileType());
         // Debug.Log("tile type: " + tile.GetTileType() + "  ||  " + "ritualSite?: " + tile.IsRitualSite);
+
+        UpdateUIDisplay(tile);
 
         // If clicking the cottage, collect magic
         if (tile.Type == TileType.Cottage)
@@ -146,6 +175,7 @@ public class TileSelector : MonoBehaviour
             }
             return;
         }
+        
     }
 
     public void OnBuildMagicCircle()
@@ -162,7 +192,7 @@ public class TileSelector : MonoBehaviour
 
     public void OnBerryBush()
     {
-        Debug.Log("selectedTile: " + selectedTile);
+        Debug.Log("tile that is currently selected: " + selectedTile);
         BuildingManager.Instance.TryPlaceSelected(selectedTile, BuildingManager.Instance.GetPrefabForTileType(TileType.BerryBush));
     }
 
@@ -170,5 +200,57 @@ public class TileSelector : MonoBehaviour
     {
         Debug.Log("selectedTile: " + selectedTile);
         BuildingManager.Instance.TryPlaceSelected(selectedTile, BuildingManager.Instance.GetPrefabForTileType(TileType.Anthill));
+    }
+
+    private void FillCottageUI(Tile tile)
+    {
+        Cottage cottage = tile.OccupyingBuilding as Cottage;
+        if (cottage == null) return;
+        CottageUIData data = cottage.GetCottageUIData();
+        // set fields
+        cottageCurrAmt.text = data.magicPerClick.ToString();
+        cottageMaxAmt.text = data.maxMagic.ToString();
+    }
+
+    // private void FillAntBerryUI(Tile tile)
+    // {
+    //     // Try anthill first, then berrybush
+    //     AntHill anthill = tile.GetComponentInChildren<AntHill>();
+    //     if (anthill != null) { var data = anthill.GetAntBerryUIData(); /* fill */ return; }
+
+    //     BerryBush berry = tile.GetComponentInChildren<BerryBush>();
+    //     if (berry != null) { var data = berry.GetAntBerryUIData(); /* fill */ }
+    // }
+
+    // private void FillPlaceBuildingUI()
+    // {
+    //     PlaceBuildingUIData data = BuildingManager.Instance.GetPlaceBuildingUIData();
+    //     // fill fields
+    // }
+
+    private void FillUpgradeUI(Tile tile)
+    {
+        // Cottage and MagicCircle both have GetUpgradeUIData()
+        Cottage cottage = tile.OccupyingBuilding as Cottage;
+        if (cottage != null) 
+        { 
+            var data = cottage.GetUpgradeUIData(); 
+            // fill values
+            upgradeNextTier.text = data.nextTier.ToString();
+            upgradeMagicCost.text = data.magicCost.ToString();
+            upgradeChalkCost.text = data.chalkCost.ToString();
+            upgradeBerriesCost.text = "0";
+            return; 
+        }
+
+        MagicCircle circle = tile.OccupyingBuilding as MagicCircle;
+        if (circle != null) 
+        { 
+            var data = circle.GetUpgradeUIData(); 
+            upgradeNextTier.text = "Upgrade to tier " + data.nextTier.ToString() + ":";
+            upgradeMagicCost.text = data.magicCost.ToString();
+            upgradeChalkCost.text = data.chalkCost.ToString();
+            upgradeBerriesCost.text = "0";
+        }
     }
 }

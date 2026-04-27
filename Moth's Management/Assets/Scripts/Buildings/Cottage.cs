@@ -3,10 +3,10 @@ using UnityEngine;
 public class Cottage : Building
 {
     [Header("Upgrade Settings")]
-    public int[] magicPerClick = { 10, 20, 30 };     // cottage, cottage1, cottage2
-    public int[] magicCapacity = { 100, 200, 300 };   // capacity per upgrade level
+    public int[] magicPerClick = { 1, 2, 3 };     // cottage, cottage1, cottage2
+    public int[] magicCapacity = { 80, 120, 210 };   // capacity per upgrade level
 
-    private int tierLevel = 1;
+    private int tierLevel = 0;
     private int currentMagic = 0;
     // Getters
     public int TierLevel => tierLevel;
@@ -25,6 +25,7 @@ public class Cottage : Building
     /// </summary>
     public int CollectMagic()
     {
+        // Debug.Log("collecting magic");
         int amount = Mathf.Min(magicPerClick[tierLevel], magicCapacity[tierLevel] - currentMagic);
         currentMagic += amount;
         ResourceManager.Instance.AddMagic(amount);
@@ -54,5 +55,23 @@ public class Cottage : Building
             tile.SetSprite(Resources.Load<Sprite>("Sprites/cabinThree"));
         }
         return true;
+    }
+
+    public CottageUIData GetCottageUIData() => new CottageUIData
+    {
+        magicPerClick = magicPerClick[tierLevel],
+        currentMagic = currentMagic,
+        maxMagic = magicCapacity[tierLevel] - currentMagic
+    };
+
+    public UpgradeUIData GetUpgradeUIData()
+    {
+        BuildingData next = upgradeData[tierLevel]; // next tier data
+        return new UpgradeUIData
+        {
+            nextTier = tierLevel + 1,
+            magicCost = next.magicCost,
+            chalkCost = next.chalkCost
+        };
     }
 }

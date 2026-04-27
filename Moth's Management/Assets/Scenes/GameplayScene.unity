@@ -8247,6 +8247,12 @@ MonoBehaviour:
   PlaceBuildingHover: {fileID: 1313593496}
   PlaceRitualHover: {fileID: 494225489}
   UpgradeStuffHover: {fileID: 1831928237}
+  cottageCurrAmt: {fileID: 589101932}
+  cottageMaxAmt: {fileID: 2036158206}
+  upgradeNextTier: {fileID: 744988838}
+  upgradeMagicCost: {fileID: 2104188766}
+  upgradeChalkCost: {fileID: 595069895}
+  upgradeBerriesCost: {fileID: 1482370250}
 --- !u!114 &1640869410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9133,7 +9139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1831928238
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10140,8 +10146,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 247, y: 41.455}
-  m_SizeDelta: {x: 118.02, y: 101.7}
+  m_AnchoredPosition: {x: 259.05, y: 41.455}
+  m_SizeDelta: {x: 142.12, y: 101.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2036158206
 MonoBehaviour:

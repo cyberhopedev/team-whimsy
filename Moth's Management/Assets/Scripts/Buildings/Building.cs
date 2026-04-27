@@ -19,6 +19,7 @@ public abstract class Building : MonoBehaviour
     public virtual void Init(Tile tile)
     {
         this.tile = tile;
+        tile.OccupyingBuilding = this;
         EventBus.OnBuildingPlaced?.Invoke(this);
     }
 

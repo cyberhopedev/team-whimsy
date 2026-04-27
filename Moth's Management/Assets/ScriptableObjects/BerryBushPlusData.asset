@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d012dfc6790cc847a76269e09ac676b, type: 3}
-  m_Name: Cottage2Data
+  m_Name: BerryBushPlusData
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  buildingName: Cottage2
-  chalkCost: 20
-  berryCost: 5
-  magicCost: 60
-  magicProduction: 2
+  buildingName: BerryBush
+  chalkCost: 0
+  berryCost: 0
+  magicCost: 12
+  magicProduction: 0
   chalkProduction: 0
-  berryProduction: 0
+  berryProduction: 5
