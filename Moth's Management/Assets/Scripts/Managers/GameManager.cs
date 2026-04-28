@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     [Header("Tick Settings")]
     public float tickInterval = 2f;
     private float timer;
+    private float numRitualCircles = 0;
+    private float numRitualCirclesMap = 0;
 
     private void Awake()
     {
@@ -44,6 +46,22 @@ public class GameManager : MonoBehaviour
         if(TileManager.Instance.HasLost())
         {
             EventBus.OnGameOver?.Invoke(false);
+        }
+    }
+
+    public void AddToNumRitualCirclesMap(int amt)
+    {
+        numRitualCirclesMap += amt;
+    }
+
+    public void AddRitualCircle()
+    {
+        numRitualCircles++;
+
+        // Win condition
+        if (numRitualCircles >= numRitualCirclesMap)
+        {
+            Debug.Log("You win!");
         }
     }
 }

@@ -180,6 +180,7 @@ public class TileManager : MonoBehaviour
             case 'O':
                 tile.Type = TileType.ForestImpure;
                 tile.IsRitualSite = true; // means a ritual site should go here later
+                GameManager.Instance.AddToNumRitualCirclesMap(1);
                 break;
             case 'H':
                 tile.Type = TileType.Cottage;
