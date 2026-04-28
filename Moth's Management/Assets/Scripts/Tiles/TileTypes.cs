@@ -65,7 +65,7 @@ public static class TileTypes
             TileType.Lake => "Cannot be corrupted or purified.\n\nPlace berry bushes adjacent to increase berry production.",
             TileType.RitualCircle => "Build all the ritual circles on the map to stop the corruption!",
             TileType.CorruptedRitualCircle => "Purify this ritual circle!\n\nWarning: 3 or more corrupted ritual circles at a time will cause irreparable damage.",
-            TileType.MonsterDen => "Produces Monster with 10% chance each time step",
+            TileType.MonsterDen => "Produces Monster with 5% chance each time step",
             _ => string.Empty,
         };
     }  

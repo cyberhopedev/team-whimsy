@@ -19,6 +19,14 @@ public class CorruptionManager : MonoBehaviour
     public float spreadChance = 0.3f;   // H%
     public float impurityChance = 0.25f; // G%
 
+    // Monster manager added logic for dens
+    public float denFormChance   = 0.05f; // Z% — isolated impure tile forming a Monster Den
+    public float denFormInterval = 10f;   // N seconds between den formation checks
+    [Header("Monster Den Rules")]
+    public int denMinDistance = 4; // Minimum tile distance between Monster Dens
+    private int tickCount = 0;
+    private const int denFormTickInterval = 4;
+
     void Awake()
     {
         Instance = this;
@@ -30,8 +38,12 @@ public class CorruptionManager : MonoBehaviour
     /// </summary>
     public void ProcessTick()
     {
+        tickCount++;
         ProcessImpurity();
         Spread();
+        TryFormDens();
+        if (tickCount % denFormTickInterval == 0)
+            TryFormDens();
     }
 
     /// <summary>
@@ -129,5 +141,29 @@ public class CorruptionManager : MonoBehaviour
         randomTile.Type = TileType.CorruptedForest;
         randomTile.AddImpurity(100);
         EventBus.OnTileChanged?.Invoke(randomTile);
+    }
+
+    void TryFormDens()
+    {
+        var impureTiles = TileManager.Instance.GetImpureTiles();
+        if (impureTiles.Count == 0) return;
+
+        // Roll chance once — only attempt one den per tick
+        float randVal = Random.value;
+        if (randVal >= denFormChance) return;
+
+        // Pick a random impure tile
+        Tile candidate = impureTiles[Random.Range(0, impureTiles.Count)];
+
+        // Check minimum distance from existing dens
+        foreach (Tile den in TileManager.Instance.GetAllTilesOfType(TileType.MonsterDen))
+        {
+            if (Vector2Int.Distance(candidate.GridPosition, den.GridPosition) < denMinDistance)
+                return; // too close, skip this tick
+        }
+
+        candidate.Type = TileType.MonsterDen;
+        candidate.SetSprite(TileTypes.GetIcon(TileType.MonsterDen));
+        EventBus.OnTileChanged?.Invoke(candidate);
     }
 }

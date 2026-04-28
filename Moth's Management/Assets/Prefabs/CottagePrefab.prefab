@@ -48,7 +48,7 @@ MonoBehaviour:
   tile: {fileID: 1984183215730010632}
   buildingData: {fileID: 11400000, guid: 5c40900a1887a93418ccea750e2de7b0, type: 2}
   magicPerClick: 010000000200000003000000
-  magicCapacity: 5000000078000000d2000000
+  magicCapacity: 50000000130100007c010000
   upgradeData:
   - {fileID: 11400000, guid: 5c40900a1887a93418ccea750e2de7b0, type: 2}
   - {fileID: 11400000, guid: 199a5ea37c32d6349abdffc6790295a6, type: 2}

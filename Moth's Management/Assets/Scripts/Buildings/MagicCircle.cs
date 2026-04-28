@@ -89,7 +89,7 @@ public class MagicCircle : Building
         BuildingData nextData = upgradeData[tierLevel + 1];
         return new UpgradeUIData
         {
-            nextTier = tierLevel + 1,
+            nextTier = tierLevel + 2,
             magicCost = nextData.magicCost,
             chalkCost = nextData.chalkCost
         };

@@ -47,6 +47,8 @@ public class TileSelector : MonoBehaviour
     [SerializeField] private TextMeshProUGUI upgradeMagicCost;
     [SerializeField] private TextMeshProUGUI upgradeChalkCost;
     [SerializeField] private TextMeshProUGUI upgradeBerriesCost;
+    [Header("Instructions")]
+    [SerializeField] private GameObject instructions;
 
     private List<GameObject> uiHovers = new List<GameObject>();
 
@@ -122,6 +124,7 @@ public class TileSelector : MonoBehaviour
                     break;
                 case TileType.RitualCircle:
                 case TileType.CorruptedRitualCircle:
+                case TileType.MonsterDen:
                     ShowUI(null); // hide all
                     break;
                 case TileType.ForestPure:
@@ -254,6 +257,11 @@ public class TileSelector : MonoBehaviour
             if (circle.TryUpgrade())
                 UpdateUIDisplay(selectedTile);
         }
+    }
+
+    public void OnClose()
+    {
+        instructions.SetActive(false);
     }
 
     private void FillCottageUI(Tile tile)
