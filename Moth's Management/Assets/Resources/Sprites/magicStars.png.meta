@@ -1,0 +1,235 @@
+fileFormatVersion: 2
+guid: 22637409e1d5c3d4aab150070537f8cb
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6147859222003086796
+    second: magicStars_0
+  - first:
+      213: 4740981859116847208
+    second: magicStars_1
+  - first:
+      213: -3326804423330625592
+    second: magicStars_2
+  - first:
+      213: -4598182298698141468
+    second: magicStars_3
+  - first:
+      213: 828406650901935482
+    second: magicStars_4
+  - first:
+      213: 8730876510167495796
+    second: magicStars_5
+  - first:
+      213: -7523774843888935062
+    second: magicStars_6
+  - first:
+      213: -4571357952641764859
+    second: magicStars_7
+  - first:
+      213: 1479898527017059064
+    second: magicStars_8
+  - first:
+      213: 874965459135196085
+    second: magicStars_9
+  - first:
+      213: -8426685743197864704
+    second: magicStars_10
+  - first:
+      213: -2071319742645236023
+    second: magicStars_11
+  - first:
+      213: -9107403313566606823
+    second: magicStars_12
+  - first:
+      213: 2027509988127204245
+    second: magicStars_13
+  - first:
+      213: -9169612339150411116
+    second: magicStars_14
+  - first:
+      213: 5294489728494627876
+    second: magicStars_15
+  - first:
+      213: -3985497206396808168
+    second: magicStars_16
+  - first:
+      213: -3438019476072548342
+    second: magicStars_17
+  - first:
+      213: 2779606184509573029
+    second: magicStars_18
+  - first:
+      213: -9194853012192742344
+    second: magicStars_19
+  - first:
+      213: 2010236125670866563
+    second: magicStars_20
+  - first:
+      213: 2036186971585612203
+    second: magicStars_21
+  - first:
+      213: -1228713493069787830
+    second: magicStars_22
+  - first:
+      213: -2275628806491850499
+    second: magicStars_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 320
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: magicStars_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc57a90c365915550800000000000000
+      internalID: 6147859222003086796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: ddf1145af8509c242af7b9e2a4703259
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      magicStars_0: 6147859222003086796
+      magicStars_1: 4740981859116847208
+      magicStars_10: -8426685743197864704
+      magicStars_11: -2071319742645236023
+      magicStars_12: -9107403313566606823
+      magicStars_13: 2027509988127204245
+      magicStars_14: -9169612339150411116
+      magicStars_15: 5294489728494627876
+      magicStars_16: -3985497206396808168
+      magicStars_17: -3438019476072548342
+      magicStars_18: 2779606184509573029
+      magicStars_19: -9194853012192742344
+      magicStars_2: -3326804423330625592
+      magicStars_20: 2010236125670866563
+      magicStars_21: 2036186971585612203
+      magicStars_22: -1228713493069787830
+      magicStars_23: -2275628806491850499
+      magicStars_3: -4598182298698141468
+      magicStars_4: 828406650901935482
+      magicStars_5: 8730876510167495796
+      magicStars_6: -7523774843888935062
+      magicStars_7: -4571357952641764859
+      magicStars_8: 1479898527017059064
+      magicStars_9: 874965459135196085
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
