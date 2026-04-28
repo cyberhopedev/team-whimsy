@@ -25,6 +25,7 @@ public class TileManager : MonoBehaviour
     private List<Tile> ritualTiles = new List<Tile>();
     private List<Tile> corruptedTiles = new List<Tile>();
     private List<Tile> corruptedRitualTiles = new List<Tile>();
+    private int mapFileNumber;
 
     // Amount of rituals the player has completed
     private int ritualCount = 0;
@@ -52,8 +53,7 @@ public class TileManager : MonoBehaviour
     void Start()
     {
         GenerateGrid();
-        // InitializeCottage();
-        LoadMapFromFile("map01");
+        LoadMapFromFile($"map{MapSelection.SelectedMap:D2}");
         FitCamera();
         InitCanvas();
     }
@@ -159,6 +159,8 @@ public class TileManager : MonoBehaviour
                 ApplySymbolToTile(symbol, tile, new Vector2Int(x, y));
             }
         }
+
+        RitualCircle.ResetCount(); // manually reset count each time map is loaded since its static var
     }
 
     /// <summary>
@@ -200,6 +202,21 @@ public class TileManager : MonoBehaviour
     public Tile GetTile(Vector2Int pos)
     {
         return tiles.TryGetValue(pos, out var tile) ? tile : null;
+    }
+
+    public List<Tile> GetAllTilesOfType(TileType type)
+    {
+        int fullRange = Mathf.Max(TileManager.Instance.width, TileManager.Instance.height);
+        Vector2Int center = new Vector2Int(
+            TileManager.Instance.width / 2,
+            TileManager.Instance.height / 2);
+
+        List<Tile> result = new List<Tile>();
+        foreach (Tile t in TileManager.Instance.GetTilesInRange(center, fullRange))
+        {
+            if (t.Type == type) result.Add(t);
+        }
+        return result;
     }
 
     /// <summary>

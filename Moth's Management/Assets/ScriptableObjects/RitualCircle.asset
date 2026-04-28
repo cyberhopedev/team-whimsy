@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: RitualCircle
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   buildingName: RitualCircle
-  chalkCost: 50
+  chalkCost: 14
   berryCost: 0
-  magicCost: 40
+  magicCost: 50
+  magicProduction: 0
+  chalkProduction: 0
+  berryProduction: 0

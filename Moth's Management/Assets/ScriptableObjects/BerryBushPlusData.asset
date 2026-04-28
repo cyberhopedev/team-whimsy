@@ -10,9 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d012dfc6790cc847a76269e09ac676b, type: 3}
-  m_Name: MagicCirclePlusBData
+  m_Name: BerryBushPlusData
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  buildingName: MagicCirclePlusB
-  chalkCost: 15
+  buildingName: BerryBush
+  chalkCost: 0
   berryCost: 0
-  magicCost: 25
+  magicCost: 12
+  magicProduction: 0
+  chalkProduction: 0
+  berryProduction: 5

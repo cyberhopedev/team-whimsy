@@ -46,7 +46,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MagicCircle
   tile: {fileID: 4362952391687432331, guid: 37e71b279622cb44688aa634d51c826e, type: 3}
-  purifyRadius: 1
+  buildingData: {fileID: 11400000, guid: f7a2bf86711cd8e4e9f9679f5a8fe327, type: 2}
+  purifyRadiusPerTier: 020000000200000004000000
+  upgradeData:
+  - {fileID: 11400000, guid: f7a2bf86711cd8e4e9f9679f5a8fe327, type: 2}
+  - {fileID: 11400000, guid: ee95a3f077053ed47ad7059d60e0cba7, type: 2}
+  - {fileID: 11400000, guid: 2d5dd25244fcd7b42b62d80db6cafb4f, type: 2}
 --- !u!1001 &6218379196475580025
 PrefabInstance:
   m_ObjectHideFlags: 0

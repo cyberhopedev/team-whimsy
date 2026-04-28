@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
         CorruptionManager.Instance.ProcessTick();
 
         // If we add monsters
-        // MonsterManager.Instance.ProcessTick();
+        MonsterManager.Instance.ProcessTick();
 
         // Win/Loss check
         if(TileManager.Instance.HasLost())

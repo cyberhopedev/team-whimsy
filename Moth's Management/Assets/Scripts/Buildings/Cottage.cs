@@ -3,10 +3,10 @@ using UnityEngine;
 public class Cottage : Building
 {
     [Header("Upgrade Settings")]
-    public int[] magicPerClick = { 10, 20, 30 };     // cottage, cottage1, cottage2
-    public int[] magicCapacity = { 100, 200, 300 };   // capacity per upgrade level
+    public int[] magicPerClick = { 1, 2, 3 };     // cottage, cottage1, cottage2
+    public int[] magicCapacity = { 80, 290, 380 };   // capacity per upgrade level
 
-    private int tierLevel = 1;
+    private int tierLevel = 0;
     private int currentMagic = 0;
     // Getters
     public int TierLevel => tierLevel;
@@ -25,6 +25,7 @@ public class Cottage : Building
     /// </summary>
     public int CollectMagic()
     {
+        // Debug.Log("collecting magic");
         int amount = Mathf.Min(magicPerClick[tierLevel], magicCapacity[tierLevel] - currentMagic);
         currentMagic += amount;
         ResourceManager.Instance.AddMagic(amount);
@@ -37,22 +38,40 @@ public class Cottage : Building
     /// </summary>
     public bool TryUpgrade()
     {
-        if (tierLevel >= 3) return false;
+        if (tierLevel >= 2) return false;
 
         ResourceManager resources = ResourceManager.Instance;
-        BuildingData nextLevel = tierLevel == 0 ? upgradeData[1] : upgradeData[2];
+        BuildingData nextData = upgradeData[tierLevel + 1];
 
-        if (!resources.Buy(nextLevel.magicCost, nextLevel.chalkCost, nextLevel.berryCost)) return false;
-         
+        if (!resources.CanBuy(nextData.magicCost, nextData.chalkCost, nextData.berryCost)) return false;
         tierLevel++;
-        if (tierLevel == 2)
-        {
-            tile.SetSprite(Resources.Load<Sprite>("Sprites/cabinTwo"));
-        } 
-        else if (tierLevel == 3)
-        {
-            tile.SetSprite(Resources.Load<Sprite>("Sprites/cabinThree"));
-        }
+        currentMagic = 0; // fresh capacity for new tier
+
+        TileType[] tierTileTypes = { TileType.Cottage, TileType.Cottage2, TileType.Cottage3 };
+        tile.SetTileType(tierTileTypes[tierLevel]);
+        tile.SetSprite(TileTypes.GetIcon(tierTileTypes[tierLevel]));
+        EventBus.OnTileChanged?.Invoke(tile);
+
         return true;
+    }
+
+    public CottageUIData GetCottageUIData() => new CottageUIData
+    {
+        magicPerClick = magicPerClick[tierLevel],
+        currentMagic = currentMagic,
+        maxMagic = magicCapacity[tierLevel] - currentMagic
+    };
+
+    public UpgradeUIData GetUpgradeUIData()
+    {
+        if (tierLevel >= 2) return default;
+        BuildingData nextData = upgradeData[tierLevel + 1];
+
+        return new UpgradeUIData
+        {
+            nextTier = tierLevel + 2,
+            magicCost = nextData.magicCost,
+            chalkCost = nextData.chalkCost
+        };
     }
 }

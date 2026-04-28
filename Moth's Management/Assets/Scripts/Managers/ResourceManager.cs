@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEditor.Rendering;
 
 /// <summary>
 /// Handles all of the resources the player can use, which includes
@@ -47,12 +48,13 @@ public class ResourceManager : MonoBehaviour
     /// Adds chalk to the player's storage
     /// </summary>
     /// <param name="amount">The amount of chalk to add</param>
-    public void AddChalk(int amount)
+    public void AddChalk(int amount, int requiredBerriesPerTick)
     {
-        berries -= amount;
+        berries -= requiredBerriesPerTick;  // hardcoded :(
         chalk += amount;
         // Update UI
         chalkT.text = chalk.ToString();
+        berriesT.text = berries.ToString();
     }
 
     /// <summary>
@@ -98,17 +100,26 @@ public class ResourceManager : MonoBehaviour
     }
 
     // This method assumes you've checked that you can afford these
-    public bool Buy(int magicAmt, int chalkAmt, int berriesAmt)
+    public bool CanBuy(int magicAmt, int chalkAmt, int berriesAmt)
     {
         // Make sure this can be afforded
         if (!SpendMagic(magicAmt) || !SpendChalk(chalkAmt) || !SpendBerries(berriesAmt))
         {
+            Debug.Log("can't afford");
             return false;
         }
+
+        Debug.Log("magicCost: " + magicAmt);
+        Debug.Log("chalkCost: " + chalkAmt);
+        Debug.Log("berriesCost: " + berriesAmt);
 
         magic -= magicAmt;
         chalk -= chalkAmt;
         berries -= berriesAmt;
+        magicT.text = magic.ToString();
+        chalkT.text = chalk.ToString();
+        berriesT.text = berries.ToString();
+        Debug.Log("Bought");
         return true;
     }
 }
