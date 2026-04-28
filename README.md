@@ -3,7 +3,7 @@ Repository for games made for NCSU CSC486
 
 Group: Danielle Brown, Ethan Flood, Dominic Latiolais, Hope Spence
 
-## Resource Management: Moth's Management - Beta README
+## Resource Management: Moth's Management README
 Group:
 Danielle Brown, Ethan Flood, Dominic Latiolais, Hope Spence
 
