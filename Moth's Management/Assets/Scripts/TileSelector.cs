@@ -115,16 +115,25 @@ public class TileSelector : MonoBehaviour
                 case TileType.MagicCircleA:
                     ShowUI(MagicCircleHover);
                     UpgradeStuffHover.SetActive(true);
+                    FillUpgradeUI(tile);
                     break;
                 case TileType.MagicCircleB:
                     ShowUI(MagicCircleHover);
                     break;
+                case TileType.RitualCircle:
+                case TileType.CorruptedRitualCircle:
+                    ShowUI(null); // hide all
+                    break;
                 case TileType.ForestPure:
                     if (tile.IsRitualSite)
                     {
+                        nameT.text = TileTypes.GetName(TileType.RitualCircle);
+                        descriptionT.text = TileTypes.GetDescription(TileType.RitualCircle);
+                        icon.sprite = TileTypes.GetIcon(TileType.RitualCircle);   
                         ShowUI(PlaceRitualHover);  
                         FillPlaceRitualUI(); 
-                    } else
+                    } 
+                    else
                     {
                         ShowUI(PlaceBuildingHover);
                         FillPlaceBuildingUI();   
@@ -166,7 +175,7 @@ public class TileSelector : MonoBehaviour
 
         Tile tile = TileManager.Instance.GetTileFromMouse();
         // Deselect tile if they click on no tile or same tile
-        if (tile == null || (tile == selectedTile && selectedTile.GetTileType() != TileType.Cottage))  {
+        if (tile == null || (tile == selectedTile && selectedTile.GetTileType() != TileType.Cottage && selectedTile.GetTileType() != TileType.Cottage2 && selectedTile.GetTileType() != TileType.Cottage3))  {
             // Clear highlight on deselect
             if (selectedTile != null)
                 selectedTile.SetHighlight(false);
@@ -186,7 +195,7 @@ public class TileSelector : MonoBehaviour
         UpdateUIDisplay(tile);
 
         // If clicking the cottage, collect magic
-        if (tile.Type == TileType.Cottage)
+        if (tile.Type == TileType.Cottage || tile.Type == TileType.Cottage2 || tile.Type == TileType.Cottage3)
         {
             Cottage cottageTile = FindAnyObjectByType<Cottage>();
             if (cottageTile != null)
@@ -223,6 +232,28 @@ public class TileSelector : MonoBehaviour
     {
         Debug.Log("selectedTile: " + selectedTile);
         BuildingManager.Instance.TryPlaceSelected(selectedTile, BuildingManager.Instance.GetPrefabForTileType(TileType.Anthill));
+    }
+
+    public void OnUpgrade()
+    {
+        if (selectedTile == null) return;
+        Building building = selectedTile.OccupyingBuilding;
+        if (building == null) return;
+
+        Cottage cottage = building as Cottage;
+        if (cottage != null)
+        {
+            if (cottage.TryUpgrade())
+                UpdateUIDisplay(selectedTile);
+            return;
+        }
+
+        MagicCircle circle = building as MagicCircle;
+        if (circle != null)
+        {
+            if (circle.TryUpgrade())
+                UpdateUIDisplay(selectedTile);
+        }
     }
 
     private void FillCottageUI(Tile tile)
@@ -284,17 +315,20 @@ public class TileSelector : MonoBehaviour
 
     private void FillUpgradeUI(Tile tile)
     {
-        // Cottage and MagicCircle both have GetUpgradeUIData()
-        Cottage cottage = tile.OccupyingBuilding as Cottage;
-        if (cottage != null) 
-        { 
-            var data = cottage.GetUpgradeUIData(); 
-            // fill values
-            upgradeNextTier.text = "Upgrade to tier " + data.nextTier.ToString() + ":";
-            upgradeMagicCost.text = data.magicCost.ToString();
-            upgradeChalkCost.text = data.chalkCost.ToString();
-            upgradeBerriesCost.text = "0";
-            return; 
+        if (tile.GetTileType() == TileType.Cottage || tile.GetTileType() == TileType.Cottage2 || tile.GetTileType() == TileType.Cottage3)
+        {
+            // Cottage and MagicCircle both have GetUpgradeUIData()
+            Cottage cottage = tile.OccupyingBuilding as Cottage;
+            if (cottage != null) 
+            { 
+                var data = cottage.GetUpgradeUIData(); 
+                // fill values
+                upgradeNextTier.text = "Upgrade to tier " + data.nextTier.ToString() + ":";
+                upgradeMagicCost.text = data.magicCost.ToString();
+                upgradeChalkCost.text = data.chalkCost.ToString();
+                upgradeBerriesCost.text = "0";
+                return; 
+            }
         }
 
         MagicCircle circle = tile.OccupyingBuilding as MagicCircle;

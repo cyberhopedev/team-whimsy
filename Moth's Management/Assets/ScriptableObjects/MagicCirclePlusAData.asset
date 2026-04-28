@@ -15,7 +15,4 @@ MonoBehaviour:
   buildingName: MagicCirclePlusA
   chalkCost: 30
   berryCost: 0
-  magicCost: 100
-  magicProduction: 0
-  chalkProduction: 0
-  berryProduction: 0
+  magicCost: 20

@@ -54,16 +54,24 @@ public class MagicCircle : Building
         BuildingData nextData = upgradeData[tierLevel + 1];
 
         if (!resources.CanBuy(nextData.magicCost, nextData.chalkCost, nextData.berryCost)) return false;
-
         tierLevel++;
 
-        // Update tile type and sprite, same pattern as BerryBush
         TileType newType = tierTileTypes[tierLevel];
         tile.SetTileType(newType);
         tile.SetSprite(TileTypes.GetIcon(newType));
         EventBus.OnTileChanged?.Invoke(tile);
 
-        // Re-purify with new (larger) radius
+        // Tier 2 (MagicCircleA): lock purified tiles so they can't be corrupted
+        if (tierLevel == 1)
+        {
+            var tiles = TileManager.Instance.GetTilesInRange(tile.GridPosition, purifyRadiusPerTier[tierLevel]);
+            foreach (var t in tiles)
+            {
+                t.IsLocked = true;
+            }
+        }
+
+        // Always re-purify on upgrade
         PurifyArea();
 
         return true;

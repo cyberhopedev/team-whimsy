@@ -14,8 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   buildingName: Cottage2
   chalkCost: 20
-  berryCost: 5
-  magicCost: 60
-  magicProduction: 2
-  chalkProduction: 0
-  berryProduction: 0
+  berryCost: 0
+  magicCost: 50

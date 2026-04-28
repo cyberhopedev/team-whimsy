@@ -109,6 +109,10 @@ public class ResourceManager : MonoBehaviour
             return false;
         }
 
+        Debug.Log("magicCost: " + magicAmt);
+        Debug.Log("chalkCost: " + chalkAmt);
+        Debug.Log("berriesCost: " + berriesAmt);
+
         magic -= magicAmt;
         chalk -= chalkAmt;
         berries -= berriesAmt;

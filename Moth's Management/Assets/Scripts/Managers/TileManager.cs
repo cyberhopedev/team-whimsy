@@ -25,6 +25,7 @@ public class TileManager : MonoBehaviour
     private List<Tile> ritualTiles = new List<Tile>();
     private List<Tile> corruptedTiles = new List<Tile>();
     private List<Tile> corruptedRitualTiles = new List<Tile>();
+    private int mapFileNumber;
 
     // Amount of rituals the player has completed
     private int ritualCount = 0;
@@ -52,7 +53,6 @@ public class TileManager : MonoBehaviour
     void Start()
     {
         GenerateGrid();
-        // InitializeCottage();
         LoadMapFromFile("map01");
         FitCamera();
         InitCanvas();

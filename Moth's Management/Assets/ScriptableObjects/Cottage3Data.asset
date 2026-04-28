@@ -15,7 +15,4 @@ MonoBehaviour:
   buildingName: Cottage3
   chalkCost: 35
   berryCost: 0
-  magicCost: 105
-  magicProduction: 3
-  chalkProduction: 0
-  berryProduction: 0
+  magicCost: 50
