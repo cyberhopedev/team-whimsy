@@ -19,17 +19,22 @@ Special Commands:
 Sources
 
 Inspiration Games
-Terra Nil Wikipedia Page and Gameplay
-https://en.wikipedia.org/wiki/Terra_Nil 
+
+Terra Nil Wikipedia Page and Gameplay:
+https://en.wikipedia.org/wiki/Terra_Nil, 
 https://www.youtube.com/watch?v=TedKHTfSmiI 
-Stop the Darkness
+
+Stop the Darkness:
 https://flori9.itch.io/stop-the-darkness 
 
 Tutorials
+
 How to Make a Resource Gathering Game by Chris’ Tutorials: https://www.youtube.com/playlist?list=PLyH-qXFkNSxn2opz8dkLnl6O7ct3R3f2v 
-Building an Idle Clicker in Unity by Sunny Valley Studio
+Building an Idle Clicker in Unity by Sunny Valley Studio:
 https://www.youtube.com/watch?v=GK9jQryYVCk 
+
 CSC 411 Problem Set(s)
+
 LINQ in Unity: A Beginner-Friendly Introduction by JUMAMUROD ARALOV  https://medium.com/@250509/linq-in-unity-a-beginner-friendly-introduction-7ca190d41eac 
 
 ## Puzzle Game: Mind's Molding - README
