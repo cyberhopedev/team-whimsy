@@ -8251,6 +8251,13 @@ MonoBehaviour:
   cottageMaxAmt: {fileID: 2036158206}
   antBerryIcon: {fileID: 1598552613}
   antBerryProdAmt: {fileID: 1752106920}
+  placeAnthillProd: {fileID: 1470065465}
+  placeAnthillCost: {fileID: 2123532964}
+  placeBerryProd: {fileID: 1716691213}
+  placeBerryCost: {fileID: 1975598805}
+  placeMCRadius: {fileID: 51675803}
+  placeMCMagicCost: {fileID: 564647727}
+  placeMCChalkCost: {fileID: 285980093}
   upgradeNextTier: {fileID: 744988838}
   upgradeMagicCost: {fileID: 2104188766}
   upgradeChalkCost: {fileID: 595069895}

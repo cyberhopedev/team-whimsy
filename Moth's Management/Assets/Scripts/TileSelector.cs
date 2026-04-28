@@ -31,6 +31,14 @@ public class TileSelector : MonoBehaviour
     [Header("Ant/Berry Fields")]
     [SerializeField] private Image antBerryIcon;
     [SerializeField] private TextMeshProUGUI antBerryProdAmt;
+    [Header("PlaceBuilding Fields")]
+    [SerializeField] private TextMeshProUGUI placeAnthillProd;
+    [SerializeField] private TextMeshProUGUI placeAnthillCost;
+    [SerializeField] private TextMeshProUGUI placeBerryProd;
+    [SerializeField] private TextMeshProUGUI placeBerryCost;
+    [SerializeField] private TextMeshProUGUI placeMCRadius;
+    [SerializeField] private TextMeshProUGUI placeMCMagicCost;
+    [SerializeField] private TextMeshProUGUI placeMCChalkCost;
     [Header("Upgrade Fields")]
     [SerializeField] private TextMeshProUGUI upgradeNextTier;
     [SerializeField] private TextMeshProUGUI upgradeMagicCost;
@@ -110,6 +118,7 @@ public class TileSelector : MonoBehaviour
                     break;
                 case TileType.ForestPure:
                     ShowUI(PlaceBuildingHover);
+                    FillPlaceBuildingUI();
                     break;
                 case TileType.Lake:
                 case TileType.ForestImpure:
@@ -240,11 +249,18 @@ public class TileSelector : MonoBehaviour
         }
     }
 
-    // private void FillPlaceBuildingUI()
-    // {
-    //     PlaceBuildingUIData data = BuildingManager.Instance.GetPlaceBuildingUIData();
-    //     // fill fields
-    // }
+    private void FillPlaceBuildingUI()
+    {
+        PlaceBuildingUIData data = BuildingManager.Instance.GetPlaceBuildingUIData();
+        // fill fields
+        placeAnthillProd.text = data.anthillChalkPerTick.ToString();
+        placeAnthillCost.text = data.anthillMagicCost.ToString();
+        placeBerryProd.text = data.berryBushBerriesPerTick.ToString();
+        placeBerryCost.text = data.berryBushMagicCost.ToString();
+        placeMCRadius.text = "Purifies radius of " + data.magicCircleRadius.ToString() + " Tiles";
+        placeMCMagicCost.text = data.magicCircleMagicCost.ToString();
+        placeMCChalkCost.text = data.magicCircleChalkCost.ToString();
+    }
 
     private void FillUpgradeUI(Tile tile)
     {
