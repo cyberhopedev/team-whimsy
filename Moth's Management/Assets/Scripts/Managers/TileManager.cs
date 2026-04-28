@@ -159,6 +159,8 @@ public class TileManager : MonoBehaviour
                 ApplySymbolToTile(symbol, tile, new Vector2Int(x, y));
             }
         }
+
+        RitualCircle.ResetCount(); // manually reset count each time map is loaded since its static var
     }
 
     /// <summary>
@@ -180,7 +182,6 @@ public class TileManager : MonoBehaviour
             case 'O':
                 tile.Type = TileType.ForestImpure;
                 tile.IsRitualSite = true; // means a ritual site should go here later
-                GameManager.Instance.AddToNumRitualCirclesMap(1);
                 break;
             case 'H':
                 tile.Type = TileType.Cottage;

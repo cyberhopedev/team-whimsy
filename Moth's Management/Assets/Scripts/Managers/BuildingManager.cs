@@ -39,7 +39,7 @@ public class BuildingManager : MonoBehaviour
         building.Init(tile);
 
         // Update the tile type based on what was placed
-        
+
         // Only set type if Init didn't already change it
         if (tile.Type == TileType.ForestPure)
         {
@@ -84,11 +84,20 @@ public class BuildingManager : MonoBehaviour
 
     public void TryPlaceSelected(Tile tile, GameObject selectedPrefab)
     {
-        Debug.Log("here - prefab: " + selectedPrefab);
         if (selectedPrefab == null) return;
         // Make sure you can afford it
         BuildingData costInfo = selectedPrefab.GetComponent<Building>().GetBuildingData();
-        if (!ResourceManager.Instance.CanBuy(costInfo.magicCost, costInfo.chalkCost, costInfo.berryCost)) return;
+        // If it's a ritual circle, calculate dynamic cost
+        if (selectedPrefab == ritualPrefab)
+        {
+            var (magicCost, chalkCost) = RitualCircle.GetCurrentCost(costInfo);
+            if (!ResourceManager.Instance.CanBuy(magicCost, chalkCost, 0)) return;
+        } 
+        else
+        {
+            if (!ResourceManager.Instance.CanBuy(costInfo.magicCost, costInfo.chalkCost, costInfo.berryCost)) return;    
+        }
+        
         PlaceBuilding(tile, selectedPrefab);
     }
 

@@ -48,9 +48,9 @@ public class ResourceManager : MonoBehaviour
     /// Adds chalk to the player's storage
     /// </summary>
     /// <param name="amount">The amount of chalk to add</param>
-    public void AddChalk(int amount)
+    public void AddChalk(int amount, int requiredBerriesPerTick)
     {
-        berries -= amount * 2;  // hardcoded :(
+        berries -= requiredBerriesPerTick;  // hardcoded :(
         chalk += amount;
         // Update UI
         chalkT.text = chalk.ToString();

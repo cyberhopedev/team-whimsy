@@ -39,6 +39,9 @@ public class TileSelector : MonoBehaviour
     [SerializeField] private TextMeshProUGUI placeMCRadius;
     [SerializeField] private TextMeshProUGUI placeMCMagicCost;
     [SerializeField] private TextMeshProUGUI placeMCChalkCost;
+    [Header("RitualCircle Fields")]
+    [SerializeField] private TextMeshProUGUI ritualMagicCost;
+    [SerializeField] private TextMeshProUGUI ritualChalkCost;
     [Header("Upgrade Fields")]
     [SerializeField] private TextMeshProUGUI upgradeNextTier;
     [SerializeField] private TextMeshProUGUI upgradeMagicCost;
@@ -117,8 +120,15 @@ public class TileSelector : MonoBehaviour
                     ShowUI(MagicCircleHover);
                     break;
                 case TileType.ForestPure:
-                    ShowUI(PlaceBuildingHover);
-                    FillPlaceBuildingUI();
+                    if (tile.IsRitualSite)
+                    {
+                        ShowUI(PlaceRitualHover);  
+                        FillPlaceRitualUI(); 
+                    } else
+                    {
+                        ShowUI(PlaceBuildingHover);
+                        FillPlaceBuildingUI();   
+                    }
                     break;
                 case TileType.Lake:
                 case TileType.ForestImpure:
@@ -260,6 +270,16 @@ public class TileSelector : MonoBehaviour
         placeMCRadius.text = "Purifies radius of " + data.magicCircleRadius.ToString() + " Tiles";
         placeMCMagicCost.text = data.magicCircleMagicCost.ToString();
         placeMCChalkCost.text = data.magicCircleChalkCost.ToString();
+    }
+
+    private void FillPlaceRitualUI()
+    {
+        BuildingData data = BuildingManager.Instance.GetPrefabForTileType(TileType.RitualCircle)
+            .GetComponent<RitualCircle>().GetBuildingData();
+        var (magic, chalk) = RitualCircle.GetCurrentCost(data);
+        // fill fields
+        ritualMagicCost.text = data.magicCost.ToString();
+        ritualChalkCost.text = data.chalkCost.ToString();
     }
 
     private void FillUpgradeUI(Tile tile)

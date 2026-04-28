@@ -21,7 +21,7 @@ public class AntHill : Building
         // Ants only work if berries are available
         if (!ResourceManager.Instance.SpendBerries(requiredBerriesPerTick)) return;
 
-        ResourceManager.Instance.AddChalk(chalkPerTick);
+        ResourceManager.Instance.AddChalk(chalkPerTick, requiredBerriesPerTick);
     }
 
     public AntBerryUIData GetAntBerryUIData() => new AntBerryUIData
