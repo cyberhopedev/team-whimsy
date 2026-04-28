@@ -28,6 +28,9 @@ public class TileSelector : MonoBehaviour
     [Header("Cottage Fields")]
     [SerializeField] private TextMeshProUGUI cottageCurrAmt;
     [SerializeField] private TextMeshProUGUI cottageMaxAmt;
+    [Header("Ant/Berry Fields")]
+    [SerializeField] private Image antBerryIcon;
+    [SerializeField] private TextMeshProUGUI antBerryProdAmt;
     [Header("Upgrade Fields")]
     [SerializeField] private TextMeshProUGUI upgradeNextTier;
     [SerializeField] private TextMeshProUGUI upgradeMagicCost;
@@ -95,6 +98,7 @@ public class TileSelector : MonoBehaviour
                 case TileType.BerryBush:
                 case TileType.BerryBushPlus:
                     ShowUI(AntBerryHover);
+                    FillAntBerryUI(tile);
                     break;
                 case TileType.MagicCircle:
                 case TileType.MagicCircleA:
@@ -212,15 +216,29 @@ public class TileSelector : MonoBehaviour
         cottageMaxAmt.text = data.maxMagic.ToString();
     }
 
-    // private void FillAntBerryUI(Tile tile)
-    // {
-    //     // Try anthill first, then berrybush
-    //     AntHill anthill = tile.GetComponentInChildren<AntHill>();
-    //     if (anthill != null) { var data = anthill.GetAntBerryUIData(); /* fill */ return; }
+    private void FillAntBerryUI(Tile tile)
+    {
+        // Try anthill first, then berrybush
+        AntHill anthill = tile.OccupyingBuilding as AntHill;
+        if (anthill != null) 
+        { 
+            var data = anthill.GetAntBerryUIData(); 
 
-    //     BerryBush berry = tile.GetComponentInChildren<BerryBush>();
-    //     if (berry != null) { var data = berry.GetAntBerryUIData(); /* fill */ }
-    // }
+            // Fill
+            antBerryIcon.sprite = data.productionIcon;
+            antBerryProdAmt.text = data.productionAmount.ToString();
+            return; 
+        }
+
+        BerryBush berry = tile.OccupyingBuilding as BerryBush;
+        if (berry != null) 
+        { 
+            var data = berry.GetAntBerryUIData(); 
+            // fill
+            antBerryIcon.sprite = data.productionIcon;
+            antBerryProdAmt.text = data.productionAmount.ToString();
+        }
+    }
 
     // private void FillPlaceBuildingUI()
     // {
@@ -236,7 +254,7 @@ public class TileSelector : MonoBehaviour
         { 
             var data = cottage.GetUpgradeUIData(); 
             // fill values
-            upgradeNextTier.text = data.nextTier.ToString();
+            upgradeNextTier.text = "Upgrade to tier " + data.nextTier.ToString() + ":";
             upgradeMagicCost.text = data.magicCost.ToString();
             upgradeChalkCost.text = data.chalkCost.ToString();
             upgradeBerriesCost.text = "0";
@@ -251,6 +269,25 @@ public class TileSelector : MonoBehaviour
             upgradeMagicCost.text = data.magicCost.ToString();
             upgradeChalkCost.text = data.chalkCost.ToString();
             upgradeBerriesCost.text = "0";
+        }
+    }
+
+    void OnEnable()
+    {
+        EventBus.OnTileChanged += OnTileChanged;
+    }
+
+    void OnDisable()
+    {
+        EventBus.OnTileChanged -= OnTileChanged;
+    }
+
+    void OnTileChanged(Tile tile)
+    {
+        // Only refresh if this is the tile currently being shown
+        if (tile == hoveredTile || tile == selectedTile)
+        {
+            UpdateUIDisplay(tile);
         }
     }
 }

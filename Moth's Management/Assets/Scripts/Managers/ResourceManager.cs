@@ -50,10 +50,11 @@ public class ResourceManager : MonoBehaviour
     /// <param name="amount">The amount of chalk to add</param>
     public void AddChalk(int amount)
     {
-        berries -= amount;
+        berries -= amount * 2;  // hardcoded :(
         chalk += amount;
         // Update UI
         chalkT.text = chalk.ToString();
+        berriesT.text = berries.ToString();
     }
 
     /// <summary>
@@ -101,9 +102,6 @@ public class ResourceManager : MonoBehaviour
     // This method assumes you've checked that you can afford these
     public bool CanBuy(int magicAmt, int chalkAmt, int berriesAmt)
     {
-        Debug.Log("magicCost: " + magicAmt);
-        Debug.Log("chalkCost: " + chalkAmt);
-        Debug.Log("berriesCost: " + berriesAmt);
         // Make sure this can be afforded
         if (!SpendMagic(magicAmt) || !SpendChalk(chalkAmt) || !SpendBerries(berriesAmt))
         {
@@ -114,6 +112,9 @@ public class ResourceManager : MonoBehaviour
         magic -= magicAmt;
         chalk -= chalkAmt;
         berries -= berriesAmt;
+        magicT.text = magic.ToString();
+        chalkT.text = chalk.ToString();
+        berriesT.text = berries.ToString();
         Debug.Log("Bought");
         return true;
     }

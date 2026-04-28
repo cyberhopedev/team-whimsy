@@ -39,7 +39,12 @@ public class BuildingManager : MonoBehaviour
         building.Init(tile);
 
         // Update the tile type based on what was placed
-        tile.Type = GetTileTypeForPrefab(prefab);
+        
+        // Only set type if Init didn't already change it
+        if (tile.Type == TileType.ForestPure)
+        {
+            tile.Type = GetTileTypeForPrefab(prefab);
+        }
         tile.SetSprite(TileTypes.GetIcon(tile.GetTileType()));
         EventBus.OnTileChanged?.Invoke(tile);
     }

@@ -70,8 +70,8 @@ public class Cottage : Building
         return new UpgradeUIData
         {
             nextTier = tierLevel + 1,
-            magicCost = next.magicCost,
-            chalkCost = next.chalkCost
+            magicCost = tierLevel == 0 ? 60 : 105,
+            chalkCost = tierLevel == 0 ? 20 : 35
         };
     }
 }

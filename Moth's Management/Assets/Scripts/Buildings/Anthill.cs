@@ -26,7 +26,7 @@ public class AntHill : Building
 
     public AntBerryUIData GetAntBerryUIData() => new AntBerryUIData
     {
-        productionIcon = Resources.Load<Sprite>("Sprites/ChalkIcon"),
+        productionIcon = TileTypes.GetIcon(tile.GetTileType()),
         productionAmount = chalkPerTick
     };
 }

@@ -110,15 +110,4 @@ public static class TileTypes
             _ => null,
         };
     }  
-
-    public static int MaxMagic(this TileType tileType)
-    {
-        return tileType switch
-        {
-            TileType.Cottage => 80,  
-            TileType.Cottage2 => 140,  
-            TileType.Cottage3 => 210, 
-            _ => 0,
-        };
-    }
 }
