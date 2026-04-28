@@ -46,8 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cottage
   tile: {fileID: 1984183215730010632}
-  magicPerClick: 0a000000140000001e000000
-  magicCapacity: 64000000c80000002c010000
+  buildingData: {fileID: 11400000, guid: 5c40900a1887a93418ccea750e2de7b0, type: 2}
+  magicPerClick: 010000000200000003000000
+  magicCapacity: 50000000130100007c010000
   upgradeData:
   - {fileID: 11400000, guid: 5c40900a1887a93418ccea750e2de7b0, type: 2}
   - {fileID: 11400000, guid: 199a5ea37c32d6349abdffc6790295a6, type: 2}
@@ -106,7 +107,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4362952391687432331, guid: 37e71b279622cb44688aa634d51c826e, type: 3}
       propertyPath: Type
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5529990931032202704, guid: 37e71b279622cb44688aa634d51c826e, type: 3}
       propertyPath: m_Sprite

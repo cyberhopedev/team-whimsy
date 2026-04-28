@@ -10,6 +10,8 @@ public abstract class Building : MonoBehaviour
 {
     // The current tile the building is on
     public Tile tile;
+    // Connect to dataobject
+    public BuildingData buildingData;
     /// <summary>
     /// Initializes the building
     /// </summary>
@@ -17,6 +19,13 @@ public abstract class Building : MonoBehaviour
     public virtual void Init(Tile tile)
     {
         this.tile = tile;
+        tile.OccupyingBuilding = this;
         EventBus.OnBuildingPlaced?.Invoke(this);
+    }
+
+    // public getter for scriptable object
+    public BuildingData GetBuildingData()
+    {
+        return buildingData;
     }
 }

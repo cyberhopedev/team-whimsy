@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Cottage2Data
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   buildingName: Cottage2
-  chalkChost: 5
-  berryCost: 5
-  magicCost: 5
+  chalkCost: 20
+  berryCost: 0
+  magicCost: 50

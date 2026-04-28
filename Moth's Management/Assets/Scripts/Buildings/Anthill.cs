@@ -1,6 +1,9 @@
+using UnityEngine;
+
 public class AntHill : Building
 {
     public int chalkPerTick = 5;
+    public int requiredBerriesPerTick = 2;
 
     public override void Init(Tile tile)
     {
@@ -16,8 +19,14 @@ public class AntHill : Building
     void CollectChalk()
     {
         // Ants only work if berries are available
-        if (!ResourceManager.Instance.SpendBerries(1)) return;
+        if (!ResourceManager.Instance.SpendBerries(requiredBerriesPerTick)) return;
 
-        ResourceManager.Instance.AddChalk(chalkPerTick);
+        ResourceManager.Instance.AddChalk(chalkPerTick, requiredBerriesPerTick);
     }
+
+    public AntBerryUIData GetAntBerryUIData() => new AntBerryUIData
+    {
+        productionIcon = TileTypes.GetIcon(tile.GetTileType()),
+        productionAmount = chalkPerTick
+    };
 }

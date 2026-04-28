@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: MagicCirclePlusAData
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   buildingName: MagicCirclePlusA
-  chalkCost: 0
+  chalkCost: 30
   berryCost: 0
   magicCost: 20
